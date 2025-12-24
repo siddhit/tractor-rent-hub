@@ -18,13 +18,17 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["DM Sans", "system-ui", "sans-serif"],
-        serif: ["DM Serif Display", "Georgia", "serif"],
+        sans: ["Poppins", "system-ui", "sans-serif"],
+        display: ["Poppins", "system-ui", "sans-serif"],
+        gujarati: ["Hind Vadodara", "sans-serif"],
       },
       colors: {
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         earth: "hsl(var(--earth))",
+        cotton: "hsl(var(--cotton))",
+        onion: "hsl(var(--onion))",
+        groundnut: "hsl(var(--groundnut))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
