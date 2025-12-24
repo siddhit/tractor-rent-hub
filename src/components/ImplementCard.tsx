@@ -30,7 +30,7 @@ const ImplementCard = ({ implement }: ImplementCardProps) => {
               : "bg-muted-foreground text-primary-foreground"
           }`}
         >
-          {implement.available ? t('implements.available') : t('implements.onRent')}
+          {implement.available ? t('implements.available') : t('implements.busy')}
         </Badge>
         
         {/* Crop Tags */}
@@ -82,8 +82,8 @@ const ImplementCard = ({ implement }: ImplementCardProps) => {
         <div className="flex items-end justify-between pt-3 border-t border-border">
           <div>
             <p className="text-2xl font-display text-foreground">
-              ₹{implement.pricePerDay.toLocaleString('en-IN')}
-              <span className="text-sm font-sans text-muted-foreground">{t('implements.perDay')}</span>
+              Rs.{implement.pricePerBigha.toLocaleString('en-IN')}
+              <span className="text-sm font-sans text-muted-foreground">{t('implements.perBigha')}</span>
             </p>
           </div>
           <Button asChild variant="default" size="sm" disabled={!implement.available}>

@@ -20,12 +20,12 @@ const ROICalculator = () => {
     const land = parseFloat(landSize) || 0;
     const labor = parseFloat(laborCost) || 400;
     
-    // Sample calculation logic
-    const laborDaysManual = land * 8; // 8 days per bigha manually
+    // Sample calculation logic - labor savings only, no yield promises
+    const laborDaysManual = land * 8; // 8 labor-days per bigha manually
     const laborDaysMachine = land * 1.5; // 1.5 days with machine
     const timeSaved = laborDaysManual - laborDaysMachine;
     const laborSavings = timeSaved * labor;
-    const machineCost = laborDaysMachine * 1500; // avg rental per day
+    const machineCost = land * 700; // avg cost per bigha
     const netSavings = laborSavings - machineCost;
 
     setResult({
@@ -100,7 +100,7 @@ const ROICalculator = () => {
                   <div className="bg-success/10 rounded-xl p-4 text-center">
                     <TrendingUp className="w-8 h-8 text-success mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground">{t('calc.savings')}</p>
-                    <p className="text-2xl font-display text-success">₹{result.savings.toLocaleString('en-IN')}</p>
+                    <p className="text-2xl font-display text-success">Rs.{result.savings.toLocaleString('en-IN')}</p>
                   </div>
                   <div className="bg-primary/10 rounded-xl p-4 text-center">
                     <Clock className="w-8 h-8 text-primary mx-auto mb-2" />
@@ -109,6 +109,10 @@ const ROICalculator = () => {
                   </div>
                 </div>
               )}
+
+              <p className="text-xs text-muted-foreground text-center mt-6">
+                * Estimates based on average labor costs. Actual savings may vary. No yield or quality improvements guaranteed.
+              </p>
             </div>
           </div>
         </section>
