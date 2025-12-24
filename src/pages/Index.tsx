@@ -1,9 +1,9 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import EquipmentGrid from "@/components/EquipmentGrid";
+import PopularImplements from "@/components/PopularImplements";
 import HowItWorks from "@/components/HowItWorks";
-import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 const Index = () => {
   return (
@@ -11,11 +11,11 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <EquipmentGrid />
+        <PopularImplements />
         <HowItWorks />
-        <ContactForm />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 };
