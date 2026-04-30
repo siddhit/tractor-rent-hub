@@ -37,7 +37,7 @@ const ROICalculator = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-20 md:pt-24">
+      <main className="pt-16">
         <section className="py-12 md:py-16">
           <div className="container max-w-2xl">
             <div className="text-center mb-10">
@@ -100,7 +100,7 @@ const ROICalculator = () => {
                   <div className="bg-success/10 rounded-xl p-4 text-center">
                     <TrendingUp className="w-8 h-8 text-success mx-auto mb-2" />
                     <p className="text-sm text-muted-foreground">{t('calc.savings')}</p>
-                    <p className="text-2xl font-display text-success">Rs.{result.savings.toLocaleString('en-IN')}</p>
+                    <p className="text-2xl font-display text-success">₹{result.savings.toLocaleString('en-IN')}</p>
                   </div>
                   <div className="bg-primary/10 rounded-xl p-4 text-center">
                     <Clock className="w-8 h-8 text-primary mx-auto mb-2" />

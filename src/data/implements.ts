@@ -1,92 +1,170 @@
-import onionHarvester from '@/assets/implement-onion-harvester.jpg';
-import cottonPicker from '@/assets/implement-cotton-picker.jpg';
-import groundnutDigger from '@/assets/implement-groundnut-digger.jpg';
-import seedDrill from '@/assets/implement-seed-drill.jpg';
-import rotavator from '@/assets/implement-rotavator.jpg';
-import boomSprayer from '@/assets/implement-boom-sprayer.jpg';
+import onionHarvesterImg from '@/assets/implement-onion-harvester.jpg';
+import boomSprayerImg from '@/assets/implement-boom-sprayer.jpg';
+import seedDrillImg from '@/assets/implement-seed-drill.jpg';
+import rotavatorImg from '@/assets/implement-rotavator.jpg';
+import groundnutDiggerImg from '@/assets/implement-groundnut-digger.jpg';
+
+export interface ImplementSpec {
+  label: { en: string; gu: string };
+  value: string | { en: string; gu: string };
+}
 
 export interface Implement {
   id: string;
+  category: 'land-prep' | 'planting' | 'crop-season' | 'harvest';
   name: { en: string; gu: string };
+  tagline: { en: string; gu: string };
   description: { en: string; gu: string };
   image: string;
-  pricePerBigha: number;
-  brand: string;
+  pricePerVigha: number | null;
+  priceUnit: { en: string; gu: string };
   crops: ('onion' | 'cotton' | 'groundnut')[];
+  replaces: { en: string; gu: string };
+  specs: ImplementSpec[];
   available: boolean;
-  specs: string[];
+  comingSoon?: boolean;
   popular?: boolean;
+  tone: 'kesar' | 'terracotta' | 'monsoon' | 'mauve' | 'ink';
 }
 
 export const implements_data: Implement[] = [
   {
-    id: '1',
-    name: { en: 'Onion Harvesting', gu: 'ડુંગળી લણણી' },
-    description: { en: 'Fast onion harvesting with minimal crop damage', gu: 'ન્યૂનતમ પાક નુકસાન સાથે ઝડપી ડુંગળી લણણી' },
-    image: onionHarvester,
-    pricePerBigha: 800,
-    brand: 'John Deere',
+    id: 'sub-soiler',
+    category: 'land-prep',
+    name: { en: 'Sub-Soiler', gu: 'સબ-સોઇલર' },
+    tagline: { en: 'Breaks the hardpan', gu: 'કઠણ જમીનનું થર તોડે' },
+    description: {
+      en: 'Cracks the compacted hardpan sitting 18" below the surface — something hand-tillage simply cannot reach. Opens up root zones for air and water.',
+      gu: 'જમીનની નીચે 18 ઇંચ સુધી બેઠેલું કઠણ થર — હાથ-ખેડે ન તૂટે — એને તોડીને મૂળને હવા અને પાણી પહોંચાડે.',
+    },
+    image: rotavatorImg,
+    pricePerVigha: 640,
+    priceUnit: { en: 'per vigha', gu: 'પ્રતિ વીઘા' },
+    crops: ['onion', 'cotton', 'groundnut'],
+    replaces: { en: 'Not possible by hand labour', gu: 'હાથ-ખેડાણ થી અશક્ય' },
+    specs: [
+      { label: { en: 'Tractor req.', gu: 'ટ્રેક્ટર' }, value: '60 HP+' },
+      { label: { en: 'Depth', gu: 'ઊંડાઈ' }, value: '18 inch' },
+      { label: { en: 'Coverage', gu: 'ઝડપ' }, value: { en: '5 vigha/hr', gu: '5 વીઘા/કલાક' } },
+    ],
+    available: true,
+    tone: 'ink',
+  },
+  {
+    id: 'bed-former',
+    category: 'land-prep',
+    name: { en: 'Bed Former', gu: 'બેડ-ફોર્મર' },
+    tagline: { en: '1,200 mm precision raised bed', gu: '1,200 મીમી ઊંચું પથારું' },
+    description: {
+      en: 'Forms precision 1,200 mm raised beds — critical for onion. Uniform width means uniform irrigation, no root rot.',
+      gu: 'ડુંગળી માટે ચોક્કસ 1,200 મીમી પહોળું, એકસરખું ઊંચું પથારું બનાવે. પાણી બરાબર ઊતરે, મૂળ સડે નહીં.',
+    },
+    image: rotavatorImg,
+    pricePerVigha: 600,
+    priceUnit: { en: 'per vigha', gu: 'પ્રતિ વીઘા' },
+    crops: ['onion', 'cotton', 'groundnut'],
+    replaces: { en: 'Uneven hand-made beds', gu: 'અસમાન હાથ-બનાવેલું પથારું' },
+    specs: [
+      { label: { en: 'Bed width', gu: 'પહોળાઈ' }, value: '1,200 mm' },
+      { label: { en: 'Tractor req.', gu: 'ટ્રેક્ટર' }, value: '50 HP+' },
+      { label: { en: 'Coverage', gu: 'ઝડપ' }, value: { en: '3.75 vigha/hr', gu: '3.75 વીઘા/કલાક' } },
+    ],
+    available: true,
+    popular: true,
+    tone: 'terracotta',
+  },
+  {
+    id: 'vacuum-seeder',
+    category: 'planting',
+    name: { en: 'Gaspardo OLIMPIA Seeder', gu: 'ગાસ્પર્ડો OLIMPIA સીડર' },
+    tagline: { en: 'Exact depth, exact spacing', gu: 'ચોક્કસ ઊંડાઈ, ચોક્કસ અંતર' },
+    description: {
+      en: 'The Maschio Gaspardo OLIMPIA — a precision vacuum seeder built in Italy for vegetable crops. Drops onion seed at exact 1 cm depth with uniform spacing. No one else in the region has this machine.',
+      gu: 'ઇટાલી ની Maschio Gaspardo OLIMPIA — ડુંગળી માટે ખાસ વેક્યુમ સીડર. ચોક્કસ 1 સેમી ઊંડે, એકસરખા અંતરે. આ આસપાસ ક્યાંય આ મશીન નથી.',
+    },
+    image: seedDrillImg,
+    pricePerVigha: 2500,
+    priceUnit: { en: 'per vigha', gu: 'પ્રતિ વીઘા' },
     crops: ['onion'],
+    replaces: { en: 'Hand sowing with uneven germination', gu: 'હાથ-વાવણી, અસમાન ઉગાવો' },
+    specs: [
+      { label: { en: 'Model', gu: 'મોડેલ' }, value: 'Maschio Gaspardo OLIMPIA' },
+      { label: { en: 'Depth accuracy', gu: 'ઊંડાઈ ચોકસાઈ' }, value: '±2 mm' },
+      { label: { en: 'Coverage', gu: 'ઝડપ' }, value: { en: '2 vigha/hr', gu: '2 વીઘા/કલાક' } },
+    ],
     available: true,
-    specs: ['1.5m Width', '35HP Required', '2 Bigha/Hour'],
     popular: true,
+    tone: 'kesar',
   },
   {
-    id: '2',
-    name: { en: 'Cotton Picking', gu: 'કપાસ વીણવું' },
-    description: { en: 'Efficient cotton harvesting service', gu: 'કાર્યક્ષમ કપાસ લણણી સેવા' },
-    image: cottonPicker,
-    pricePerBigha: 1200,
-    brand: 'Mahindra',
-    crops: ['cotton'],
-    available: true,
-    specs: ['2 Row', '45HP Required', '1.5 Bigha/Hour'],
-    popular: true,
-  },
-  {
-    id: '3',
-    name: { en: 'Groundnut Digging', gu: 'મગફળી કાઢવી' },
-    description: { en: 'Specialized groundnut harvesting service', gu: 'વિશેષ મગફળી લણણી સેવા' },
-    image: groundnutDigger,
-    pricePerBigha: 700,
-    brand: 'Shaktiman',
-    crops: ['groundnut'],
-    available: true,
-    specs: ['1.2m Width', '30HP Required', '1.8 Bigha/Hour'],
-    popular: true,
-  },
-  {
-    id: '4',
-    name: { en: 'Seed Drilling', gu: 'બીજ વાવણી' },
-    description: { en: 'Precision seeding for multiple crops', gu: 'બહુવિધ પાક માટે ચોક્કસ વાવણી' },
-    image: seedDrill,
-    pricePerBigha: 600,
-    brand: 'Gespardo',
-    crops: ['onion', 'groundnut'],
-    available: false,
-    specs: ['9 Row', '35HP Required', 'Adjustable Depth'],
-  },
-  {
-    id: '5',
-    name: { en: 'Land Preparation', gu: 'જમીન તૈયારી' },
-    description: { en: 'Soil preparation and tillage work', gu: 'જમીન તૈયારી અને ખેડાણ કામ' },
-    image: rotavator,
-    pricePerBigha: 500,
-    brand: 'Maschio Gaspardo',
+    id: 'boom-sprayer',
+    category: 'crop-season',
+    name: { en: 'Boom Sprayer', gu: 'બૂમ સ્પ્રેયર' },
+    tagline: { en: 'Even coverage, ~30% less chemical', gu: 'સરખો છંટકાવ, 30% ઓછી દવા' },
+    description: {
+      en: 'Backpack pumps leave half the field over-sprayed and half under-sprayed. The Shaktiman Protektor 600 boom sprayer delivers even coverage across an 8 m boom — use ~30% less chemical for the same effect.',
+      gu: 'હાથ-પમ્પ થી અડધે વધારે, અડધે ઓછું. Shaktiman Protektor 600 — 8 મી. પહોળો બૂમ, 30% ઓછી દવામાં એ જ કામ.',
+    },
+    image: boomSprayerImg,
+    pricePerVigha: 200,
+    priceUnit: { en: 'per vigha / round (6 rounds/season)', gu: 'પ્રતિ વીઘા/રાઉન્ડ (6 રાઉન્ડ/સિઝન)' },
     crops: ['onion', 'cotton', 'groundnut'],
+    replaces: { en: 'Manual backpack pump, uneven spray', gu: 'હાથ-પમ્પ — અસમાન છંટકાવ' },
+    specs: [
+      { label: { en: 'Model', gu: 'મોડેલ' }, value: 'Shaktiman Protektor 600' },
+      { label: { en: 'Boom width', gu: 'બૂમ પહોળાઈ' }, value: '8 m' },
+      { label: { en: 'Tank', gu: 'ટાંકી' }, value: '500 L' },
+      { label: { en: 'Coverage', gu: 'ઝડપ' }, value: { en: '10 vigha/hr', gu: '10 વીઘા/કલાક' } },
+    ],
     available: true,
-    specs: ['1.5m Width', '35HP Required', '2 Bigha/Hour'],
+    popular: true,
+    tone: 'monsoon',
   },
   {
-    id: '6',
-    name: { en: 'Crop Spraying', gu: 'પાક છંટકાવ' },
-    description: { en: 'Efficient crop spraying service', gu: 'કાર્યક્ષમ પાક છંટકાવ સેવા' },
-    image: boomSprayer,
-    pricePerBigha: 400,
-    brand: 'Aspee',
+    id: 'fertiliser-spreader',
+    category: 'crop-season',
+    name: { en: 'Fertiliser Spreader', gu: 'ખાતર સ્પ્રેડર' },
+    tagline: { en: 'Uniform dosing, no hotspots', gu: 'ખાતર એકસરખું — ઢગલા નહીં' },
+    description: {
+      en: 'Hand-spreading creates dense piles in some spots and bare patches in others. Mechanical spreading lays fertiliser at a uniform 12 m swath — less waste, more even growth.',
+      gu: 'હાથે ખાતર નાખો એટલે ક્યાંક ઢગલો, ક્યાંક ખાલી. 12 મી. સ્વાથ માં એકસરખું ફેલાય — ખાતર બચે, પાક ઊગે.',
+    },
+    image: groundnutDiggerImg,
+    pricePerVigha: 200,
+    priceUnit: { en: 'per vigha / pass (2 passes/season)', gu: 'પ્રતિ વીઘા/પાસ (2 પાસ/સિઝન)' },
     crops: ['onion', 'cotton', 'groundnut'],
+    replaces: { en: 'Manual broadcasting by hand', gu: 'હાથે ખાતર નાખવું' },
+    specs: [
+      { label: { en: 'Hopper', gu: 'હોપર' }, value: '600 kg' },
+      { label: { en: 'Spread width', gu: 'પહોળાઈ' }, value: '12 m' },
+      { label: { en: 'Coverage', gu: 'ઝડપ' }, value: { en: '7.5 vigha/hr', gu: '7.5 વીઘા/કલાક' } },
+    ],
     available: true,
-    specs: ['8m Boom', '500L Tank', 'Electric Pump'],
+    tone: 'mauve',
+  },
+  {
+    id: 'onion-harvester',
+    category: 'harvest',
+    name: { en: 'Onion Harvester', gu: 'ડુંગળી હાર્વેસ્ટર' },
+    tagline: { en: 'Peak Jan–Feb — one day, zero damage', gu: 'જાન્યુ-ફેબ્રુ પીક — એક દિવસ, ડુંગળી તૂટે નહીં' },
+    description: {
+      en: 'Peak season needs 10–15 labourers for 2–3 days. The Shaktiman-Grimme SGCH-200 finishes in one day, without damaging the bulbs. No alternative available anywhere nearby.',
+      gu: 'પીક સિઝનમાં 10-15 મજૂર × 2-3 દિવસ. Shaktiman-Grimme SGCH-200 — એક જ દિવસ, ડુંગળી તૂટે નહીં. આ આસપાસ ક્યાંય મળે નહીં.',
+    },
+    image: onionHarvesterImg,
+    pricePerVigha: 3500,
+    priceUnit: { en: 'per vigha', gu: 'પ્રતિ વીઘા' },
+    crops: ['onion'],
+    replaces: { en: '10–15 labourers × 2–3 days', gu: '10-15 મજૂર × 2-3 દિવસ' },
+    specs: [
+      { label: { en: 'Model', gu: 'મોડેલ' }, value: 'Shaktiman-Grimme SGCH-200' },
+      { label: { en: 'Width', gu: 'પહોળાઈ' }, value: '1.5 m' },
+      { label: { en: 'Tractor req.', gu: 'ટ્રેક્ટર' }, value: '45 HP+' },
+      { label: { en: 'Coverage', gu: 'ઝડપ' }, value: { en: '2.5 vigha / 2 hrs', gu: '2.5 વીઘા / 2 કલાક' } },
+    ],
+    available: true,
+    popular: true,
+    tone: 'kesar',
   },
 ];
 

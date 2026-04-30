@@ -1,51 +1,41 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ImplementCard from "./ImplementCard";
 import { getPopularImplements } from "@/data/implements";
 
 const PopularImplements = () => {
-  const { t } = useLanguage();
-  const popularImplements = getPopularImplements();
+  const { language, t } = useLanguage();
+  const popular = getPopularImplements();
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="bg-background py-14 md:py-20">
       <div className="container">
-        {/* Section Header */}
-        <div className="text-center mb-10 md:mb-14">
-          <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">
-            {t('common.brand')}
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-foreground mb-4">
-            {t('implements.title')}
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            {t('implements.subtitle')}
-          </p>
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          <div>
+            <p className="eyebrow-label text-ink-soft mb-3">
+              {language === 'gu' ? '◆ ચાર મશીન ◆' : '◆ Top machines ◆'}
+            </p>
+            <h2 className={`text-4xl md:text-5xl font-display font-black text-ink leading-tight ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {t('implements.title')}
+            </h2>
+            <p className={`text-ink-soft mt-2 max-w-xl ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {t('implements.subtitle')}
+            </p>
+          </div>
+          <Link
+            to="/implements"
+            className="inline-flex items-center gap-1 font-semibold text-ink border-b-2 border-ink pb-0.5 whitespace-nowrap self-start sm:self-end hover:text-kesar-deep hover:border-kesar-deep transition-colors"
+          >
+            {language === 'gu' ? 'બધા જુઓ' : 'See all'} →
+          </Link>
         </div>
 
-        {/* Implements Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {popularImplements.map((implement, index) => (
-            <div
-              key={implement.id}
-              className="animate-scale-in"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <ImplementCard implement={implement} />
-            </div>
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {popular.map((implement) => (
+            <ImplementCard key={implement.id} implement={implement} />
           ))}
-        </div>
-
-        {/* View All CTA */}
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg" className="group">
-            <Link to="/implements">
-              {t('implements.viewAll')}
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </Button>
         </div>
       </div>
     </section>

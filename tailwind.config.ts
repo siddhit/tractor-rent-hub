@@ -18,11 +18,28 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Poppins", "system-ui", "sans-serif"],
-        display: ["Poppins", "system-ui", "sans-serif"],
-        gujarati: ["Hind Vadodara", "sans-serif"],
+        sans: ["Manrope", "system-ui", "sans-serif"],
+        display: ["Playfair Display", "Hind Vadodara", "serif"],
+        gujarati: ["Hind Vadodara", "Noto Sans Gujarati", "sans-serif"],
+        mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
       },
       colors: {
+        /* Truck-art named palette */
+        kesar:      "#E8A020",
+        "kesar-deep":  "#C8851A",
+        "kesar-glow":  "#F6C055",
+        terracotta: "#C4834A",
+        "terracotta-deep": "#A66832",
+        monsoon:    "#2D5A1B",
+        "monsoon-deep":    "#1F3F12",
+        mauve:      "#D4847A",
+        ink:        "#2C1810",
+        "ink-soft": "#5A3F30",
+        "ink-fade": "#8A6F5E",
+        cream:      "#FBF4E6",
+        "cream-deep":  "#F3E9CE",
+        "cream-sunk":  "#EBDEB8",
+        /* Shadcn semantic */
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         earth: "hsl(var(--earth))",
@@ -72,6 +89,10 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      boxShadow: {
+        chunky: "6px 6px 0 0 #2C1810",
+        "chunky-sm": "3px 3px 0 0 #2C1810",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -1,95 +1,110 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logoIcon from "@/assets/logo-icon.png";
+import { buildWaLink } from "@/components/WhatsAppButton";
 
 const Footer = () => {
-  const { t } = useLanguage();
-  const currentYear = new Date().getFullYear();
+  const { language, t } = useLanguage();
+  const year = new Date().getFullYear();
+
+  const waMsg = language === 'gu'
+    ? 'નમસ્તે ખેત-સાથી — મારે સંપર્ક કરવો છે.'
+    : 'Hello Khet Saathi — I would like to get in touch.';
 
   return (
-    <footer className="bg-foreground text-background/80 py-12 md:py-16">
+    <footer className="bg-ink text-cream pt-12 pb-6">
       <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
-          {/* Brand */}
-          <div className="lg:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+          {/* Brand column */}
+          <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
-              <img src={logoIcon} alt="AgriSaathi" className="w-12 h-12 object-contain" />
-              <div>
-                <span className="font-display font-bold text-xl text-background">AgriSaathi</span>
-                <p className="text-sm font-gujarati text-background/60">અગ્રીસાથી</p>
+              <div
+                className="w-10 h-10 bg-kesar border-2 border-kesar-glow flex items-center justify-center font-black text-xl text-ink"
+                style={{ transform: 'rotate(-3deg)', borderRadius: 6 }}
+              >
+                ખ
+              </div>
+              <div className="leading-tight">
+                <div className="font-gujarati font-bold text-xl text-cream">{t('brand.name')}</div>
+                <div className="font-mono text-[10px] text-cream/50 uppercase tracking-wider">{t('brand.tagline')}</div>
               </div>
             </div>
-            <p className="text-background/60 mb-4 max-w-sm leading-relaxed">
+            <p className={`text-cream/60 text-sm leading-relaxed max-w-xs ${language === 'gu' ? 'font-gujarati' : ''}`}>
               {t('about.missionText')}
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h4 className="font-display text-lg text-background mb-4">Quick Links</h4>
+            <h4 className="font-mono text-xs uppercase tracking-widest text-kesar-glow mb-4">
+              {language === 'gu' ? 'ઝડપી લિન્ક' : 'Quick links'}
+            </h4>
             <ul className="space-y-2">
-              <li>
-                <Link to="/" className="hover:text-background transition-colors">
-                  {t('nav.home')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/implements" className="hover:text-background transition-colors">
-                  {t('nav.implements')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/appointments" className="hover:text-background transition-colors">
-                  {t('nav.appointments')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/calculator" className="hover:text-background transition-colors">
-                  {t('nav.calculator')}
-                </Link>
-              </li>
+              {[
+                { to: '/', label: t('nav.home') },
+                { to: '/implements', label: t('nav.implements') },
+                { to: '/appointments', label: t('nav.appointments') },
+                { to: '/calculator', label: t('nav.calculator') },
+                { to: '/about', label: t('nav.about') },
+              ].map((l) => (
+                <li key={l.to}>
+                  <Link
+                    to={l.to}
+                    className={`text-cream/70 hover:text-cream transition-colors text-sm ${language === 'gu' ? 'font-gujarati' : ''}`}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="font-display text-lg text-background mb-4">{t('contact.title')}</h4>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:+919876543210" className="hover:text-background transition-colors">
-                  +91 98765 43210
+            <h4 className="font-mono text-xs uppercase tracking-widest text-kesar-glow mb-4">
+              {t('contact.title')}
+            </h4>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a
+                  href="tel:+919723000299"
+                  className="text-cream/70 hover:text-cream transition-colors"
+                >
+                  +91 97230 00299
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-primary" />
-                <a href="mailto:hello@agrisaathi.in" className="hover:text-background transition-colors">
-                  hello@agrisaathi.in
+              <li>
+                <a
+                  href={buildWaLink(waMsg)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`text-cream/70 hover:text-cream transition-colors ${language === 'gu' ? 'font-gujarati' : ''}`}
+                >
+                  {t('contact.whatsapp')}
                 </a>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 text-primary mt-0.5" />
-                <span className="text-background/60">
-                  Rajkot, Saurashtra<br />
-                  Gujarat, India
-                </span>
+              <li>
+                <a
+                  href="mailto:hello@khetsaathi.in"
+                  className="text-cream/70 hover:text-cream transition-colors"
+                >
+                  hello@khetsaathi.in
+                </a>
               </li>
-              <li className="flex items-start gap-2">
-                <Clock className="w-4 h-4 text-primary mt-0.5" />
-                <span className="text-background/60">
-                  Mon-Sat: 8am-7pm<br />
-                  Sun: 9am-1pm
-                </span>
+              <li className={`text-cream/50 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {language === 'gu'
+                  ? 'મોટા અસરાણા, મહુવા, સૌરાષ્ટ્ર'
+                  : 'Mota Asrana, Mahuva, Saurashtra'}
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-background/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-background/50">
-          <p>© {currentYear} AgriSaathi. All rights reserved.</p>
-          <p className="font-gujarati">ગુજરાતના ખેડૂતો માટે બનાવ્યું ❤️</p>
+        {/* Bottom bar */}
+        <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-cream/40 font-mono">
+          <p>© {year} Khet Saathi. All rights reserved.</p>
+          <p className={`font-gujarati not-italic ${language === 'gu' ? '' : 'opacity-60'}`}>
+            સૌરાષ્ટ્ર ના ખેડૂત ભાઈઓ માટે
+          </p>
         </div>
       </div>
     </footer>
