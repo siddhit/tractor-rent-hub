@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Hind+Vadodara:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Hind+Vadodara:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,110 +6,93 @@
 
 @layer base {
   :root {
-    /* Saurashtra-inspired vibrant palette */
-    --background: 40 45% 97%;
-    --foreground: 25 30% 12%;
+    /* === Khet Saathi truck-art palette === */
+    /* Cream surfaces */
+    --background: 40 60% 95%;        /* #FBF4E6 cream */
+    --card: 39 53% 88%;              /* #F3E9CE cream-deep */
+    --popover: 40 60% 95%;
 
-    --card: 40 40% 98%;
-    --card-foreground: 25 30% 12%;
+    /* Ink — black cotton soil */
+    --foreground: 15 47% 13%;        /* #2C1810 */
+    --card-foreground: 15 47% 13%;
+    --popover-foreground: 15 47% 13%;
 
-    --popover: 40 45% 97%;
-    --popover-foreground: 25 30% 12%;
+    /* Kesar — primary CTA */
+    --primary: 38 85% 52%;           /* #E8A020 */
+    --primary-foreground: 15 47% 13%;
 
-    /* Saffron Orange - Primary */
-    --primary: 28 90% 52%;
-    --primary-foreground: 0 0% 100%;
+    /* Cream-deep as secondary */
+    --secondary: 39 53% 88%;
+    --secondary-foreground: 15 47% 13%;
 
-    /* Harvest Gold - Secondary */
-    --secondary: 45 95% 55%;
-    --secondary-foreground: 25 30% 12%;
+    /* Muted */
+    --muted: 38 30% 88%;
+    --muted-foreground: 15 25% 38%;  /* ink-soft */
 
-    /* Cream muted */
-    --muted: 40 30% 92%;
-    --muted-foreground: 25 20% 45%;
+    /* Monsoon green — trust/confirm */
+    --accent: 104 53% 23%;           /* #2D5A1B */
+    --accent-foreground: 40 60% 95%;
 
-    /* Farm Green - Accent */
-    --accent: 142 55% 35%;
-    --accent-foreground: 0 0% 100%;
+    --destructive: 16 74% 40%;
+    --destructive-foreground: 40 60% 95%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --border: 15 47% 13%;            /* ink borders */
+    --input: 38 30% 85%;
+    --ring: 38 85% 52%;
 
-    --border: 40 25% 88%;
-    --input: 40 25% 88%;
-    --ring: 28 90% 52%;
+    --radius: 0.5rem;
 
-    --radius: 0.75rem;
+    /* Custom named tokens */
+    --kesar: #E8A020;
+    --kesar-deep: #C8851A;
+    --kesar-glow: #F6C055;
+    --terracotta: #C4834A;
+    --terracotta-deep: #A66832;
+    --monsoon: #2D5A1B;
+    --monsoon-deep: #1F3F12;
+    --mauve: #D4847A;
+    --ink: #2C1810;
+    --ink-soft: #5A3F30;
+    --ink-fade: #8A6F5E;
+    --cream: #FBF4E6;
+    --cream-deep: #F3E9CE;
+    --cream-sunk: #EBDEB8;
 
-    /* Custom tokens */
-    --success: 142 70% 40%;
-    --warning: 45 95% 55%;
-    --earth: 25 45% 30%;
-    --cotton: 0 0% 98%;
-    --onion: 340 60% 45%;
-    --groundnut: 35 65% 45%;
-    
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(28 90% 52%) 0%, hsl(35 85% 48%) 100%);
-    --gradient-warm: linear-gradient(180deg, hsl(45 95% 55% / 0.15) 0%, transparent 100%);
-    --gradient-card: linear-gradient(145deg, hsl(40 40% 98%) 0%, hsl(40 35% 95%) 100%);
-    --gradient-green: linear-gradient(135deg, hsl(142 55% 35%) 0%, hsl(142 50% 28%) 100%);
+    /* Chunky offset shadow */
+    --shadow-chunky: 6px 6px 0 0 #2C1810;
+    --shadow-chunky-sm: 3px 3px 0 0 #2C1810;
 
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(25 30% 12% / 0.1);
-    --shadow-card: 0 8px 30px -8px hsl(25 30% 12% / 0.12);
-    --shadow-glow: 0 0 40px hsl(28 90% 52% / 0.25);
-    --shadow-green: 0 4px 20px -4px hsl(142 55% 35% / 0.3);
+    /* Legacy gradient vars kept for shadcn components */
+    --gradient-hero: linear-gradient(135deg, #E8A020 0%, #C8851A 100%);
+    --gradient-warm: linear-gradient(180deg, rgba(232,160,32,0.15) 0%, transparent 100%);
+    --gradient-card: linear-gradient(145deg, #FBF4E6 0%, #F3E9CE 100%);
+    --gradient-green: linear-gradient(135deg, #2D5A1B 0%, #1F3F12 100%);
+
+    --shadow-soft: 0 4px 20px -4px rgba(44,24,16,0.1);
+    --shadow-card: var(--shadow-chunky-sm);
+    --shadow-glow: 0 0 40px rgba(232,160,32,0.3);
+    --shadow-green: 0 4px 20px -4px rgba(45,90,27,0.3);
+
+    /* Crop badge colors */
+    --onion: 3 47% 65%;    /* mauve */
+    --cotton: 15 47% 13%;  /* ink */
+    --groundnut: 38 85% 52%; /* kesar */
+    --success: 104 53% 23%;
+    --warning: 38 85% 52%;
+    --earth: 27 50% 53%;
 
     /* Sidebar */
-    --sidebar-background: 40 40% 98%;
-    --sidebar-foreground: 25 30% 12%;
-    --sidebar-primary: 28 90% 52%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 142 55% 35%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 40 25% 88%;
-    --sidebar-ring: 28 90% 52%;
+    --sidebar-background: 40 60% 95%;
+    --sidebar-foreground: 15 47% 13%;
+    --sidebar-primary: 38 85% 52%;
+    --sidebar-primary-foreground: 15 47% 13%;
+    --sidebar-accent: 104 53% 23%;
+    --sidebar-accent-foreground: 40 60% 95%;
+    --sidebar-border: 38 30% 85%;
+    --sidebar-ring: 38 85% 52%;
   }
 
-  .dark {
-    --background: 25 25% 8%;
-    --foreground: 40 30% 95%;
-
-    --card: 25 22% 12%;
-    --card-foreground: 40 30% 95%;
-
-    --popover: 25 25% 8%;
-    --popover-foreground: 40 30% 95%;
-
-    --primary: 28 85% 55%;
-    --primary-foreground: 25 25% 8%;
-
-    --secondary: 45 85% 50%;
-    --secondary-foreground: 25 25% 8%;
-
-    --muted: 25 18% 18%;
-    --muted-foreground: 40 20% 60%;
-
-    --accent: 142 50% 45%;
-    --accent-foreground: 25 25% 8%;
-
-    --destructive: 0 65% 50%;
-    --destructive-foreground: 40 30% 95%;
-
-    --border: 25 18% 18%;
-    --input: 25 18% 18%;
-    --ring: 28 85% 55%;
-
-    --sidebar-background: 25 22% 10%;
-    --sidebar-foreground: 40 30% 95%;
-    --sidebar-primary: 28 85% 55%;
-    --sidebar-primary-foreground: 25 25% 8%;
-    --sidebar-accent: 25 18% 16%;
-    --sidebar-accent-foreground: 40 30% 95%;
-    --sidebar-border: 25 18% 16%;
-    --sidebar-ring: 28 85% 55%;
-  }
+  /* No dark mode — intentionally single-theme for farmer UX */
 }
 
 @layer base {
@@ -119,112 +102,170 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    /* Room for sticky WhatsApp pill */
+    padding-bottom: 80px;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold;
+    font-family: 'Playfair Display', 'Hind Vadodara', serif;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    @apply text-foreground;
+  }
+
+  /* Gujarati text class */
+  .font-gujarati, :lang(gu), .gu {
+    font-family: 'Hind Vadodara', 'Noto Sans Gujarati', sans-serif;
+  }
+
+  h1.gu, h2.gu, .heading-gu {
+    font-family: 'Hind Vadodara', serif;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
   }
 }
 
+/* ======= TRUCK-ART UTILITIES ======= */
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Chunky signboard border with offset shadow */
+  .chunky {
+    border: 2.5px solid var(--ink);
+    box-shadow: var(--shadow-chunky);
+    background: var(--cream-deep);
   }
-  
-  .gradient-hero {
-    background: var(--gradient-hero);
+  .chunky-sm {
+    border: 2px solid var(--ink);
+    box-shadow: var(--shadow-chunky-sm);
   }
-  
-  .gradient-warm {
-    background: var(--gradient-warm);
+
+  /* Patola / rangoli strip divider (repeating zig-zag with dots) */
+  .patola-strip {
+    height: 28px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 28'><g fill='none' stroke='%232C1810' stroke-width='1.5'><path d='M0 14 L20 0 L40 14 L60 0 L80 14'/><path d='M0 14 L20 28 L40 14 L60 28 L80 14'/><circle cx='20' cy='14' r='3' fill='%23E8A020' stroke='none'/><circle cx='60' cy='14' r='3' fill='%23C4834A' stroke='none'/></g></svg>");
+    background-repeat: repeat-x;
+    background-size: 80px 28px;
   }
-  
-  .gradient-card {
-    background: var(--gradient-card);
+
+  /* Eyebrow label — mono caps with leading line */
+  .eyebrow-label {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
   }
-  
-  .gradient-green {
-    background: var(--gradient-green);
+  .eyebrow-label::before {
+    content: "";
+    width: 24px;
+    height: 2px;
+    background: currentColor;
+    display: inline-block;
   }
-  
-  .shadow-soft {
-    box-shadow: var(--shadow-soft);
+
+  /* Stamp row divider */
+  .stamp-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  
-  .shadow-card {
-    box-shadow: var(--shadow-card);
+  .stamp-row::before,
+  .stamp-row::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: var(--ink);
   }
-  
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
+
+  /* Rupee chip */
+  .rupee-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    padding: 6px 12px;
+    background: var(--kesar);
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    font-weight: 800;
+    box-shadow: 2px 2px 0 var(--ink);
   }
-  
-  .shadow-green {
-    box-shadow: var(--shadow-green);
+
+  /* Mirror-work dot grid background */
+  .mirror-bg {
+    background-image: radial-gradient(circle, rgba(44,24,16,0.18) 1.5px, transparent 2px);
+    background-size: 18px 18px;
+  }
+
+  /* Bandhani dot pattern */
+  .bandhani-bg {
+    background-image: radial-gradient(circle, var(--kesar) 1.5px, transparent 2px);
+    background-size: 22px 22px;
+  }
+
+  /* Gradient utilities */
+  .gradient-hero { background: var(--gradient-hero); }
+  .gradient-warm { background: var(--gradient-warm); }
+  .gradient-card { background: var(--gradient-card); }
+  .gradient-green { background: var(--gradient-green); }
+
+  /* Shadow utilities */
+  .shadow-soft  { box-shadow: var(--shadow-soft); }
+  .shadow-card  { box-shadow: var(--shadow-card); }
+  .shadow-glow  { box-shadow: var(--shadow-glow); }
+  .shadow-green { box-shadow: var(--shadow-green); }
+  .shadow-chunky    { box-shadow: var(--shadow-chunky); }
+  .shadow-chunky-sm { box-shadow: var(--shadow-chunky-sm); }
+
+  .text-balance { text-wrap: balance; }
+
+  /* Mono utility */
+  .font-mono-display {
+    font-family: 'IBM Plex Mono', ui-monospace, monospace;
   }
 }
 
-/* Custom animations */
+/* ======= ANIMATIONS ======= */
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 @keyframes bounce-gentle {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  50%       { transform: translateY(-5px); }
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 1; }
+  0%   { transform: scale(1); opacity: 1; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
-.animate-fade-up {
-  animation: fade-up 0.6s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
-}
-
-.animate-scale-in {
-  animation: scale-in 0.4s ease-out forwards;
-}
-
-.animate-bounce-gentle {
-  animation: bounce-gentle 2s ease-in-out infinite;
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 1.5s ease-out infinite;
-}
+.animate-fade-up     { animation: fade-up 0.6s ease-out forwards; }
+.animate-fade-in     { animation: fade-in 0.5s ease-out forwards; }
+.animate-scale-in    { animation: scale-in 0.4s ease-out forwards; }
+.animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
+.animate-pulse-ring  { animation: pulse-ring 1.5s ease-out infinite; }
 
 .animation-delay-100 { animation-delay: 100ms; }
 .animation-delay-200 { animation-delay: 200ms; }

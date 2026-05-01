@@ -1,61 +1,109 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import { Phone, Mail, MapPin } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import logoIcon from "@/assets/logo-icon.png";
+import { buildWaLink } from "@/components/WhatsAppButton";
 
 const About = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+
+  const waMsg = language === 'gu'
+    ? 'નમસ્તે ખેત-સાથી — મારે સંપર્ક કરવો છે.'
+    : 'Hello Khet Saathi — I would like to get in touch.';
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-20 md:pt-24">
-        <section className="py-12 md:py-16">
-          <div className="container max-w-4xl">
-            <div className="text-center mb-12">
-              <img src={logoIcon} alt="AgriSaathi" className="w-24 h-24 mx-auto mb-4" />
-              <h1 className="text-3xl md:text-4xl font-display text-foreground mb-2">
-                {t('about.title')}
-              </h1>
-              <p className="text-xl font-gujarati text-primary">અગ્રીસાથી</p>
+      <main className="pt-16">
+        {/* Hero band */}
+        <section className="bg-ink py-16">
+          <div className="container max-w-3xl text-center">
+            {/* Brand mark */}
+            <div
+              className="w-16 h-16 bg-kesar border-2 border-kesar-glow flex items-center justify-center font-black text-3xl text-ink mx-auto mb-6 shadow-chunky-sm"
+              style={{ transform: 'rotate(-3deg)', borderRadius: 8 }}
+            >
+              ખ
             </div>
+            <h1 className={`text-4xl md:text-5xl font-display font-black text-cream mb-3 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {t('about.title')}
+            </h1>
+            <p className="font-mono text-xs uppercase tracking-widest text-kesar-glow">
+              {language === 'gu' ? 'KHET SAATHI · ખેત-સાથી' : 'ખેત-સાથી · KHET SAATHI'}
+            </p>
+          </div>
+        </section>
 
-            <div className="bg-card rounded-2xl p-6 md:p-10 shadow-card mb-10">
-              <h2 className="text-2xl font-display text-foreground mb-4">{t('about.mission')}</h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">
+        <div className="patola-strip" style={{ filter: 'invert(1)' }} />
+
+        <section className="py-12 md:py-16">
+          <div className="container max-w-3xl">
+            {/* Mission */}
+            <div className="border-2 border-ink rounded-lg p-6 md:p-8 bg-cream-deep shadow-chunky-sm mb-6">
+              <h2 className={`text-2xl font-display font-black text-ink mb-4 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {t('about.mission')}
+              </h2>
+              <p className={`text-ink-soft leading-relaxed text-lg ${language === 'gu' ? 'font-gujarati' : ''}`}>
                 {t('about.missionText')}
               </p>
             </div>
 
-            <div className="bg-card rounded-2xl p-6 md:p-10 shadow-card">
-              <h2 className="text-2xl font-display text-foreground mb-6">{t('contact.title')}</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <a href="tel:+919876543210" className="flex items-center gap-4 p-4 rounded-xl bg-muted hover:bg-primary/10 transition-colors">
-                  <div className="w-12 h-12 rounded-full gradient-hero flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-primary-foreground" />
-                  </div>
+            {/* Promise box */}
+            <div className="border-2 border-kesar rounded-lg p-6 bg-kesar/10 mb-6 flex items-start gap-4">
+              <span className="text-3xl font-black text-kesar-deep mt-1">★</span>
+              <p className={`text-ink font-semibold text-lg leading-relaxed ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {language === 'gu'
+                  ? 'ઓપરેટર સાથે જ આવે. મશીન એકલું ભાડે આપવાનો ધંધો નહીં.'
+                  : 'Operator always included. We do not rent machines without one.'}
+              </p>
+            </div>
+
+            {/* Contact */}
+            <div className="border-2 border-ink rounded-lg p-6 md:p-8 bg-cream-deep shadow-chunky-sm">
+              <h2 className={`text-2xl font-display font-black text-ink mb-6 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {t('contact.title')}
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                <a
+                  href="tel:+919723000299"
+                  className="flex items-center gap-3 p-4 border-2 border-ink rounded-lg bg-cream hover:bg-kesar/20 transition-colors shadow-chunky-sm"
+                >
+                  <span className="text-2xl">📞</span>
                   <div>
-                    <p className="font-medium text-foreground">+91 98765 43210</p>
-                    <p className="text-sm text-muted-foreground">{t('contact.call')}</p>
+                    <p className="font-bold text-ink">+91 97230 00299</p>
+                    <p className={`text-xs text-ink-soft ${language === 'gu' ? 'font-gujarati' : ''}`}>{t('contact.call')}</p>
                   </div>
                 </a>
-                <a href="mailto:hello@agrisaathi.in" className="flex items-center gap-4 p-4 rounded-xl bg-muted hover:bg-primary/10 transition-colors">
-                  <div className="w-12 h-12 rounded-full gradient-green flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-accent-foreground" />
-                  </div>
+                <a
+                  href={buildWaLink(waMsg)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 p-4 border-2 border-ink rounded-lg bg-monsoon text-cream hover:bg-monsoon-deep transition-colors shadow-chunky-sm"
+                >
+                  <span className="text-2xl">💬</span>
                   <div>
-                    <p className="font-medium text-foreground">hello@agrisaathi.in</p>
-                    <p className="text-sm text-muted-foreground">Email us</p>
+                    <p className="font-bold">WhatsApp</p>
+                    <p className={`text-xs opacity-80 ${language === 'gu' ? 'font-gujarati' : ''}`}>{t('contact.whatsapp')}</p>
                   </div>
                 </a>
-              </div>
-              <div className="mt-6 p-4 rounded-xl bg-muted flex items-start gap-4">
-                <MapPin className="w-5 h-5 text-primary mt-1" />
-                <div>
-                  <p className="font-medium text-foreground">Rajkot, Saurashtra</p>
-                  <p className="text-muted-foreground">Gujarat, India - 360001</p>
+                <a
+                  href="mailto:hello@khetsaathi.in"
+                  className="flex items-center gap-3 p-4 border-2 border-ink rounded-lg bg-cream hover:bg-kesar/20 transition-colors shadow-chunky-sm"
+                >
+                  <span className="text-2xl">✉️</span>
+                  <div>
+                    <p className="font-bold text-ink">hello@khetsaathi.in</p>
+                    <p className="text-xs text-ink-soft">Email</p>
+                  </div>
+                </a>
+                <div className="flex items-center gap-3 p-4 border-2 border-ink/30 rounded-lg bg-cream-deep">
+                  <span className="text-2xl">📍</span>
+                  <div>
+                    <p className={`font-bold text-ink ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                      {language === 'gu' ? 'મોટા અસરાણા, મહુવા' : 'Mota Asrana, Mahuva'}
+                    </p>
+                    <p className="text-xs text-ink-soft">Saurashtra, Gujarat</p>
+                  </div>
                 </div>
               </div>
             </div>

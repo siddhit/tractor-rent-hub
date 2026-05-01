@@ -48,8 +48,10 @@ const Appointments = () => {
   const [noObstructions, setNoObstructions] = useState(false);
 
   const implement = getImplementById(selectedImplement);
-  const farmSizeInBigha = convertToBigha(parseFloat(farmSize) || 0, areaUnit);
-  const total = implement ? implement.pricePerBigha * farmSizeInBigha : 0;
+  const farmSizeInVigha = convertToBigha(parseFloat(farmSize) || 0, areaUnit);
+  const total = implement?.pricePerVigha != null ? implement.pricePerVigha * farmSizeInVigha : 0;
+
+  const isValidPhone = (p: string) => /^[6-9]\d{9}$/.test(p.replace(/\D/g, '').slice(-10));
 
   const handleContinueToStep2 = () => {
     if (!selectedImplement || !dateRange?.from) {
@@ -60,8 +62,12 @@ const Appointments = () => {
   };
 
   const handleContinueToStep3 = () => {
-    if (!name || !phone || !farmSize) {
+    if (!name.trim() || !phone.trim() || !farmSize) {
       toast({ title: "Please fill all fields", variant: "destructive" });
+      return;
+    }
+    if (!isValidPhone(phone)) {
+      toast({ title: "Please enter a valid 10-digit Indian mobile number", variant: "destructive" });
       return;
     }
     setStep(3);
@@ -80,7 +86,7 @@ const Appointments = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="pt-20 md:pt-24">
+      <main className="pt-16">
         <section className="py-12 md:py-16">
           <div className="container max-w-2xl">
             <div className="text-center mb-10">
@@ -111,7 +117,7 @@ const Appointments = () => {
                       <SelectContent>
                         {implements_data.filter(i => i.available).map((impl) => (
                           <SelectItem key={impl.id} value={impl.id}>
-                            {impl.name[language]} - Rs.{impl.pricePerBigha}/{t('common.bigha').toLowerCase()}
+                            {impl.name[language]}{impl.pricePerVigha ? ` — ₹${impl.pricePerVigha}/${t('common.vigha').toLowerCase()}` : ''}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -154,7 +160,15 @@ const Appointments = () => {
                   </div>
                   <div>
                     <Label>Phone Number</Label>
-                    <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 98765 43210" className="mt-1" />
+                    <Input
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value.replace(/[^\d\s+()-]/g, ''))}
+                      placeholder="+91 97230 00299"
+                      type="tel"
+                      inputMode="numeric"
+                      maxLength={15}
+                      className="mt-1"
+                    />
                   </div>
 
                   <div>
@@ -173,7 +187,7 @@ const Appointments = () => {
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="bigha">{t('common.bigha')}</SelectItem>
+                          <SelectItem value="bigha">{t('common.vigha')}</SelectItem>
                           <SelectItem value="acre">{t('common.acre')}</SelectItem>
                           <SelectItem value="hectare">{t('common.hectare')}</SelectItem>
                         </SelectContent>
@@ -181,16 +195,16 @@ const Appointments = () => {
                     </div>
                     {areaUnit !== 'bigha' && (
                       <p className="text-sm text-muted-foreground mt-1">
-                        ≈ {farmSizeInBigha.toFixed(1)} {t('common.bigha')}
+                        ≈ {farmSizeInVigha.toFixed(1)} {t('common.vigha')}
                       </p>
                     )}
                   </div>
 
                   <div className="bg-muted rounded-xl p-4">
                     <p className="text-sm text-muted-foreground mb-2">{t('appt.total')}</p>
-                    <p className="text-3xl font-display text-foreground">Rs.{total.toLocaleString('en-IN')}</p>
+                    <p className="text-3xl font-display text-foreground">₹{total.toLocaleString('en-IN')}</p>
                     <p className="text-xs text-muted-foreground mt-1">
-                      ({implement?.name[language]} × {farmSizeInBigha.toFixed(1)} {t('common.bigha').toLowerCase()})
+                      ({implement?.name[language]} × {farmSizeInVigha.toFixed(1)} {t('common.vigha').toLowerCase()})
                     </p>
                   </div>
 
@@ -258,7 +272,7 @@ const Appointments = () => {
 
                   <div className="bg-muted rounded-xl p-4">
                     <p className="text-sm text-muted-foreground mb-2">{t('appt.total')}</p>
-                    <p className="text-3xl font-display text-foreground">Rs.{total.toLocaleString('en-IN')}</p>
+                    <p className="text-3xl font-display text-foreground">₹{total.toLocaleString('en-IN')}</p>
                   </div>
 
                   <div className="flex gap-3">

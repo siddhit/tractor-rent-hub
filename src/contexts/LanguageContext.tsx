@@ -3,100 +3,89 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 type Language = 'en' | 'gu';
 
 interface Translations {
-  [key: string]: {
-    en: string;
-    gu: string;
-  };
+  [key: string]: { en: string; gu: string };
 }
 
 const translations: Translations = {
-  // Navigation
-  'nav.home': { en: 'Home', gu: 'હોમ' },
-  'nav.implements': { en: 'Machines', gu: 'મશીનો' },
-  'nav.appointments': { en: 'Request Service', gu: 'સેવા માંગો' },
-  'nav.calculator': { en: 'ROI Calculator', gu: 'ROI કેલ્ક્યુલેટર' },
-  'nav.about': { en: 'About Us', gu: 'અમારા વિશે' },
-  
-  // Hero
-  'hero.badge': { en: 'Serving Gujarat Farmers', gu: 'ગુજરાતના ખેડૂતોની સેવામાં' },
-  'hero.title': { en: 'Timely farm work with reliable machines', gu: 'સમયસર ખેતીનું કામ — વિશ્વસનીય મશીનો સાથે' },
-  'hero.subtitle': { en: 'Save time and labor costs on Onion, Cotton & Groundnut farming. Professional service delivered to your farm across Saurashtra.', gu: 'ડુંગળી, કપાસ અને મગફળી ખેતીમાં સમય અને મજૂરી ખર્ચ બચાવો. સૌરાષ્ટ્રમાં તમારા ખેતર પર વ્યાવસાયિક સેવા.' },
-  'hero.cta.book': { en: 'Request Service', gu: 'સેવા માંગો' },
-  'hero.cta.call': { en: 'Call Us', gu: 'કૉલ કરો' },
-  
-  // Stats
-  'stats.farmers': { en: 'Happy Farmers', gu: 'ખુશ ખેડૂતો' },
-  'stats.implements': { en: 'Machines', gu: 'મશીનો' },
-  'stats.villages': { en: 'Villages Served', gu: 'ગામો' },
-  
-  // Implements
-  'implements.title': { en: 'Our Machines', gu: 'અમારા મશીનો' },
-  'implements.subtitle': { en: 'Quality equipment from top brands', gu: 'ટોપ બ્રાન્ડ્સના ગુણવત્તાવાળા સાધનો' },
-  'implements.viewAll': { en: 'View All Machines', gu: 'બધા મશીનો જુઓ' },
-  'implements.perBigha': { en: '/bigha', gu: '/વીઘા' },
-  'implements.book': { en: 'Get Work Done', gu: 'કામ કરાવો' },
+  'brand.name':    { en: 'Khet Saathi', gu: 'ખેત-સાથી' },
+  'brand.tagline': { en: "The farm's companion", gu: 'ખેતી નો સાથી' },
+
+  'nav.home':         { en: 'Home',     gu: 'ઘરે' },
+  'nav.implements':   { en: 'Machines', gu: 'મશીન' },
+  'nav.appointments': { en: 'Book',     gu: 'બુક કરો' },
+  'nav.calculator':   { en: 'Savings',  gu: 'ગણતરી' },
+  'nav.about':        { en: 'About',    gu: 'અમારા વિશે' },
+
+  'hero.badge':        { en: 'Mota Asrana · Mahuva · Saurashtra', gu: 'મોટા અસરાણા · મહુવા · સૌરાષ્ટ્ર' },
+  'hero.title':        { en: 'Farming that makes more money.', gu: 'ખેતી વધુ કમાણી ની.' },
+  'hero.subtitle':     { en: 'Seven machines. One reliable team. Operator included. 20 km from Mota Asrana.', gu: 'સાત મશીન. એક ભરોસાદાર ટીમ. ઓપરેટર સાથે. મોટા અસરાણા થી 20 કિ.મી. સુધી.' },
+  'hero.cta.whatsapp': { en: 'WhatsApp Us', gu: 'WhatsApp અમને' },
+  'hero.cta.machines': { en: 'See the machines', gu: 'મશીન જુઓ' },
+
+  'implements.title':     { en: 'Our Machines', gu: 'અમારા મશીન' },
+  'implements.subtitle':  { en: 'Seven machines for every stage — land prep to harvest. Operator always included.', gu: 'જમીન તૈયારી થી લણણી — ઓપરેટર સાથે.' },
+  'implements.viewAll':   { en: 'See all machines', gu: 'બધા મશીન જુઓ' },
   'implements.available': { en: 'Available', gu: 'ઉપલબ્ધ' },
-  'implements.busy': { en: 'Busy', gu: 'વ્યસ્ત' },
-  
-  // Crops
-  'crop.onion': { en: 'Onion', gu: 'ડુંગળી' },
-  'crop.cotton': { en: 'Cotton', gu: 'કપાસ' },
+  'implements.busy':      { en: 'Coming soon', gu: 'ટૂંક સમયમાં' },
+  'implements.book':      { en: 'Book', gu: 'બુક કરો' },
+
+  'cat.land-prep':   { en: 'Land Prep',   gu: 'જમીન તૈયારી' },
+  'cat.planting':    { en: 'Planting',    gu: 'વાવણી' },
+  'cat.crop-season': { en: 'Crop Season', gu: 'પાક-સિઝન' },
+  'cat.harvest':     { en: 'Harvest',     gu: 'લણણી' },
+
+  'crop.onion':     { en: 'Onion',     gu: 'ડુંગળી' },
+  'crop.cotton':    { en: 'Cotton',    gu: 'કપાસ' },
   'crop.groundnut': { en: 'Groundnut', gu: 'મગફળી' },
-  'crop.all': { en: 'All Crops', gu: 'બધા પાક' },
-  
-  // How it works
-  'how.title': { en: 'How It Works', gu: 'કેવી રીતે કામ કરે છે' },
-  'how.step1.title': { en: 'What work do you need?', gu: 'કયું કામ કરાવવું છે?' },
-  'how.step1.desc': { en: 'Tell us the task - plowing, seeding, harvesting, or spraying.', gu: 'કામ જણાવો - ખેડાણ, વાવણી, લણણી, અથવા છંટકાવ.' },
-  'how.step2.title': { en: 'Select Dates', gu: 'તારીખ પસંદ કરો' },
-  'how.step2.desc': { en: 'Choose your preferred date range and we will confirm availability.', gu: 'તમારી પસંદગીની તારીખો પસંદ કરો અને અમે ઉપલબ્ધતા કન્ફર્મ કરીશું.' },
-  'how.step3.title': { en: 'We Do The Work', gu: 'અમે કામ કરીએ' },
-  'how.step3.desc': { en: 'Our operator comes to your farm with the machine. You relax.', gu: 'અમારો ઓપરેટર મશીન સાથે તમારા ખેતરે આવે છે. તમે આરામ કરો.' },
-  
-  // About
-  'about.title': { en: 'About AgriSaathi', gu: 'અગ્રીસાથી વિશે' },
-  'about.mission': { en: 'Our Mission', gu: 'અમારું મિશન' },
-  'about.missionText': { en: 'To help Gujarat farmers save time and labor costs with reliable farm machinery services. We focus on timely work completion so you can focus on your farm.', gu: 'ગુજરાતના ખેડૂતોને વિશ્વસનીય ખેતી મશીનરી સેવાઓ સાથે સમય અને મજૂરી ખર્ચ બચાવવામાં મદદ કરવી. અમે સમયસર કામ પૂર્ણ કરવા પર ધ્યાન આપીએ છીએ.' },
-  
-  // Contact
-  'contact.title': { en: 'Contact Us', gu: 'સંપર્ક કરો' },
-  'contact.whatsapp': { en: 'Chat on WhatsApp', gu: 'WhatsApp પર ચેટ કરો' },
-  'contact.call': { en: 'Call Us', gu: 'કૉલ કરો' },
-  
-  // Calculator
-  'calc.title': { en: 'Labor Savings Calculator', gu: 'મજૂરી બચત કેલ્ક્યુલેટર' },
-  'calc.subtitle': { en: 'See how much time and money you can save', gu: 'તમે કેટલો સમય અને પૈસા બચાવી શકો તે જુઓ' },
-  'calc.landSize': { en: 'Land Size (Bigha)', gu: 'જમીનનું કદ (વીઘા)' },
-  'calc.cropType': { en: 'Crop Type', gu: 'પાકનો પ્રકાર' },
-  'calc.laborCost': { en: 'Labor Cost/Day (₹)', gu: 'મજૂરી/દિવસ (₹)' },
-  'calc.calculate': { en: 'Calculate Savings', gu: 'બચત ગણો' },
-  'calc.savings': { en: 'Estimated Savings', gu: 'અંદાજિત બચત' },
-  'calc.timeSaved': { en: 'Time Saved', gu: 'બચેલો સમય' },
-  'calc.days': { en: 'days', gu: 'દિવસ' },
-  
-  // Appointments
-  'appt.title': { en: 'Request Farm Work', gu: 'ખેતીનું કામ બુક કરો' },
-  'appt.selectDate': { en: 'Select Date Range', gu: 'તારીખ રેન્જ પસંદ કરો' },
-  'appt.selectImplement': { en: 'What work do you need?', gu: 'કયું કામ કરાવવું છે?' },
-  'appt.farmSize': { en: 'Farm Size', gu: 'ખેતરનું કદ' },
-  'appt.total': { en: 'Estimated Cost', gu: 'અંદાજિત ખર્ચ' },
-  'appt.payUpi': { en: 'Pay Advance with UPI', gu: 'UPI થી એડવાન્સ ચૂકવો' },
-  'appt.confirm': { en: 'Submit Request', gu: 'રિક્વેસ્ટ મોકલો' },
-  'appt.fieldReady': { en: 'Is the field ready for work?', gu: 'ખેતર કામ માટે તૈયાર છે?' },
-  'appt.irrigationDone': { en: 'Is irrigation completed?', gu: 'સિંચાઈ પૂર્ણ થઈ છે?' },
-  'appt.obstructions': { en: 'Any obstructions in the field?', gu: 'ખેતરમાં કોઈ અવરોધ છે?' },
-  'appt.disclaimer': { en: 'Note: Field readiness affects cost. We do not guarantee any improvement in crop yield or quality.', gu: 'નોંધ: ખેતરની તૈયારી ખર્ચને અસર કરે છે. અમે પાકની ઉપજ અથવા ગુણવત્તામાં કોઈ સુધારાની ગેરંટી આપતા નથી.' },
-  'appt.requestReceived': { en: 'Request Received!', gu: 'રિક્વેસ્ટ મળી ગઈ!' },
-  'appt.confirmWhatsApp': { en: 'We will confirm on WhatsApp', gu: 'અમે WhatsApp પર કન્ફર્મ કરીશું' },
-  
-  // Common
-  'common.learnMore': { en: 'Learn More', gu: 'વધુ જાણો' },
-  'common.price': { en: 'Price', gu: 'કિંમત' },
-  'common.brand': { en: 'Brand', gu: 'બ્રાન્ડ' },
-  'common.suitableFor': { en: 'Suitable for', gu: 'યોગ્ય છે' },
-  'common.bigha': { en: 'Bigha', gu: 'વીઘા' },
-  'common.acre': { en: 'Acre', gu: 'એકર' },
-  'common.hectare': { en: 'Hectare', gu: 'હેક્ટર' },
+  'crop.all':       { en: 'All crops', gu: 'બધા પાક' },
+
+  'how.title':       { en: 'How it works', gu: 'કેવી રીતે કામ કરે' },
+  'how.step1.title': { en: 'Pick a machine', gu: 'મશીન પસંદ કરો' },
+  'how.step1.desc':  { en: 'Tell us the task — land prep, sowing, spraying, or harvest.', gu: 'કામ જણાવો — ખેડ, વાવણી, છંટકાવ, કે લણણી.' },
+  'how.step2.title': { en: 'Book your dates', gu: 'તારીખ બુક કરો' },
+  'how.step2.desc':  { en: 'WhatsApp us or fill the short form. We confirm within the hour.', gu: 'WhatsApp કરો. એક કલાકમાં કન્ફર્મ.' },
+  'how.step3.title': { en: 'We come to your field', gu: 'અમે ખેતર પર આવીએ' },
+  'how.step3.desc':  { en: 'Operator arrives with the machine. You supervise, we do the work.', gu: 'ઓપરેટર મશીન સાથે આવે. તમે જુઓ, અમે કામ કરીએ.' },
+
+  'wa.pill': { en: 'WhatsApp Us', gu: 'WhatsApp અમને' },
+  'wa.sub':  { en: '24×7 · fast reply', gu: '24×7 · ઝડપી જવાબ' },
+
+  'about.title':       { en: 'About Khet Saathi', gu: 'ખેત-સાથી વિશે' },
+  'about.mission':     { en: 'Our Mission', gu: 'અમારું ધ્યેય' },
+  'about.missionText': { en: 'We bring precision farm machinery — with a trained operator — to Saurashtra farmers. We own the machines, we train the operators, and we stand behind the work.', gu: 'સૌરાષ્ટ્ર ના ખેડૂત ભાઈઓ માટે ચોક્કસ ખેતી-મશીન — ઓપરેટર સહિત. અમારા મશીન, અમારા ઓપરેટર, અમારી જવાબદારી.' },
+
+  'contact.title':    { en: 'Contact', gu: 'સંપર્ક' },
+  'contact.whatsapp': { en: 'Chat on WhatsApp', gu: 'WhatsApp પર ચેટ' },
+  'contact.call':     { en: 'Call us', gu: 'ફોન કરો' },
+
+  'calc.title':     { en: 'Savings Calculator', gu: 'બચત ગણો' },
+  'calc.subtitle':  { en: 'See how much you save on labour, chemicals, and time.', gu: 'મજૂરી, દવા, સમય — બધું ગણો.' },
+  'calc.landSize':  { en: 'Land size (vigha)', gu: 'જમીન (વીઘા)' },
+  'calc.cropType':  { en: 'Crop', gu: 'પાક' },
+  'calc.laborCost': { en: 'Labour cost/day (₹)', gu: 'મજૂરી/દિવસ (₹)' },
+  'calc.calculate': { en: 'Calculate', gu: 'ગણો' },
+  'calc.savings':   { en: 'Estimated savings', gu: 'અંદાજિત બચત' },
+  'calc.timeSaved': { en: 'Days saved', gu: 'દિવસ બચ્યા' },
+  'calc.days':      { en: 'days', gu: 'દિવસ' },
+
+  'appt.title':           { en: 'Book farm work', gu: 'ખેતીનું કામ બુક કરો' },
+  'appt.selectDate':      { en: 'Select dates', gu: 'તારીખ પસંદ કરો' },
+  'appt.selectImplement': { en: 'Which machine?', gu: 'કયું મશીન?' },
+  'appt.farmSize':        { en: 'Farm size', gu: 'ખેતરનું કદ' },
+  'appt.total':           { en: 'Estimated cost', gu: 'અંદાજિત ખર્ચ' },
+  'appt.payUpi':          { en: 'Pay advance via UPI', gu: 'UPI થી એડવાન્સ' },
+  'appt.confirm':         { en: 'Submit request', gu: 'રિક્વેસ્ટ મોકલો' },
+  'appt.fieldReady':      { en: 'Field is ready for work', gu: 'ખેતર કામ માટે તૈયાર' },
+  'appt.irrigationDone':  { en: 'Irrigation is completed', gu: 'સિંચાઈ પૂર્ણ' },
+  'appt.obstructions':    { en: 'No obstructions in the field', gu: 'ખેતરમાં અવરોધ નથી' },
+  'appt.disclaimer':      { en: 'Note: Field readiness affects cost. No guarantee of yield improvement.', gu: 'નોંધ: ખેતર ની સ્થિતિ ખર્ચ ને અસર કરે. ઉપજ સુધારાની ગેરંટી નથી.' },
+  'appt.requestReceived': { en: 'Request received!', gu: 'રિક્વેસ્ટ મળી ગઈ!' },
+  'appt.confirmWhatsApp': { en: "We'll confirm on WhatsApp", gu: 'WhatsApp પર કન્ફર્મ' },
+
+  'common.learnMore': { en: 'Learn more', gu: 'વધુ જાણો' },
+  'common.vigha':     { en: 'Vigha',     gu: 'વીઘા' },
+  'common.acre':      { en: 'Acre',      gu: 'એકર' },
+  'common.hectare':   { en: 'Hectare',   gu: 'હેક્ટર' },
 };
 
 interface LanguageContextType {
@@ -108,12 +97,12 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>('gu');
 
   const t = (key: string): string => {
-    const translation = translations[key];
-    if (!translation) return key;
-    return translation[language] || translation.en || key;
+    const entry = translations[key];
+    if (!entry) return key;
+    return entry[language] ?? entry.en ?? key;
   };
 
   return (
@@ -125,8 +114,6 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
 
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
-  if (!context) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
+  if (!context) throw new Error('useLanguage must be used within LanguageProvider');
   return context;
 };

@@ -1,87 +1,141 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { buildWaLink } from "@/components/WhatsAppButton";
 import heroImage from "@/assets/hero-gujarat.jpg";
+import onionHarvesterImg from "@/assets/implement-onion-harvester.jpg";
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+
+  const waMsg = language === 'gu'
+    ? 'નમસ્તે ખેત-સાથી — મારે મશીન વિશે જાણવું છે.'
+    : 'Hello Khet Saathi — I want to know about your machines.';
 
   return (
-    <section className="relative min-h-[100svh] flex items-center pt-16 md:pt-20">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={heroImage}
-          alt="Gujarat farmland at sunset"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/85 via-foreground/60 to-foreground/30" />
-      </div>
+    <section className="relative pt-16 overflow-hidden bg-cream">
+      {/* Bandhani dot pattern top-right */}
+      <div
+        className="absolute right-0 top-0 w-1/2 h-2/3 bandhani-bg pointer-events-none"
+        style={{
+          opacity: 0.28,
+          maskImage: 'radial-gradient(ellipse at top right, black 30%, transparent 70%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at top right, black 30%, transparent 70%)',
+        }}
+      />
 
-      {/* Content */}
-      <div className="container relative z-10 py-12 md:py-20">
-        <div className="max-w-xl">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-primary/90 backdrop-blur-sm text-primary-foreground px-4 py-2 rounded-full mb-6 animate-fade-up">
-            <MapPin className="w-4 h-4" />
-            <span className="text-sm font-medium">{t('hero.badge')}</span>
-          </div>
+      <div className="container relative z-10 py-12 md:py-16 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Left: text */}
+          <div>
+            {/* Eyebrow */}
+            <p className="eyebrow-label text-ink-soft mb-4">
+              {t('hero.badge')}
+            </p>
 
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-background leading-tight mb-6 animate-fade-up animation-delay-100 whitespace-pre-line">
-            {t('hero.title')}
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-base md:text-lg lg:text-xl text-background/90 mb-8 animate-fade-up animation-delay-200 leading-relaxed">
-            {t('hero.subtitle')}
-          </p>
-
-          {/* Crop Tags */}
-          <div className="flex flex-wrap gap-2 mb-8 animate-fade-up animation-delay-200">
-            <span className="px-3 py-1 bg-onion/80 text-background text-sm font-medium rounded-full">{t('crop.onion')}</span>
-            <span className="px-3 py-1 bg-cotton text-foreground text-sm font-medium rounded-full">{t('crop.cotton')}</span>
-            <span className="px-3 py-1 bg-groundnut/80 text-background text-sm font-medium rounded-full">{t('crop.groundnut')}</span>
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-up animation-delay-300">
-            <Button asChild variant="hero" size="xl" className="group">
-              <Link to="/appointments">
-                {t('hero.cta.book')}
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
-            <Button 
-              asChild
-              variant="outline" 
-              size="xl" 
-              className="bg-background/10 text-background border-background/30 hover:bg-background/20 hover:text-background"
+            {/* Headline */}
+            <h1
+              className={`text-5xl sm:text-6xl lg:text-7xl font-display font-black text-ink mb-4 leading-none ${language === 'gu' ? 'font-gujarati' : ''}`}
             >
-              <a href="tel:+919876543210">
-                {t('hero.cta.call')}
+              {language === 'gu' ? (
+                <>
+                  ખેતી{' '}
+                  <span className="italic text-terracotta-deep">વધુ</span>{' '}
+                  <span
+                    className="inline-block bg-kesar border-2 border-ink px-3"
+                    style={{ transform: 'rotate(-1.5deg)', boxShadow: '5px 5px 0 #2C1810' }}
+                  >
+                    કમાણી
+                  </span>{' '}
+                  ની.
+                </>
+              ) : (
+                <>
+                  Farming that{' '}
+                  <span className="italic text-terracotta-deep">makes</span>{' '}
+                  <span
+                    className="inline-block bg-kesar border-2 border-ink px-3"
+                    style={{ transform: 'rotate(-1.5deg)', boxShadow: '5px 5px 0 #2C1810' }}
+                  >
+                    more money
+                  </span>
+                  .
+                </>
+              )}
+            </h1>
+
+            <p className={`text-lg text-ink-soft mb-8 max-w-md leading-relaxed ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {t('hero.subtitle')}
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+              <a
+                href={buildWaLink(waMsg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-monsoon text-cream border-2 border-ink font-bold text-lg py-3 px-6 rounded shadow-chunky-sm active:translate-x-1 active:translate-y-1 active:shadow-none transition-shadow"
+              >
+                <span className="w-6 h-6 rounded-full bg-cream text-monsoon flex items-center justify-center text-xs font-black">✓</span>
+                <span className={language === 'gu' ? 'font-gujarati' : ''}>{t('hero.cta.whatsapp')}</span>
               </a>
-            </Button>
+              <Link
+                to="/implements"
+                className="inline-flex items-center justify-center gap-2 bg-cream-deep border-2 border-ink text-ink font-bold text-lg py-3 px-6 rounded shadow-chunky-sm active:translate-x-1 active:translate-y-1 active:shadow-none transition-shadow"
+              >
+                <span className={language === 'gu' ? 'font-gujarati' : ''}>{t('hero.cta.machines')}</span>
+                <span>→</span>
+              </Link>
+            </div>
+
+            {/* Trust badges */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { en: '20 km radius', gu: '20 કિ.મી. રેન્જ' },
+                { en: 'Operator included', gu: 'ઓપરેટર સાથે' },
+                { en: '3 crops', gu: '3 પાક' },
+              ].map((b) => (
+                <span
+                  key={b.en}
+                  className="font-mono text-xs uppercase tracking-wider border border-ink-fade/60 text-ink-soft px-3 py-1 rounded-full"
+                >
+                  {language === 'gu' ? b.gu : b.en}
+                </span>
+              ))}
+            </div>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="flex flex-wrap gap-6 sm:gap-10 mt-10 pt-8 border-t border-background/20 animate-fade-up animation-delay-400">
-            <div className="text-background">
-              <p className="text-2xl md:text-3xl font-display">200+</p>
-              <p className="text-sm text-background/70">{t('stats.farmers')}</p>
+          {/* Right: stacked images */}
+          <div className="relative hidden lg:block" style={{ minHeight: 380 }}>
+            {/* Main image tilted */}
+            <div
+              className="absolute inset-0 z-10"
+              style={{ transform: 'rotate(2deg)', top: 0, bottom: 40, right: 0 }}
+            >
+              <img
+                src={onionHarvesterImg}
+                alt="Onion harvester in the field, Mota Asrana"
+                className="w-full h-full object-cover border-2 border-ink"
+                style={{ boxShadow: '8px 8px 0 #2C1810', borderRadius: 8 }}
+              />
             </div>
-            <div className="text-background">
-              <p className="text-2xl md:text-3xl font-display">15+</p>
-              <p className="text-sm text-background/70">{t('stats.implements')}</p>
-            </div>
-            <div className="text-background">
-              <p className="text-2xl md:text-3xl font-display">50+</p>
-              <p className="text-sm text-background/70">{t('stats.villages')}</p>
+            {/* Inset card bottom-left */}
+            <div
+              className="absolute bottom-0 left-0 w-2/5 z-20"
+              style={{ transform: 'rotate(-4deg)' }}
+            >
+              <img
+                src={heroImage}
+                alt="Gujarat farmland"
+                className="w-full object-cover border-2 border-ink"
+                style={{ aspectRatio: '4/3', boxShadow: '5px 5px 0 #2C1810', borderRadius: 6 }}
+              />
             </div>
           </div>
         </div>
       </div>
+
+      {/* Bottom patola strip divider */}
+      <div className="patola-strip mt-2" />
     </section>
   );
 };

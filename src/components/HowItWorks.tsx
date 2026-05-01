@@ -1,65 +1,73 @@
-import { Search, Calendar, Truck } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const HowItWorks = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   const steps = [
-    {
-      icon: Search,
-      title: t('how.step1.title'),
-      description: t('how.step1.desc'),
-    },
-    {
-      icon: Calendar,
-      title: t('how.step2.title'),
-      description: t('how.step2.desc'),
-    },
-    {
-      icon: Truck,
-      title: t('how.step3.title'),
-      description: t('how.step3.desc'),
-    },
+    { num: '01', title: t('how.step1.title'), desc: t('how.step1.desc') },
+    { num: '02', title: t('how.step2.title'), desc: t('how.step2.desc') },
+    { num: '03', title: t('how.step3.title'), desc: t('how.step3.desc') },
   ];
 
   return (
-    <section className="py-16 md:py-24 gradient-warm">
-      <div className="container">
-        {/* Section Header */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display text-foreground mb-4">
+    <section className="bg-ink py-14 md:py-20 relative overflow-hidden">
+      {/* Subtle bandhani dot pattern */}
+      <div
+        className="absolute right-0 top-0 bottom-0 w-1/2 pointer-events-none bandhani-bg"
+        style={{
+          opacity: 0.08,
+          maskImage: 'radial-gradient(ellipse at right center, black 25%, transparent 70%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at right center, black 25%, transparent 70%)',
+        }}
+      />
+
+      <div className="container relative z-10">
+        {/* Header */}
+        <div className="mb-12">
+          <p className="eyebrow-label text-kesar-glow mb-3">
+            {language === 'gu' ? '◆ ત્રણ પગલાં ◆' : '◆ Three steps ◆'}
+          </p>
+          <h2 className={`text-4xl md:text-5xl font-display font-black text-cream leading-tight ${language === 'gu' ? 'font-gujarati' : ''}`}>
             {t('how.title')}
           </h2>
         </div>
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="relative text-center group"
-            >
-              {/* Connector Line (desktop only) */}
-              {index < steps.length - 1 && (
-                <div className="hidden md:block absolute top-12 left-[60%] w-[80%] h-0.5 bg-gradient-to-r from-primary/50 to-transparent" />
-              )}
-
-              {/* Icon */}
-              <div className="relative mx-auto w-24 h-24 rounded-full gradient-hero flex items-center justify-center mb-6 shadow-glow group-hover:scale-110 transition-transform duration-300">
-                <step.icon className="w-10 h-10 text-primary-foreground" />
-                {/* Step Number */}
-                <span className="absolute -top-2 -right-2 w-8 h-8 rounded-full gradient-green text-accent-foreground text-sm font-bold flex items-center justify-center shadow-green">
-                  {index + 1}
-                </span>
+        {/* Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {steps.map((step, i) => (
+            <div key={i} className="flex flex-col gap-4">
+              {/* Big number */}
+              <div
+                className="text-7xl font-black leading-none"
+                style={{ color: 'rgba(246,192,85,0.25)', fontVariantNumeric: 'tabular-nums' }}
+              >
+                {step.num}
               </div>
-
+              {/* Divider */}
+              <div className="w-12 h-1 bg-kesar" />
               {/* Content */}
-              <h3 className="font-display text-xl md:text-2xl text-foreground mb-3">
+              <h3 className={`text-xl font-bold text-cream ${language === 'gu' ? 'font-gujarati' : ''}`}>
                 {step.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed max-w-xs mx-auto">
-                {step.description}
+              <p className={`text-cream-sunk leading-relaxed ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {step.desc}
               </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Promise footer */}
+        <div className="mt-14 pt-8 border-t border-kesar/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          {[
+            { k: '20 km', l: { en: 'service radius', gu: 'સર્વિસ રેન્જ' } },
+            { k: '6',     l: { en: 'machines available', gu: 'મશીન ઉપલબ્ધ' } },
+            { k: '100%',  l: { en: 'operator included', gu: 'ઓપરેટર સાથે' } },
+          ].map((s, i) => (
+            <div key={i} className="flex items-baseline gap-3">
+              <span className="text-4xl font-black text-kesar-glow leading-none">{s.k}</span>
+              <span className={`text-cream-sunk text-sm ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {language === 'gu' ? s.l.gu : s.l.en}
+              </span>
             </div>
           ))}
         </div>

@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Implement } from "@/data/implements";
 
@@ -9,91 +7,101 @@ interface ImplementCardProps {
   implement: Implement;
 }
 
+const cropColors: Record<string, string> = {
+  onion: 'bg-mauve text-ink',
+  cotton: 'bg-ink-soft text-cream',
+  groundnut: 'bg-kesar text-ink',
+};
+
 const ImplementCard = ({ implement }: ImplementCardProps) => {
   const { language, t } = useLanguage();
   const name = implement.name[language];
-  const description = implement.description[language];
+  const tagline = implement.tagline[language];
+
+  const specVal = (v: string | { en: string; gu: string }) =>
+    typeof v === 'string' ? v : v[language];
 
   return (
-    <Card className="group overflow-hidden border-border/50 hover:shadow-card transition-all duration-300 hover:-translate-y-1 bg-card">
+    <div className="group flex flex-col overflow-hidden border-2 border-ink bg-cream-deep rounded-lg shadow-chunky-sm hover:shadow-chunky transition-shadow duration-200">
       {/* Image */}
-      <div className="relative aspect-square overflow-hidden bg-muted">
+      <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
         <img
           src={implement.image}
           alt={name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <Badge
-          className={`absolute top-3 right-3 ${
-            implement.available
-              ? "bg-success text-primary-foreground"
-              : "bg-muted-foreground text-primary-foreground"
-          }`}
-        >
-          {implement.available ? t('implements.available') : t('implements.busy')}
-        </Badge>
-        
-        {/* Crop Tags */}
-        <div className="absolute bottom-3 left-3 flex gap-1">
+        {/* Availability badge */}
+        <span className={`absolute top-3 right-3 px-2 py-1 text-xs font-bold font-mono rounded border-2 border-ink ${
+          implement.available ? 'bg-monsoon text-cream' : 'bg-ink-fade text-cream'
+        }`}>
+          {implement.available ? (language === 'gu' ? 'ઉપલબ્ધ' : 'Available') : (language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon')}
+        </span>
+        {/* Crop chips */}
+        <div className="absolute bottom-3 left-3 flex flex-wrap gap-1">
           {implement.crops.map((crop) => (
-            <span
-              key={crop}
-              className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                crop === 'onion' ? 'bg-onion/90 text-background' :
-                crop === 'cotton' ? 'bg-cotton text-foreground' :
-                'bg-groundnut/90 text-background'
-              }`}
-            >
+            <span key={crop} className={`px-2 py-0.5 text-xs font-semibold rounded-full ${cropColors[crop] ?? 'bg-cream text-ink'}`}>
               {t(`crop.${crop}`)}
             </span>
           ))}
         </div>
       </div>
 
-      <CardContent className="p-4 md:p-5">
-        {/* Brand */}
-        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">
-          {implement.brand}
+      <div className="flex flex-col flex-1 p-4">
+        {/* Category eyebrow */}
+        <p className="text-xs font-mono uppercase tracking-widest text-ink-fade mb-1">
+          {t(`cat.${implement.category}`)}
         </p>
 
         {/* Name */}
-        <h3 className="font-display text-lg md:text-xl text-foreground mb-2 line-clamp-1">
+        <h3 className={`font-display text-lg text-ink mb-1 line-clamp-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
           {name}
         </h3>
 
-        {/* Description */}
-        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
-          {description}
+        {/* Tagline */}
+        <p className={`text-sm text-ink-soft mb-3 line-clamp-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+          {tagline}
         </p>
 
-        {/* Specs */}
-        <ul className="flex flex-wrap gap-2 mb-4">
-          {implement.specs.slice(0, 2).map((spec, index) => (
-            <li
-              key={index}
-              className="text-xs bg-muted text-muted-foreground px-2 py-1 rounded"
-            >
-              {spec}
-            </li>
+        {/* First two specs */}
+        <div className="flex flex-wrap gap-2 mb-4">
+          {implement.specs.slice(0, 2).map((spec, i) => (
+            <span key={i} className="text-xs font-mono bg-cream border border-ink-fade/40 text-ink-soft px-2 py-0.5 rounded">
+              {specVal(spec.value)}
+            </span>
           ))}
-        </ul>
+        </div>
 
         {/* Price & CTA */}
-        <div className="flex items-end justify-between pt-3 border-t border-border">
+        <div className="mt-auto flex items-end justify-between pt-3 border-t-2 border-dashed border-ink-fade/40">
           <div>
-            <p className="text-2xl font-display text-foreground">
-              Rs.{implement.pricePerBigha.toLocaleString('en-IN')}
-              <span className="text-sm font-sans text-muted-foreground">{t('implements.perBigha')}</span>
-            </p>
+            {implement.pricePerVigha ? (
+              <>
+                <span className="text-2xl font-bold text-ink">
+                  ₹{implement.pricePerVigha.toLocaleString('en-IN')}
+                </span>
+                <span className={`block text-xs font-mono text-ink-fade ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                  {implement.priceUnit[language]}
+                </span>
+              </>
+            ) : (
+              <span className="text-sm font-semibold text-ink-fade">
+                {language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon'}
+              </span>
+            )}
           </div>
-          <Button asChild variant="default" size="sm" disabled={!implement.available}>
+          <Button
+            asChild
+            size="sm"
+            disabled={!implement.available}
+            className="bg-kesar text-ink border-2 border-ink shadow-chunky-sm hover:bg-kesar-deep font-bold"
+          >
             <Link to={`/appointments?implement=${implement.id}`}>
-              {t('implements.book')}
+              {language === 'gu' ? 'બુક કરો' : 'Book'}
             </Link>
           </Button>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
