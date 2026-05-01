@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Hind+Vadodara:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Hind+Vadodara:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -128,9 +128,13 @@
   }
 
   h1.gu, h2.gu, .heading-gu {
-    font-family: 'Hind Vadodara', serif;
+    font-family: 'Tiro Devanagari Hindi', 'Hind Vadodara', serif;
     letter-spacing: -0.005em;
     line-height: 1.25;
+  }
+
+  .font-gujarati-display {
+    font-family: 'Tiro Devanagari Hindi', 'Hind Vadodara', serif;
   }
 }
 

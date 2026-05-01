@@ -25,6 +25,7 @@ export interface Implement {
   available: boolean;
   comingSoon?: boolean;
   popular?: boolean;
+  hero?: boolean;
   tone: 'kesar' | 'terracotta' | 'monsoon' | 'mauve' | 'ink';
 }
 
@@ -95,6 +96,7 @@ export const implements_data: Implement[] = [
     ],
     available: true,
     popular: true,
+    hero: true,
     tone: 'kesar',
   },
   {
@@ -165,7 +167,77 @@ export const implements_data: Implement[] = [
     ],
     available: true,
     popular: true,
+    hero: true,
     tone: 'kesar',
+  },
+  {
+    id: 'pneumatic-planter',
+    category: 'planting',
+    name: { en: 'Pneumatic Planter — 4 rows', gu: 'પ્ન્યુમેટિક પ્લાન્ટર — 4 રો' },
+    tagline: { en: 'Precision sowing for cotton & groundnut', gu: 'કપાસ અને મગફળી માટે ચોક્કસ વાવણી' },
+    description: {
+      en: 'Shaktiman SVPP 4-row pneumatic planter — drops seed at exact spacing and exact depth. For cotton and groundnut, this is the difference between uneven stand and half the crop. Adding it after we\'ve nailed onion.',
+      gu: 'Shaktiman SVPP 4-રો — ચોક્કસ અંતરે અને ઊંડે બીજ. કપાસ અને મગફળી માટે ડુંગળી પર નંબર આવ્યા પછી ઉમેરીશું.',
+    },
+    image: 'https://shaktimanagro.com/wp-content/uploads/2026/01/0D5A3962-copy.png',
+    pricePerVigha: null,
+    priceUnit: { en: 'Coming soon', gu: 'ટૂંક સમયમાં' },
+    crops: ['cotton', 'groundnut'],
+    replaces: { en: 'Hand sowing, seed wastage', gu: 'હાથ-વાવણી, બીજનો બગાડ' },
+    specs: [
+      { label: { en: 'Model', gu: 'મોડેલ' }, value: 'Shaktiman SVPP (shoe type)' },
+      { label: { en: 'Rows', gu: 'રો' }, value: '4' },
+      { label: { en: 'Status', gu: 'સ્થિતિ' }, value: { en: 'Pricing TBD', gu: 'મૂલ્યાંકન ચાલુ' } },
+    ],
+    available: false,
+    comingSoon: true,
+    tone: 'mauve',
+  },
+  {
+    id: 'groundnut-thresher',
+    category: 'harvest',
+    name: { en: 'Groundnut Thresher', gu: 'મગફળી થ્રેશર' },
+    tagline: { en: 'Shells and separates — without hand labour', gu: 'મગફળી છોડાવી, શીંગો અલગ — મજૂરી વગર' },
+    description: {
+      en: 'Siddhanath thresher — separates groundnut from the plant with clean pods out the back. What used to take a field of hands now takes a day. Coming for groundnut farmers soon.',
+      gu: 'Siddhanath થ્રેશર — ચરાતા મગફળી માંથી શીંગો અલગ, દાણા ચોખ્ખા. હાથે તોડવું કરતાં — હવે એક દિવસ. ટૂંક સમયમાં.',
+    },
+    image: groundnutDiggerImg,
+    pricePerVigha: null,
+    priceUnit: { en: 'Coming soon', gu: 'ટૂંક સમયમાં' },
+    crops: ['groundnut'],
+    replaces: { en: 'Hand shelling', gu: 'હાથે મગફળી તોડવી' },
+    specs: [
+      { label: { en: 'Model', gu: 'મોડેલ' }, value: 'Siddhanath Thresher' },
+      { label: { en: 'Status', gu: 'સ્થિતિ' }, value: { en: 'Sourcing', gu: 'સોર્સિંગ ચાલુ' } },
+      { label: { en: 'Pilot', gu: 'પાઇલટ' }, value: { en: 'Season 2026-27', gu: 'સિઝન 2026-27' } },
+    ],
+    available: false,
+    comingSoon: true,
+    tone: 'terracotta',
+  },
+  {
+    id: 'laser-deweeder',
+    category: 'crop-season',
+    name: { en: 'Laser De-Weeder', gu: 'લેઝર દેવીડર' },
+    tagline: { en: 'AI-guided laser, zero chemicals', gu: 'AI લેઝર — દવા વગર નીંદણ' },
+    description: {
+      en: 'AI camera identifies weeds, laser burns them. No chemicals, no contact with the crop. Still under development — get in touch if you want to pilot on your farm.',
+      gu: 'કેમેરા થી નીંદણ ઓળખે, લેઝર થી બાળી દે. કોઈ રસાયણ નહીં. હજી ડેવલપમેન્ટ માં — તમારા ખેતર માટે ટેસ્ટ કરવા માંગો?',
+    },
+    image: rotavatorImg,
+    pricePerVigha: null,
+    priceUnit: { en: 'Coming soon', gu: 'ટૂંક સમયમાં' },
+    crops: ['onion', 'cotton', 'groundnut'],
+    replaces: { en: 'Herbicide spray, hand weeding', gu: 'હર્બિસાઇડ, હાથ-નીંદણ' },
+    specs: [
+      { label: { en: 'Technology', gu: 'ટેકનોલોજી' }, value: 'AI + Laser' },
+      { label: { en: 'Status', gu: 'સ્થિતિ' }, value: { en: 'In development', gu: 'વિકાસ હેઠળ' } },
+      { label: { en: 'Pilot', gu: 'પાઇલટ' }, value: { en: 'Season 2026-27', gu: 'સિઝન 2026-27' } },
+    ],
+    available: false,
+    comingSoon: true,
+    tone: 'mauve',
   },
 ];
 

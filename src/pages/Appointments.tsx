@@ -2,305 +2,316 @@ import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Calendar } from "@/components/ui/calendar";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import WhatsAppButton, { buildWaLink } from "@/components/WhatsAppButton";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
-import { implements_data, getImplementById } from "@/data/implements";
-import { CreditCard, CheckCircle, AlertTriangle } from "lucide-react";
-import { DateRange } from "react-day-picker";
+import { implements_data } from "@/data/implements";
 
-type AreaUnit = 'bigha' | 'acre' | 'hectare';
+const CROPS = [
+  { id: 'onion',     gu: 'ડુંગળી',  en: 'Onion'     },
+  { id: 'cotton',    gu: 'કપાસ',    en: 'Cotton'    },
+  { id: 'groundnut', gu: 'મગફળી',  en: 'Groundnut' },
+];
 
-const convertToBigha = (value: number, unit: AreaUnit): number => {
-  switch (unit) {
-    case 'acre':
-      return value * 1.6; // 1 acre ≈ 1.6 bigha (Gujarat)
-    case 'hectare':
-      return value * 4; // 1 hectare ≈ 4 bigha (Gujarat)
-    default:
-      return value;
-  }
-};
+const TIMING = [
+  { id: 'week1', gu: 'આ અઠવાડિયે', en: 'This week' },
+  { id: 'week2', gu: 'આગળ અઠવાડિયે', en: 'Next week' },
+  { id: 'twoweeks', gu: '2 અઠવાડિયામાં', en: 'In 2 weeks' },
+  { id: 'month', gu: 'આ મહિનામાં', en: 'This month' },
+  { id: 'later', gu: 'પછી', en: 'Later — just exploring' },
+];
+
+const availableImplements = implements_data.filter(i => i.available);
 
 const Appointments = () => {
-  const { language, t } = useLanguage();
-  const { toast } = useToast();
+  const { language } = useLanguage();
   const [searchParams] = useSearchParams();
-  const preselectedId = searchParams.get('implement');
+  const preselectedId = searchParams.get('implement') ?? '';
 
-  const [step, setStep] = useState(1);
-  const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [selectedImplement, setSelectedImplement] = useState(preselectedId || "");
-  const [farmSize, setFarmSize] = useState("5");
-  const [areaUnit, setAreaUnit] = useState<AreaUnit>('bigha');
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  
-  // Checklist states
-  const [fieldReady, setFieldReady] = useState(false);
-  const [irrigationDone, setIrrigationDone] = useState(false);
-  const [noObstructions, setNoObstructions] = useState(false);
+  // WhatsApp path state
+  const [waImplement, setWaImplement] = useState(preselectedId);
+  const [waCrop, setWaCrop] = useState('');
 
-  const implement = getImplementById(selectedImplement);
-  const farmSizeInVigha = convertToBigha(parseFloat(farmSize) || 0, areaUnit);
-  const total = implement?.pricePerVigha != null ? implement.pricePerVigha * farmSizeInVigha : 0;
+  // Form path state
+  const [formName, setFormName] = useState('');
+  const [formVillage, setFormVillage] = useState('');
+  const [formCrop, setFormCrop] = useState('');
+  const [formImplement, setFormImplement] = useState(preselectedId);
+  const [formTiming, setFormTiming] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const isValidPhone = (p: string) => /^[6-9]\d{9}$/.test(p.replace(/\D/g, '').slice(-10));
+  const waImpl = availableImplements.find(i => i.id === waImplement);
+  const waCropLabel = CROPS.find(c => c.id === waCrop);
 
-  const handleContinueToStep2 = () => {
-    if (!selectedImplement || !dateRange?.from) {
-      toast({ title: "Please select work type and dates", variant: "destructive" });
-      return;
-    }
-    setStep(2);
+  const buildWaMsg = () => {
+    const impl = waImpl?.name[language] ?? waImplement;
+    const crop = waCropLabel ? (language === 'gu' ? waCropLabel.gu : waCropLabel.en) : waCrop;
+    return language === 'gu'
+      ? `નમસ્તે ખેત-સાથી — મારે ${impl} ${crop} ના ખેત માટે બુક કરવું છે. ઉપલબ્ધતા જણાવો.`
+      : `Hello Khet Saathi — I'd like to book ${impl} for ${crop}. Please confirm availability.`;
   };
 
-  const handleContinueToStep3 = () => {
-    if (!name.trim() || !phone.trim() || !farmSize) {
-      toast({ title: "Please fill all fields", variant: "destructive" });
-      return;
-    }
-    if (!isValidPhone(phone)) {
-      toast({ title: "Please enter a valid 10-digit Indian mobile number", variant: "destructive" });
-      return;
-    }
-    setStep(3);
+  const buildFormWaMsg = () => {
+    const impl = availableImplements.find(i => i.id === formImplement)?.name[language] ?? formImplement;
+    const crop = CROPS.find(c => c.id === formCrop);
+    const cropLabel = crop ? (language === 'gu' ? crop.gu : crop.en) : formCrop;
+    const timing = TIMING.find(t => t.id === formTiming);
+    const timingLabel = timing ? (language === 'gu' ? timing.gu : timing.en) : formTiming;
+    return language === 'gu'
+      ? `નમસ્તે ખેત-સાથી — ${formName}, ${formVillage} — ${impl} ${cropLabel} ના ખેત માટે ${timingLabel} — ઉપલબ્ધતા ચેક કરો.`
+      : `Hello Khet Saathi — ${formName} from ${formVillage} — wants ${impl} for ${cropLabel}, timing: ${timingLabel}.`;
   };
 
-  const handlePayment = () => {
-    if (!fieldReady || !irrigationDone || !noObstructions) {
-      toast({ title: "Please confirm all checklist items", variant: "destructive" });
-      return;
-    }
-    // Simulate UPI payment
-    toast({ title: "Redirecting to UPI...", description: "Complete payment in your UPI app" });
-    setTimeout(() => setStep(4), 1500);
+  const canOpenWa = waImplement && waCrop;
+  const canSubmitForm = formName.trim() && formVillage.trim() && formCrop && formImplement && formTiming;
+
+  const handleFormSubmit = () => {
+    if (!canSubmitForm) return;
+    setFormSubmitted(true);
   };
+
+  const headingStyle = (gu: boolean) => ({
+    fontFamily: gu ? "'Tiro Devanagari Hindi', 'Hind Vadodara', serif" : "'Playfair Display', serif",
+    fontWeight: 800,
+  });
+
+  const selectClass = "w-full border-2 border-ink rounded-lg px-3 py-2.5 bg-cream text-ink font-semibold outline-none focus:ring-2 focus:ring-kesar";
+  const inputClass = "w-full border-2 border-ink rounded-lg px-3 py-2.5 bg-cream text-ink font-semibold outline-none focus:ring-2 focus:ring-kesar placeholder:text-ink-fade placeholder:font-normal";
+  const labelClass = `block text-sm font-bold text-ink mb-1.5 ${language === 'gu' ? 'font-gujarati' : ''}`;
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="pt-16">
         <section className="py-12 md:py-16">
-          <div className="container max-w-2xl">
-            <div className="text-center mb-10">
-              <h1 className="text-3xl md:text-4xl font-display text-foreground mb-2">
-                {t('appt.title')}
-              </h1>
-            </div>
+          <div className="container max-w-4xl">
+            <p className="eyebrow-label text-ink-soft mb-3">
+              {language === 'gu' ? 'બુકિંગ' : 'Booking'}
+            </p>
+            <h1
+              className="text-ink mb-3"
+              style={{
+                ...headingStyle(language === 'gu'),
+                fontSize: 'clamp(28px, 4vw, 44px)',
+                lineHeight: language === 'gu' ? 1.3 : 1.15,
+              }}
+            >
+              {language === 'gu' ? 'ખેતીનું કામ બુક કરો' : 'Book farm work'}
+            </h1>
+            <p className={`text-ink-soft text-lg mb-10 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {language === 'gu'
+                ? 'WhatsApp — ઝડપ. ફોર્મ — જો ઈ-મેઈલ ની ટેવ હોય.'
+                : 'WhatsApp is fastest. Form works too.'}
+            </p>
 
-            {/* Progress Steps */}
-            <div className="flex justify-center gap-4 mb-8">
-              {[1, 2, 3, 4].map((s) => (
-                <div key={s} className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${step >= s ? 'gradient-hero text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
-                  {s}
-                </div>
-              ))}
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
 
-            <div className="bg-card rounded-2xl p-6 md:p-8 shadow-card">
-              {/* Step 1: Select Work & Date Range */}
-              {step === 1 && (
-                <div className="space-y-5">
-                  <div>
-                    <Label>{t('appt.selectImplement')}</Label>
-                    <Select value={selectedImplement} onValueChange={setSelectedImplement}>
-                      <SelectTrigger className="mt-1">
-                        <SelectValue placeholder={t('appt.selectImplement')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {implements_data.filter(i => i.available).map((impl) => (
-                          <SelectItem key={impl.id} value={impl.id}>
-                            {impl.name[language]}{impl.pricePerVigha ? ` — ₹${impl.pricePerVigha}/${t('common.vigha').toLowerCase()}` : ''}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label>{t('appt.selectDate')}</Label>
-                    <p className="text-sm text-muted-foreground mb-2">Select a date range for the work</p>
-                    <div className="mt-2 flex justify-center">
-                      <Calendar
-                        mode="range"
-                        selected={dateRange}
-                        onSelect={setDateRange}
-                        disabled={(date) => date < new Date()}
-                        className="rounded-lg border"
-                        numberOfMonths={1}
-                      />
-                    </div>
-                    {dateRange?.from && (
-                      <p className="text-sm text-center mt-2 text-muted-foreground">
-                        {dateRange.from.toLocaleDateString()} 
-                        {dateRange.to ? ` - ${dateRange.to.toLocaleDateString()}` : ''}
-                      </p>
-                    )}
-                  </div>
-
-                  <Button onClick={handleContinueToStep2} variant="hero" size="lg" className="w-full" disabled={!selectedImplement || !dateRange?.from}>
-                    Continue
-                  </Button>
-                </div>
-              )}
-
-              {/* Step 2: Farm Details */}
-              {step === 2 && (
-                <div className="space-y-5">
-                  <div>
-                    <Label>Your Name</Label>
-                    <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter your name" className="mt-1" />
+              {/* === WhatsApp Path === */}
+              <div className="border-2 border-ink rounded-lg bg-cream shadow-chunky-sm overflow-hidden">
+                <div className="bg-monsoon px-5 py-4 border-b-2 border-ink flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-cream flex items-center justify-center font-black text-monsoon text-sm">
+                    WA
                   </div>
                   <div>
-                    <Label>Phone Number</Label>
-                    <Input
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value.replace(/[^\d\s+()-]/g, ''))}
-                      placeholder="+91 97230 00299"
-                      type="tel"
-                      inputMode="numeric"
-                      maxLength={15}
-                      className="mt-1"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>{t('appt.farmSize')}</Label>
-                    <div className="flex gap-2 mt-1">
-                      <Input 
-                        type="number" 
-                        min="1" 
-                        max="500"
-                        value={farmSize} 
-                        onChange={(e) => setFarmSize(e.target.value)} 
-                        className="flex-1"
-                      />
-                      <Select value={areaUnit} onValueChange={(v) => setAreaUnit(v as AreaUnit)}>
-                        <SelectTrigger className="w-28">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="bigha">{t('common.vigha')}</SelectItem>
-                          <SelectItem value="acre">{t('common.acre')}</SelectItem>
-                          <SelectItem value="hectare">{t('common.hectare')}</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    {areaUnit !== 'bigha' && (
-                      <p className="text-sm text-muted-foreground mt-1">
-                        ≈ {farmSizeInVigha.toFixed(1)} {t('common.vigha')}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="bg-muted rounded-xl p-4">
-                    <p className="text-sm text-muted-foreground mb-2">{t('appt.total')}</p>
-                    <p className="text-3xl font-display text-foreground">₹{total.toLocaleString('en-IN')}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      ({implement?.name[language]} × {farmSizeInVigha.toFixed(1)} {t('common.vigha').toLowerCase()})
+                    <p className={`font-bold text-cream leading-none ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                      {language === 'gu' ? 'WhatsApp — 2 ક્લિક' : 'WhatsApp — 2 taps'}
+                    </p>
+                    <p className="text-cream/60 text-xs font-mono mt-0.5">
+                      {language === 'gu' ? 'ઝડપી, સહેલી' : 'Fastest option'}
                     </p>
                   </div>
-
-                  <div className="flex gap-3">
-                    <Button onClick={() => setStep(1)} variant="outline" size="lg" className="flex-1">
-                      Back
-                    </Button>
-                    <Button onClick={handleContinueToStep3} variant="hero" size="lg" className="flex-1">
-                      Continue
-                    </Button>
-                  </div>
                 </div>
-              )}
 
-              {/* Step 3: Checklist & Payment */}
-              {step === 3 && (
-                <div className="space-y-5">
-                  <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-4">
-                    <div className="flex items-start gap-3">
-                      <AlertTriangle className="w-5 h-5 text-amber-600 mt-0.5" />
-                      <div>
-                        <p className="font-medium text-amber-800 dark:text-amber-200 mb-2">Pre-work Checklist</p>
-                        
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-3">
-                            <Checkbox 
-                              id="fieldReady" 
-                              checked={fieldReady} 
-                              onCheckedChange={(c) => setFieldReady(c === true)}
-                            />
-                            <label htmlFor="fieldReady" className="text-sm text-amber-700 dark:text-amber-300 cursor-pointer">
-                              {t('appt.fieldReady')}
-                            </label>
-                          </div>
-                          
-                          <div className="flex items-center gap-3">
-                            <Checkbox 
-                              id="irrigation" 
-                              checked={irrigationDone} 
-                              onCheckedChange={(c) => setIrrigationDone(c === true)}
-                            />
-                            <label htmlFor="irrigation" className="text-sm text-amber-700 dark:text-amber-300 cursor-pointer">
-                              {t('appt.irrigationDone')}
-                            </label>
-                          </div>
-                          
-                          <div className="flex items-center gap-3">
-                            <Checkbox 
-                              id="obstructions" 
-                              checked={noObstructions} 
-                              onCheckedChange={(c) => setNoObstructions(c === true)}
-                            />
-                            <label htmlFor="obstructions" className="text-sm text-amber-700 dark:text-amber-300 cursor-pointer">
-                              {t('appt.obstructions')} (No / નહિ)
-                            </label>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground">
-                    {t('appt.disclaimer')}
-                  </div>
-
-                  <div className="bg-muted rounded-xl p-4">
-                    <p className="text-sm text-muted-foreground mb-2">{t('appt.total')}</p>
-                    <p className="text-3xl font-display text-foreground">₹{total.toLocaleString('en-IN')}</p>
-                  </div>
-
-                  <div className="flex gap-3">
-                    <Button onClick={() => setStep(2)} variant="outline" size="lg" className="flex-1">
-                      Back
-                    </Button>
-                    <Button 
-                      onClick={handlePayment} 
-                      variant="hero" 
-                      size="lg" 
-                      className="flex-1"
-                      disabled={!fieldReady || !irrigationDone || !noObstructions}
+                <div className="p-5 space-y-4">
+                  <div>
+                    <label className={labelClass}>
+                      {language === 'gu' ? 'મશીન' : 'Machine'}
+                    </label>
+                    <select
+                      value={waImplement}
+                      onChange={e => setWaImplement(e.target.value)}
+                      className={selectClass}
                     >
-                      <CreditCard className="w-5 h-5 mr-2" />
-                      {t('appt.payUpi')}
-                    </Button>
+                      <option value="">{language === 'gu' ? 'પસંદ કરો…' : 'Select…'}</option>
+                      {availableImplements.map(impl => (
+                        <option key={impl.id} value={impl.id}>
+                          {impl.name[language]}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                </div>
-              )}
 
-              {/* Step 4: Confirmation */}
-              {step === 4 && (
-                <div className="text-center py-8">
-                  <CheckCircle className="w-20 h-20 text-success mx-auto mb-4" />
-                  <h2 className="text-2xl font-display text-foreground mb-2">{t('appt.requestReceived')}</h2>
-                  <p className="text-muted-foreground">{t('appt.confirmWhatsApp')}</p>
+                  <div>
+                    <label className={labelClass}>
+                      {language === 'gu' ? 'પાક' : 'Crop'}
+                    </label>
+                    <select
+                      value={waCrop}
+                      onChange={e => setWaCrop(e.target.value)}
+                      className={selectClass}
+                    >
+                      <option value="">{language === 'gu' ? 'પસંદ કરો…' : 'Select…'}</option>
+                      {CROPS.map(c => (
+                        <option key={c.id} value={c.id}>
+                          {language === 'gu' ? c.gu : c.en}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <a
+                    href={canOpenWa ? buildWaLink(buildWaMsg()) : undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={e => { if (!canOpenWa) e.preventDefault(); }}
+                    className={`flex items-center justify-center gap-3 w-full py-3.5 rounded-lg border-2 border-ink font-bold text-lg transition-opacity ${
+                      canOpenWa
+                        ? 'bg-monsoon text-cream cursor-pointer'
+                        : 'bg-ink/20 text-ink-fade cursor-not-allowed'
+                    }`}
+                  >
+                    <span className="w-6 h-6 rounded-full bg-cream text-monsoon flex items-center justify-center text-xs font-black">✓</span>
+                    <span className={language === 'gu' ? 'font-gujarati' : ''}>
+                      {language === 'gu' ? 'WhatsApp ખોલો' : 'Open WhatsApp'}
+                    </span>
+                  </a>
                 </div>
-              )}
+              </div>
+
+              {/* === Form Path === */}
+              <div className="border-2 border-ink rounded-lg bg-cream shadow-chunky-sm overflow-hidden">
+                <div className="bg-cream-deep px-5 py-4 border-b-2 border-ink">
+                  <p className={`font-bold text-ink leading-none ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                    {language === 'gu' ? 'ફોર્મ ભરો' : 'Fill a form'}
+                  </p>
+                  <p className="text-ink-soft text-xs font-mono mt-0.5">
+                    {language === 'gu' ? 'અમે WhatsApp પર ફૉલો-અપ કરીશું' : 'We follow up on WhatsApp'}
+                  </p>
+                </div>
+
+                {formSubmitted ? (
+                  <div className="p-8 text-center">
+                    <div className="w-14 h-14 bg-kesar border-2 border-ink rounded-full flex items-center justify-center text-2xl mx-auto mb-4">✓</div>
+                    <p className={`font-bold text-ink text-lg mb-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                      {language === 'gu' ? 'મળ્યું!' : 'Got it!'}
+                    </p>
+                    <p className={`text-ink-soft text-sm mb-6 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                      {language === 'gu'
+                        ? 'WhatsApp પર ટૂંક સમયમાં જવાબ.'
+                        : "We'll reply on WhatsApp shortly."}
+                    </p>
+                    <a
+                      href={buildWaLink(buildFormWaMsg())}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 border-2 border-ink rounded-lg px-5 py-2.5 font-bold text-cream bg-monsoon"
+                    >
+                      <span className={language === 'gu' ? 'font-gujarati' : ''}>
+                        {language === 'gu' ? 'WhatsApp ખોલો' : 'Open WhatsApp'}
+                      </span>
+                    </a>
+                  </div>
+                ) : (
+                  <div className="p-5 space-y-4">
+                    <div>
+                      <label className={labelClass}>
+                        {language === 'gu' ? 'નામ' : 'Your name'}
+                      </label>
+                      <input
+                        type="text"
+                        value={formName}
+                        onChange={e => setFormName(e.target.value)}
+                        placeholder={language === 'gu' ? 'ભગવાનભાઈ...' : 'Full name'}
+                        className={inputClass}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>
+                        {language === 'gu' ? 'ગામ' : 'Village'}
+                      </label>
+                      <input
+                        type="text"
+                        value={formVillage}
+                        onChange={e => setFormVillage(e.target.value)}
+                        placeholder={language === 'gu' ? 'ગામ નું નામ...' : 'Village name'}
+                        className={inputClass}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>
+                        {language === 'gu' ? 'પાક' : 'Crop'}
+                      </label>
+                      <select
+                        value={formCrop}
+                        onChange={e => setFormCrop(e.target.value)}
+                        className={selectClass}
+                      >
+                        <option value="">{language === 'gu' ? 'પસંદ કરો…' : 'Select…'}</option>
+                        {CROPS.map(c => (
+                          <option key={c.id} value={c.id}>
+                            {language === 'gu' ? c.gu : c.en}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>
+                        {language === 'gu' ? 'મશીન' : 'Machine'}
+                      </label>
+                      <select
+                        value={formImplement}
+                        onChange={e => setFormImplement(e.target.value)}
+                        className={selectClass}
+                      >
+                        <option value="">{language === 'gu' ? 'પસંદ કરો…' : 'Select…'}</option>
+                        {availableImplements.map(impl => (
+                          <option key={impl.id} value={impl.id}>
+                            {impl.name[language]}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>
+                        {language === 'gu' ? 'ક્યારે?' : 'Approximate timing'}
+                      </label>
+                      <select
+                        value={formTiming}
+                        onChange={e => setFormTiming(e.target.value)}
+                        className={selectClass}
+                      >
+                        <option value="">{language === 'gu' ? 'પસંદ કરો…' : 'Select…'}</option>
+                        {TIMING.map(t => (
+                          <option key={t.id} value={t.id}>
+                            {language === 'gu' ? t.gu : t.en}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <button
+                      onClick={handleFormSubmit}
+                      disabled={!canSubmitForm}
+                      className={`w-full py-3.5 rounded-lg border-2 border-ink font-bold text-lg transition-opacity ${
+                        canSubmitForm
+                          ? 'bg-ink text-cream cursor-pointer'
+                          : 'bg-ink/20 text-ink-fade cursor-not-allowed'
+                      } ${language === 'gu' ? 'font-gujarati' : ''}`}
+                    >
+                      {language === 'gu' ? 'રિક્વેસ્ટ મોકલો' : 'Send request'}
+                    </button>
+
+                    <p className="text-xs text-ink-soft font-mono">
+                      {language === 'gu'
+                        ? '* ઉપજ સુધારા ની ગેરંટી નથી — ફક્ત ખર્ચ-બચત.'
+                        : '* No yield guarantee — cost savings only.'}
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>

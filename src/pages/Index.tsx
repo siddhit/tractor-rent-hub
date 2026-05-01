@@ -2,8 +2,9 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import BeforeAfter from "@/components/BeforeAfter";
 import PopularImplements from "@/components/PopularImplements";
-import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
+import HomePromise from "@/components/HomePromise";
+import FaqTeaser from "@/components/FaqTeaser";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
@@ -15,8 +16,9 @@ const Index = () => {
         <Hero />
         <BeforeAfter />
         <PopularImplements />
-        <HowItWorks />
         <Testimonials />
+        <HomePromise />
+        <FaqTeaser />
       </main>
       <Footer />
       <WhatsAppButton />

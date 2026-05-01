@@ -15,6 +15,7 @@ const translations: Translations = {
   'nav.appointments': { en: 'Book',     gu: 'બુક કરો' },
   'nav.calculator':   { en: 'Savings',  gu: 'ગણતરી' },
   'nav.about':        { en: 'About',    gu: 'અમારા વિશે' },
+  'nav.faq':          { en: 'FAQ',      gu: 'પ્રશ્નો' },
 
   'hero.badge':        { en: 'Mota Asrana · Mahuva · Saurashtra', gu: 'મોટા અસરાણા · મહુવા · સૌરાષ્ટ્ર' },
   'hero.title':        { en: 'Farming that makes more money.', gu: 'ખેતી વધુ કમાણી ની.' },

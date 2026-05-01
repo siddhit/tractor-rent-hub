@@ -21,6 +21,7 @@ export default {
         sans: ["Manrope", "system-ui", "sans-serif"],
         display: ["Playfair Display", "Hind Vadodara", "serif"],
         gujarati: ["Hind Vadodara", "Noto Sans Gujarati", "sans-serif"],
+        "gujarati-display": ["Tiro Devanagari Hindi", "Hind Vadodara", "serif"],
         mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
       },
       colors: {

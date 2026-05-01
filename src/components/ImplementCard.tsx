@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Implement } from "@/data/implements";
 
@@ -7,10 +6,18 @@ interface ImplementCardProps {
   implement: Implement;
 }
 
+const toneColors: Record<string, string> = {
+  kesar: 'var(--kesar)',
+  terracotta: 'var(--terracotta)',
+  monsoon: 'var(--monsoon)',
+  mauve: 'var(--mauve)',
+  ink: 'var(--ink)',
+};
+
 const cropColors: Record<string, string> = {
-  onion: 'bg-mauve text-ink',
-  cotton: 'bg-ink-soft text-cream',
-  groundnut: 'bg-kesar text-ink',
+  onion: 'bg-mauve text-ink border-ink',
+  cotton: 'bg-ink-soft text-cream border-ink',
+  groundnut: 'bg-kesar text-ink border-ink',
 };
 
 const ImplementCard = ({ implement }: ImplementCardProps) => {
@@ -21,25 +28,55 @@ const ImplementCard = ({ implement }: ImplementCardProps) => {
   const specVal = (v: string | { en: string; gu: string }) =>
     typeof v === 'string' ? v : v[language];
 
+  const hasPhoto = implement.image && !implement.image.startsWith('data:');
+
   return (
-    <div className="group flex flex-col overflow-hidden border-2 border-ink bg-cream-deep rounded-lg shadow-chunky-sm hover:shadow-chunky transition-shadow duration-200">
-      {/* Image */}
-      <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
-        <img
-          src={implement.image}
-          alt={name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        {/* Availability badge */}
-        <span className={`absolute top-3 right-3 px-2 py-1 text-xs font-bold font-mono rounded border-2 border-ink ${
-          implement.available ? 'bg-monsoon text-cream' : 'bg-ink-fade text-cream'
-        }`}>
-          {implement.available ? (language === 'gu' ? 'ઉપલબ્ધ' : 'Available') : (language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon')}
-        </span>
+    <div className="flex flex-col overflow-hidden border-2 border-ink bg-cream-deep rounded-lg shadow-chunky-sm relative">
+      {/* Coming soon badge */}
+      {implement.comingSoon && (
+        <div
+          className="absolute top-3 right-3 z-10 bg-ink text-kesar font-mono font-bold text-xs uppercase tracking-wider px-2 py-1 border-2 border-kesar rounded"
+          style={{ transform: 'rotate(3deg)' }}
+        >
+          {language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon'}
+        </div>
+      )}
+
+      {/* Image or coloured placeholder */}
+      <div className="relative overflow-hidden border-b-2 border-ink" style={{ aspectRatio: '4/3' }}>
+        {hasPhoto ? (
+          <img
+            src={implement.image}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div
+            style={{
+              width: '100%',
+              height: '100%',
+              background: `repeating-linear-gradient(135deg, rgba(44,24,16,0.08) 0 10px, rgba(44,24,16,0.02) 10px 20px), ${toneColors[implement.tone] ?? 'var(--cream-sunk)'}`,
+              position: 'relative',
+            }}
+          >
+            <span
+              style={{
+                position: 'absolute', left: 10, bottom: 10, right: 10,
+                fontFamily: 'IBM Plex Mono, monospace', fontSize: 11,
+                textTransform: 'uppercase', letterSpacing: '0.04em',
+                color: implement.tone === 'ink' || implement.tone === 'monsoon' ? 'var(--cream)' : 'var(--ink)',
+                background: implement.tone === 'ink' || implement.tone === 'monsoon' ? 'rgba(251,244,230,0.15)' : 'rgba(44,24,16,0.12)',
+                padding: '4px 8px', borderRadius: 3, lineHeight: 1.3,
+              }}
+            >
+              {name}
+            </span>
+          </div>
+        )}
         {/* Crop chips */}
-        <div className="absolute bottom-3 left-3 flex flex-wrap gap-1">
+        <div className="absolute bottom-2 left-2 flex flex-wrap gap-1">
           {implement.crops.map((crop) => (
-            <span key={crop} className={`px-2 py-0.5 text-xs font-semibold rounded-full ${cropColors[crop] ?? 'bg-cream text-ink'}`}>
+            <span key={crop} className={`px-2 py-0.5 text-xs font-semibold rounded-full border ${cropColors[crop] ?? 'bg-cream text-ink border-ink'}`}>
               {t(`crop.${crop}`)}
             </span>
           ))}
@@ -53,52 +90,45 @@ const ImplementCard = ({ implement }: ImplementCardProps) => {
         </p>
 
         {/* Name */}
-        <h3 className={`font-display text-lg text-ink mb-1 line-clamp-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+        <h3 className={`font-bold text-lg text-ink mb-1 leading-snug ${language === 'gu' ? 'font-gujarati' : 'font-display'}`}>
           {name}
         </h3>
 
         {/* Tagline */}
-        <p className={`text-sm text-ink-soft mb-3 line-clamp-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+        <p className={`text-sm text-ink-soft mb-3 leading-snug min-h-[2.5rem] ${language === 'gu' ? 'font-gujarati' : ''}`}>
           {tagline}
         </p>
 
-        {/* First two specs */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {implement.specs.slice(0, 2).map((spec, i) => (
-            <span key={i} className="text-xs font-mono bg-cream border border-ink-fade/40 text-ink-soft px-2 py-0.5 rounded">
-              {specVal(spec.value)}
-            </span>
-          ))}
-        </div>
-
         {/* Price & CTA */}
-        <div className="mt-auto flex items-end justify-between pt-3 border-t-2 border-dashed border-ink-fade/40">
+        <div className="mt-auto flex items-end justify-between pt-3 border-t-2 border-dashed border-ink/20">
           <div>
             {implement.pricePerVigha ? (
               <>
                 <span className="text-2xl font-bold text-ink">
                   ₹{implement.pricePerVigha.toLocaleString('en-IN')}
                 </span>
-                <span className={`block text-xs font-mono text-ink-fade ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                <span className={`block text-xs font-mono text-ink-fade uppercase tracking-wide ${language === 'gu' ? 'font-gujarati' : ''}`}>
                   {implement.priceUnit[language]}
                 </span>
               </>
             ) : (
-              <span className="text-sm font-semibold text-ink-fade">
-                {language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon'}
+              <span className="text-sm font-mono text-ink-fade uppercase tracking-wide">
+                {language === 'gu' ? 'ટૂંક સમયમાં' : 'In dev'}
               </span>
             )}
           </div>
-          <Button
-            asChild
-            size="sm"
-            disabled={!implement.available}
-            className="bg-kesar text-ink border-2 border-ink shadow-chunky-sm hover:bg-kesar-deep font-bold"
-          >
-            <Link to={`/appointments?implement=${implement.id}`}>
-              {language === 'gu' ? 'બુક કરો' : 'Book'}
+          {implement.available ? (
+            <Link
+              to={`/appointments?implement=${implement.id}`}
+              className="bg-kesar text-ink border-2 border-ink font-bold text-sm px-3 py-2 rounded shadow-chunky-sm active:translate-x-0.5 active:translate-y-0.5 active:shadow-none"
+            >
+              {language === 'gu' ? 'જુઓ →' : 'Open →'}
             </Link>
-          </Button>
+          ) : (
+            <span className="text-xs font-mono text-ink-fade border border-ink-fade/30 px-3 py-2 rounded">
+              {language === 'gu' ? 'જલ્દી' : 'Soon'}
+            </span>
+          )}
         </div>
       </div>
     </div>

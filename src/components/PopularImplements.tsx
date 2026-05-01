@@ -1,40 +1,50 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import ImplementCard from "./ImplementCard";
-import { getPopularImplements } from "@/data/implements";
+import { implements_data } from "@/data/implements";
+import ImplementCard from "@/components/ImplementCard";
+
+// Shows the 3 hero machines on the homepage (vacuum-seeder, bed-former, onion-harvester)
+const STRIP_IDS = ['vacuum-seeder', 'bed-former', 'onion-harvester'];
 
 const PopularImplements = () => {
-  const { language, t } = useLanguage();
-  const popular = getPopularImplements();
+  const { language } = useLanguage();
+
+  const strip = STRIP_IDS
+    .map(id => implements_data.find(i => i.id === id))
+    .filter(Boolean) as typeof implements_data;
 
   return (
-    <section className="bg-background py-14 md:py-20">
+    <section className="py-12 md:py-16 bg-cream">
       <div className="container">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+        <div className="flex items-end justify-between gap-4 mb-8">
           <div>
-            <p className="eyebrow-label text-ink-soft mb-3">
-              {language === 'gu' ? '◆ ચાર મશીન ◆' : '◆ Top machines ◆'}
+            <p className="eyebrow-label text-ink-soft mb-2">
+              {language === 'gu' ? '◆ સાત મશીન ◆' : '◆ Seven machines ◆'}
             </p>
-            <h2 className={`text-4xl md:text-5xl font-display font-black text-ink leading-tight ${language === 'gu' ? 'font-gujarati' : ''}`}>
-              {t('implements.title')}
+            <h2
+              className="text-ink"
+              style={{
+                fontFamily: language === 'gu' ? "'Tiro Devanagari Hindi', 'Hind Vadodara', serif" : "'Playfair Display', serif",
+                fontSize: 'clamp(32px, 5vw, 56px)',
+                fontWeight: 800,
+                lineHeight: language === 'gu' ? 1.25 : 1.05,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              {language === 'gu' ? 'સાત મશીન, એક ટીમ' : 'Seven machines, one team'}
             </h2>
-            <p className={`text-ink-soft mt-2 max-w-xl ${language === 'gu' ? 'font-gujarati' : ''}`}>
-              {t('implements.subtitle')}
-            </p>
           </div>
           <Link
             to="/implements"
-            className="inline-flex items-center gap-1 font-semibold text-ink border-b-2 border-ink pb-0.5 whitespace-nowrap self-start sm:self-end hover:text-kesar-deep hover:border-kesar-deep transition-colors"
+            className="shrink-0 border-2 border-ink text-ink font-bold text-sm px-4 py-2 rounded bg-cream-deep shadow-chunky-sm hover:bg-kesar transition-colors"
           >
-            {language === 'gu' ? 'બધા જુઓ' : 'See all'} →
+            {language === 'gu' ? 'બધા જુઓ →' : 'View all →'}
           </Link>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {popular.map((implement) => (
-            <ImplementCard key={implement.id} implement={implement} />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {strip.map((impl) => (
+            <ImplementCard key={impl.id} implement={impl} />
           ))}
         </div>
       </div>

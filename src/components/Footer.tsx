@@ -3,107 +3,107 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { buildWaLink } from "@/components/WhatsAppButton";
 
 const Footer = () => {
-  const { language, t } = useLanguage();
-  const year = new Date().getFullYear();
+  const { language } = useLanguage();
 
   const waMsg = language === 'gu'
     ? 'નમસ્તે ખેત-સાથી — મારે સંપર્ક કરવો છે.'
     : 'Hello Khet Saathi — I would like to get in touch.';
 
+  const links = [
+    { to: '/', gu: 'ઘરે', en: 'Home' },
+    { to: '/implements', gu: 'મશીન', en: 'Machines' },
+    { to: '/appointments', gu: 'બુક કરો', en: 'Book' },
+    { to: '/calculator', gu: 'ગણતરી', en: 'Savings' },
+    { to: '/faq', gu: 'પ્રશ્નો', en: 'FAQ' },
+  ];
+
+  const comingSoon = [
+    { gu: '/ પાક-વાર કેલેન્ડર', en: '/ Crop calendars' },
+    { gu: '/ UPI પેમેન્ટ', en: '/ Pay via UPI' },
+    { gu: '/ બુકિંગ હિસ્ટ્રી', en: '/ Booking history' },
+    { gu: '/ સર્વિસ-રેન્જ મેપ', en: '/ Service area map' },
+  ];
+
   return (
-    <footer className="bg-ink text-cream pt-12 pb-6">
+    <footer className="bg-ink text-cream pt-12 pb-6" style={{ borderTop: '4px solid var(--kesar)' }}>
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+
           {/* Brand column */}
-          <div className="md:col-span-1">
+          <div>
             <div className="flex items-center gap-3 mb-4">
               <div
-                className="w-10 h-10 bg-kesar border-2 border-kesar-glow flex items-center justify-center font-black text-xl text-ink"
-                style={{ transform: 'rotate(-3deg)', borderRadius: 6 }}
+                className="w-11 h-11 bg-kesar border-2 border-ink flex items-center justify-center font-black text-xl text-ink"
+                style={{ transform: 'rotate(-3deg)', borderRadius: 6, boxShadow: '2px 2px 0 var(--kesar-glow)' }}
               >
                 ખ
               </div>
               <div className="leading-tight">
-                <div className="font-gujarati font-bold text-xl text-cream">{t('brand.name')}</div>
-                <div className="font-mono text-[10px] text-cream/50 uppercase tracking-wider">{t('brand.tagline')}</div>
+                <div className="font-gujarati font-bold text-xl text-cream">
+                  {language === 'gu' ? 'ખેત-સાથી' : 'Khet Saathi'}
+                </div>
+                <div className="font-mono text-[10px] text-cream/50 uppercase tracking-wider">
+                  {language === 'gu' ? 'KHET SAATHI' : 'ખેત-સાથી'}
+                </div>
               </div>
             </div>
-            <p className={`text-cream/60 text-sm leading-relaxed max-w-xs ${language === 'gu' ? 'font-gujarati' : ''}`}>
-              {t('about.missionText')}
+            <p className={`text-cream/60 text-sm leading-relaxed max-w-xs mb-4 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {language === 'gu'
+                ? 'ખેતી નો સાથી — મોટા અસરાણા, મહુવા, સૌરાષ્ટ્ર.'
+                : "The farm's companion — Mota Asrana, Mahuva, Saurashtra."}
             </p>
+            <div className="font-mono text-xs text-kesar-glow tracking-wide mb-3">
+              WA +91 97230 00299
+            </div>
+            <a
+              href={buildWaLink(waMsg)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-monsoon text-cream border border-monsoon-deep text-sm font-bold px-4 py-2 rounded"
+            >
+              WhatsApp
+            </a>
           </div>
 
-          {/* Quick links */}
+          {/* Links column */}
           <div>
             <h4 className="font-mono text-xs uppercase tracking-widest text-kesar-glow mb-4">
-              {language === 'gu' ? 'ઝડપી લિન્ક' : 'Quick links'}
+              {language === 'gu' ? 'જોડાણ' : 'Links'}
             </h4>
             <ul className="space-y-2">
-              {[
-                { to: '/', label: t('nav.home') },
-                { to: '/implements', label: t('nav.implements') },
-                { to: '/appointments', label: t('nav.appointments') },
-                { to: '/calculator', label: t('nav.calculator') },
-                { to: '/about', label: t('nav.about') },
-              ].map((l) => (
+              {links.map((l) => (
                 <li key={l.to}>
                   <Link
                     to={l.to}
                     className={`text-cream/70 hover:text-cream transition-colors text-sm ${language === 'gu' ? 'font-gujarati' : ''}`}
                   >
-                    {l.label}
+                    {language === 'gu' ? l.gu : l.en}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Coming soon column */}
           <div>
             <h4 className="font-mono text-xs uppercase tracking-widest text-kesar-glow mb-4">
-              {t('contact.title')}
+              {language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon'}
             </h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <a
-                  href="tel:+919723000299"
-                  className="text-cream/70 hover:text-cream transition-colors"
-                >
-                  +91 97230 00299
-                </a>
-              </li>
-              <li>
-                <a
-                  href={buildWaLink(waMsg)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-cream/70 hover:text-cream transition-colors ${language === 'gu' ? 'font-gujarati' : ''}`}
-                >
-                  {t('contact.whatsapp')}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:hello@khetsaathi.in"
-                  className="text-cream/70 hover:text-cream transition-colors"
-                >
-                  hello@khetsaathi.in
-                </a>
-              </li>
-              <li className={`text-cream/50 ${language === 'gu' ? 'font-gujarati' : ''}`}>
-                {language === 'gu'
-                  ? 'મોટા અસરાણા, મહુવા, સૌરાષ્ટ્ર'
-                  : 'Mota Asrana, Mahuva, Saurashtra'}
-              </li>
+            <ul className="space-y-2">
+              {comingSoon.map((item, i) => (
+                <li key={i} className={`text-cream/50 text-sm ${language === 'gu' ? 'font-gujarati' : 'font-mono'}`}>
+                  {language === 'gu' ? item.gu : item.en}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
         {/* Bottom bar */}
         <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-cream/40 font-mono">
-          <p>© {year} Khet Saathi. All rights reserved.</p>
-          <p className={`font-gujarati not-italic ${language === 'gu' ? '' : 'opacity-60'}`}>
-            સૌરાષ્ટ્ર ના ખેડૂત ભાઈઓ માટે
+          <p>© {new Date().getFullYear()} Khet Saathi · {language === 'gu' ? 'સૌરાષ્ટ્ર થી' : 'From Saurashtra'}</p>
+          <p className={language === 'gu' ? 'font-gujarati' : ''}>
+            {language === 'gu' ? 'અમે ઉપજ ની ગેરંટી નથી આપતા — ફક્ત ખર્ચ-બચત.' : 'We promise cost savings — not yield.'}
           </p>
         </div>
       </div>
