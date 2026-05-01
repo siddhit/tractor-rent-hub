@@ -1,8 +1,9 @@
-import onionHarvesterImg from '@/assets/implement-onion-harvester.jpg';
-import boomSprayerImg from '@/assets/implement-boom-sprayer.jpg';
-import seedDrillImg from '@/assets/implement-seed-drill.jpg';
 import rotavatorImg from '@/assets/implement-rotavator.jpg';
 import groundnutDiggerImg from '@/assets/implement-groundnut-digger.jpg';
+
+const OLIMPIA_IMG = 'https://www.maschiogaspardo.com/media/assets/portale-pubblico/Semina/Seminatrici%20per%20ortaggi/OLIMPIA/Perche%CC%80%20scegliere/seminatrice-ortaggi-OLIMPIA-perche%20scegliere.jpg?width=800&auto=webp&quality=80';
+const PROTEKTOR_IMG = 'https://shaktimanagro.com/wp-content/uploads/2017/02/Shaktiman_Applications_Protektor_600_Image_1.jpg';
+const SGCH200_IMG = 'https://shaktiman-grimme.com/wp-content/uploads/elementor/thumbs/SGCH-200-Potato-HArvester-q781eyimkdgtgi8bkt8cyetqp0s7u2ze60hnhvrdw0.png';
 
 export interface ImplementSpec {
   label: { en: string; gu: string };
@@ -82,7 +83,7 @@ export const implements_data: Implement[] = [
       en: 'The Maschio Gaspardo OLIMPIA — a precision vacuum seeder built in Italy for vegetable crops. Drops onion seed at exact 1 cm depth with uniform spacing. No one else in the region has this machine.',
       gu: 'ઇટાલી ની Maschio Gaspardo OLIMPIA — ડુંગળી માટે ખાસ વેક્યુમ સીડર. ચોક્કસ 1 સેમી ઊંડે, એકસરખા અંતરે. આ આસપાસ ક્યાંય આ મશીન નથી.',
     },
-    image: seedDrillImg,
+    image: OLIMPIA_IMG,
     pricePerVigha: 2500,
     priceUnit: { en: 'per vigha', gu: 'પ્રતિ વીઘા' },
     crops: ['onion'],
@@ -105,7 +106,7 @@ export const implements_data: Implement[] = [
       en: 'Backpack pumps leave half the field over-sprayed and half under-sprayed. The Shaktiman Protektor 600 boom sprayer delivers even coverage across an 8 m boom — use ~30% less chemical for the same effect.',
       gu: 'હાથ-પમ્પ થી અડધે વધારે, અડધે ઓછું. Shaktiman Protektor 600 — 8 મી. પહોળો બૂમ, 30% ઓછી દવામાં એ જ કામ.',
     },
-    image: boomSprayerImg,
+    image: PROTEKTOR_IMG,
     pricePerVigha: 200,
     priceUnit: { en: 'per vigha / round (6 rounds/season)', gu: 'પ્રતિ વીઘા/રાઉન્ડ (6 રાઉન્ડ/સિઝન)' },
     crops: ['onion', 'cotton', 'groundnut'],
@@ -151,7 +152,7 @@ export const implements_data: Implement[] = [
       en: 'Peak season needs 10–15 labourers for 2–3 days. The Shaktiman-Grimme SGCH-200 finishes in one day, without damaging the bulbs. No alternative available anywhere nearby.',
       gu: 'પીક સિઝનમાં 10-15 મજૂર × 2-3 દિવસ. Shaktiman-Grimme SGCH-200 — એક જ દિવસ, ડુંગળી તૂટે નહીં. આ આસપાસ ક્યાંય મળે નહીં.',
     },
-    image: onionHarvesterImg,
+    image: SGCH200_IMG,
     pricePerVigha: 3500,
     priceUnit: { en: 'per vigha', gu: 'પ્રતિ વીઘા' },
     crops: ['onion'],
