@@ -26,8 +26,8 @@ const faqs = [
     gu: 'ચૂકવણી ની શું શરત?',
     en: 'What are the payment terms?',
     a: {
-      gu: '20-25% બુકિંગ વખતે, બાકી કામ પૂરું થાય એટલે. UPI, રોકડ, અથવા ચેક.',
-      en: '20-25% at booking, balance on completion. UPI, cash, or cheque.',
+      gu: 'ગાસ્પર્ડો માટે 50% એડવાન્સ. કલાક ના ભાવ ના મશીન (બેડ-ફોર્મર, ડિગર) માટે બુક કરેલા દરેક દિવસ દીઠ ₹1,500 ફ્લેટ એડવાન્સ. એડવાન્સ ફક્ત UPI થી, બાકી કામ પૂરું થાય એટલે.',
+      en: '50% advance for the Gaspardo. For the hourly machines (Bed Former, Digger) a flat ₹1,500 advance per day booked. Advance is UPI only; balance once the work is done.',
     },
   },
   {
@@ -42,8 +42,8 @@ const faqs = [
     gu: 'ઓછામાં ઓછા કેટલા વીઘા?',
     en: "What's the minimum area?",
     a: {
-      gu: 'સબ-સોઇલર અને બેડ-ફોર્મર માટે 2 વીઘા. મોટા મશીન માટે 5 વીઘા — વીઘા દીઠ ખર્ચ ઓછો.',
-      en: '2 vigha for sub-soiler and bed-former. 5 vigha recommended for bigger machines — better per-vigha economics.',
+      gu: 'બેડ-ફોર્મર માટે 2 વીઘા. બાકી મશીન માટે 5 વીઘા — વીઘા દીઠ ખર્ચ ઓછો.',
+      en: '2 vigha for the Bed Former. 5 vigha recommended for the others — better per-vigha economics.',
     },
   },
   {
@@ -58,8 +58,8 @@ const faqs = [
     gu: 'વરસાદ પડે ને તારીખ બદલાય તો?',
     en: 'What if rain pushes the date?',
     a: {
-      gu: 'કોઈ વાંધો નથી. આગળ ની ઉપલબ્ધ તારીખ પર ખસેડીએ. એડવાન્સ પાછો નહીં ફરે પણ બીજી તારીખ માં વાપરી શકાય.',
-      en: "No issue — we move you to the next available slot. Advance isn't refunded, but it carries to the new date.",
+      gu: 'જો અમે ન આવી શકીએ તો એડવાન્સ પૂરો પાછો. વરસાદ ના કારણે તારીખ ખસે તો એડવાન્સ નવી તારીખ માં વપરાય. તમે 24 કલાક ની અંદર બુકિંગ રદ કરો તો જ એડવાન્સ જાય.',
+      en: "Refunded in full if we can't come. If weather moves the date, the advance carries to the new date. It's forfeited only if you cancel inside 24 hours.",
     },
   },
   {
@@ -111,7 +111,7 @@ const Faq = () => {
     : 'Hello Khet Saathi — I have a question.';
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Header />
       <main className="pt-16">
         <section className="py-12 md:py-16">

@@ -3,15 +3,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { implements_data } from "@/data/implements";
 import ImplementCard from "@/components/ImplementCard";
 
-// Shows the 3 hero machines on the homepage (vacuum-seeder, bed-former, onion-harvester)
-const STRIP_IDS = ['vacuum-seeder', 'bed-former', 'onion-harvester'];
-
 const PopularImplements = () => {
   const { language } = useLanguage();
-
-  const strip = STRIP_IDS
-    .map(id => implements_data.find(i => i.id === id))
-    .filter(Boolean) as typeof implements_data;
 
   return (
     <section className="py-12 md:py-16 bg-cream">
@@ -19,7 +12,7 @@ const PopularImplements = () => {
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
             <p className="eyebrow-label text-ink-soft mb-2">
-              {language === 'gu' ? '◆ સાત મશીન ◆' : '◆ Seven machines ◆'}
+              {language === 'gu' ? '◆ ત્રણ મશીન ◆' : '◆ Three machines ◆'}
             </p>
             <h2
               className="text-ink"
@@ -31,7 +24,7 @@ const PopularImplements = () => {
                 letterSpacing: '-0.02em',
               }}
             >
-              {language === 'gu' ? 'સાત મશીન, એક ટીમ' : 'Seven machines, one team'}
+              {language === 'gu' ? 'ત્રણ મશીન, એક ટીમ' : 'Three machines, one team'}
             </h2>
           </div>
           <Link
@@ -43,7 +36,7 @@ const PopularImplements = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {strip.map((impl) => (
+          {implements_data.map((impl) => (
             <ImplementCard key={impl.id} implement={impl} />
           ))}
         </div>

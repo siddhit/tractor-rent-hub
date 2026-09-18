@@ -12,7 +12,6 @@ const Header = () => {
     { href: "/", label: t('nav.home') },
     { href: "/implements", label: t('nav.implements') },
     { href: "/appointments", label: t('nav.appointments') },
-    { href: "/calculator", label: t('nav.calculator') },
     { href: "/faq", label: t('nav.faq') },
     { href: "/about", label: t('nav.about') },
   ];
@@ -107,12 +106,6 @@ const Header = () => {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="tel:+919723000299"
-              className="mt-2 py-3 px-4 font-mono text-sm text-ink-soft"
-            >
-              +91 97230 00299
-            </a>
           </nav>
         </div>
       )}

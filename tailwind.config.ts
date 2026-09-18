@@ -34,6 +34,7 @@ export default {
         monsoon:    "#2D5A1B",
         "monsoon-deep":    "#1F3F12",
         mauve:      "#D4847A",
+        warn:       "#B84A1A",
         ink:        "#2C1810",
         "ink-soft": "#5A3F30",
         "ink-fade": "#8A6F5E",
@@ -94,6 +95,9 @@ export default {
       boxShadow: {
         chunky: "6px 6px 0 0 #2C1810",
         "chunky-sm": "3px 3px 0 0 #2C1810",
+      },
+      minHeight: {
+        dvh: "100dvh",
       },
       borderRadius: {
         lg: "var(--radius)",

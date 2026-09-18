@@ -1,6 +1,7 @@
+import { useLocation } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-
-const WA_NUMBER = "919723000299";
+import { WA_NUMBER } from "@/config";
+import { trackEvent } from "@/lib/analytics";
 
 export function buildWaLink(text: string) {
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
@@ -8,6 +9,10 @@ export function buildWaLink(text: string) {
 
 const WhatsAppButton = () => {
   const { language, t } = useLanguage();
+  const location = useLocation();
+
+  // Booking page has its own WhatsApp CTA as the primary action.
+  if (location.pathname === "/appointments") return null;
 
   const msg = language === 'gu'
     ? 'નમસ્તે ખેત-સાથી — મારે મશીન વિશે પૂછવું છે.'
@@ -18,7 +23,9 @@ const WhatsAppButton = () => {
       href={buildWaLink(msg)}
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed left-3 right-3 bottom-3 z-50 flex items-center justify-center gap-3 rounded-full bg-monsoon text-cream border-2 border-ink py-4 px-6 font-bold text-lg shadow-chunky active:translate-x-1 active:translate-y-1 active:shadow-none transition-shadow"
+      onClick={() => trackEvent('whatsapp_click', { machine: 'none' })}
+      className="fixed left-3 right-3 z-50 flex items-center justify-center gap-3 rounded-full bg-monsoon text-cream border-2 border-ink py-3 px-6 font-bold text-lg shadow-chunky active:translate-x-1 active:translate-y-1 active:shadow-none transition-shadow"
+      style={{ bottom: 'calc(12px + env(safe-area-inset-bottom))' }}
       aria-label="Chat on WhatsApp"
     >
       {/* WhatsApp icon glyph */}

@@ -16,7 +16,7 @@ const Implements = () => {
   const crops: CropFilter[] = ['all', 'onion', 'cotton', 'groundnut'];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Header />
       <main className="pt-16">
         {/* Page header */}
@@ -26,7 +26,7 @@ const Implements = () => {
               {language === 'gu' ? 'અમારી ફ્લીટ' : 'Our fleet'}
             </p>
             <h1 className={`text-4xl md:text-5xl font-display font-black text-ink mb-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
-              {language === 'gu' ? 'સાત મશીન. ત્રણ પાક. એક ટીમ.' : 'Seven machines. Three crops. One team.'}
+              {language === 'gu' ? 'ત્રણ મશીન. ત્રણ પાક. એક ટીમ.' : 'Three machines. Three crops. One team.'}
             </h1>
             <p className={`text-ink-soft max-w-xl ${language === 'gu' ? 'font-gujarati' : ''}`}>
               {language === 'gu'

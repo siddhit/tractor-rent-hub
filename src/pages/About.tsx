@@ -12,7 +12,7 @@ const About = () => {
     : 'Hello Khet Saathi — I would like to get in touch.';
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Header />
       <main className="pt-16">
         {/* Hero band */}
@@ -63,17 +63,7 @@ const About = () => {
               <h2 className={`text-2xl font-display font-black text-ink mb-6 ${language === 'gu' ? 'font-gujarati' : ''}`}>
                 {t('contact.title')}
               </h2>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <a
-                  href="tel:+919723000299"
-                  className="flex items-center gap-3 p-4 border-2 border-ink rounded-lg bg-cream hover:bg-kesar/20 transition-colors shadow-chunky-sm"
-                >
-                  <span className="text-2xl">📞</span>
-                  <div>
-                    <p className="font-bold text-ink">+91 97230 00299</p>
-                    <p className={`text-xs text-ink-soft ${language === 'gu' ? 'font-gujarati' : ''}`}>{t('contact.call')}</p>
-                  </div>
-                </a>
+              <div className="grid sm:grid-cols-3 gap-4">
                 <a
                   href={buildWaLink(waMsg)}
                   target="_blank"
