@@ -13,13 +13,11 @@ const Footer = () => {
     { to: '/', gu: 'ઘરે', en: 'Home' },
     { to: '/implements', gu: 'મશીન', en: 'Machines' },
     { to: '/appointments', gu: 'બુક કરો', en: 'Book' },
-    { to: '/calculator', gu: 'ગણતરી', en: 'Savings' },
     { to: '/faq', gu: 'પ્રશ્નો', en: 'FAQ' },
   ];
 
   const comingSoon = [
     { gu: '/ પાક-વાર કેલેન્ડર', en: '/ Crop calendars' },
-    { gu: '/ UPI પેમેન્ટ', en: '/ Pay via UPI' },
     { gu: '/ બુકિંગ હિસ્ટ્રી', en: '/ Booking history' },
     { gu: '/ સર્વિસ-રેન્જ મેપ', en: '/ Service area map' },
   ];
@@ -52,9 +50,6 @@ const Footer = () => {
                 ? 'ખેતી નો સાથી — મોટા અસરાણા, મહુવા, સૌરાષ્ટ્ર.'
                 : "The farm's companion — Mota Asrana, Mahuva, Saurashtra."}
             </p>
-            <div className="font-mono text-xs text-kesar-glow tracking-wide mb-3">
-              WA +91 97230 00299
-            </div>
             <a
               href={buildWaLink(waMsg)}
               target="_blank"
@@ -103,7 +98,7 @@ const Footer = () => {
         <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-cream/40 font-mono">
           <p>© {new Date().getFullYear()} Khet Saathi · {language === 'gu' ? 'સૌરાષ્ટ્ર થી' : 'From Saurashtra'}</p>
           <p className={language === 'gu' ? 'font-gujarati' : ''}>
-            {language === 'gu' ? 'અમે ઉપજ ની ગેરંટી નથી આપતા — ફક્ત ખર્ચ-બચત.' : 'We promise cost savings — not yield.'}
+            {language === 'gu' ? 'અમે ઉપજ સુધારા ની ગેરંટી નથી આપતા.' : "We don't guarantee yield improvement."}
           </p>
         </div>
       </div>

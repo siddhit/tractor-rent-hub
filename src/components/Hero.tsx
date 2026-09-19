@@ -62,8 +62,8 @@ const Hero = () => {
 
             <p className={`text-xl text-ink-soft mb-8 max-w-md leading-relaxed ${language === 'gu' ? 'font-gujarati' : ''}`}>
               {language === 'gu'
-                ? 'સાત મશીન. એક ભરોસાદાર ટીમ. ઓપરેટર સાથે. મોટા અસરાણા થી 20 કિ.મી. સુધી.'
-                : 'Seven machines. One reliable team. Operator included. 20 km from Mota Asrana.'}
+                ? 'એક ભરોસાદાર ટીમ. ઓપરેટર સાથે. મોટા અસરાણા થી 20 કિ.મી. સુધી.'
+                : 'One reliable team. Operator included. 20 km from Mota Asrana.'}
             </p>
 
             {/* CTAs */}

@@ -1,8 +1,13 @@
+// Disabled for the pilot — not routed to, no nav links point here (see App.tsx / Header.tsx / Footer.tsx).
+// The PARAMS service rates below (₹800/₹600/₹550 per vigha) contradict src/data/implements.ts
+// and produce a negative net saving at default inputs. To be rebuilt once real labour-cost
+// data arrives.
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 
 type Crop = 'onion' | 'cotton' | 'groundnut';
 
@@ -19,6 +24,10 @@ const PARAMS: Record<Crop, { service: number; labourCut: number; chemCut: number
 };
 
 const fmt = (n: number) => '₹' + Math.round(n).toLocaleString('en-IN');
+
+// Single source of truth for the question-step count (the result is STEPS + 1)
+// so the dot row and the step logic can't diverge again.
+const STEPS = 4;
 
 const StepDot = ({ n, active, done }: { n: number; active: boolean; done: boolean }) => (
   <div className={`w-8 h-8 rounded-full border-2 border-ink flex items-center justify-center font-mono font-bold text-sm transition-colors ${
@@ -55,7 +64,7 @@ const ROICalculator = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-dvh bg-background">
       <Header />
       <main className="pt-16">
         <section className="py-12 md:py-16">
@@ -76,10 +85,10 @@ const ROICalculator = () => {
 
             {/* Step dots */}
             <div className="flex items-center gap-2 mb-8">
-              {[1, 2, 3, 4].map((n, i) => (
+              {Array.from({ length: STEPS }, (_, i) => i + 1).map((n, i) => (
                 <div key={n} className="flex items-center gap-2">
                   <StepDot n={n} active={step === n} done={step > n} />
-                  {i < 3 && <div className={`h-0.5 w-8 ${step > n ? 'bg-kesar' : 'bg-ink/20'}`} />}
+                  {i < STEPS - 1 && <div className={`h-0.5 w-8 ${step > n ? 'bg-kesar' : 'bg-ink/20'}`} />}
                 </div>
               ))}
             </div>
@@ -211,8 +220,8 @@ const ROICalculator = () => {
                 </div>
               )}
 
-              {/* Step 5: Result */}
-              {step === 5 && result && crop && (
+              {/* Result */}
+              {step === STEPS + 1 && result && crop && (
                 <div>
                   <p className={`font-bold text-ink text-lg mb-5 ${language === 'gu' ? 'font-gujarati' : ''}`}>
                     {language === 'gu'
@@ -264,12 +273,12 @@ const ROICalculator = () => {
                     >
                       {language === 'gu' ? 'ફરી ગણો' : 'Recalculate'}
                     </button>
-                    <a
-                      href={`/appointments`}
+                    <Link
+                      to="/appointments"
                       className="flex-1 border-2 border-ink rounded-lg py-3 font-bold text-cream bg-ink text-center"
                     >
                       {language === 'gu' ? 'બુક કરો' : 'Book now'}
-                    </a>
+                    </Link>
                   </div>
                 </div>
               )}

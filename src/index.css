@@ -51,6 +51,7 @@
     --monsoon: #2D5A1B;
     --monsoon-deep: #1F3F12;
     --mauve: #D4847A;
+    --warn: #B84A1A;
     --ink: #2C1810;
     --ink-soft: #5A3F30;
     --ink-fade: #8A6F5E;
@@ -110,8 +111,8 @@
     font-family: 'Manrope', system-ui, sans-serif;
     font-size: 17px;
     line-height: 1.55;
-    /* Room for sticky WhatsApp pill */
-    padding-bottom: 80px;
+    /* Room for sticky WhatsApp pill, plus phones with a gesture bar */
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
   }
 
   h1, h2, h3, h4, h5, h6 {

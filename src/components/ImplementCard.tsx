@@ -25,23 +25,13 @@ const ImplementCard = ({ implement }: ImplementCardProps) => {
   const name = implement.name[language];
   const tagline = implement.tagline[language];
 
-  const specVal = (v: string | { en: string; gu: string }) =>
-    typeof v === 'string' ? v : v[language];
-
   const hasPhoto = implement.image && !implement.image.startsWith('data:');
+  const priceUnitLabel = implement.priceBasis === 'hour'
+    ? { en: 'per hour', gu: 'કલાક દીઠ' }
+    : { en: 'per vigha', gu: 'પ્રતિ વીઘા' };
 
   return (
     <div className="flex flex-col overflow-hidden border-2 border-ink bg-cream-deep rounded-lg shadow-chunky-sm relative">
-      {/* Coming soon badge */}
-      {implement.comingSoon && (
-        <div
-          className="absolute top-3 right-3 z-10 bg-ink text-kesar font-mono font-bold text-xs uppercase tracking-wider px-2 py-1 border-2 border-kesar rounded"
-          style={{ transform: 'rotate(3deg)' }}
-        >
-          {language === 'gu' ? 'ટૂંક સમયમાં' : 'Coming soon'}
-        </div>
-      )}
-
       {/* Image or coloured placeholder */}
       <div className="relative overflow-hidden border-b-2 border-ink" style={{ aspectRatio: '4/3' }}>
         {hasPhoto ? (
@@ -102,20 +92,12 @@ const ImplementCard = ({ implement }: ImplementCardProps) => {
         {/* Price & CTA */}
         <div className="mt-auto flex items-end justify-between pt-3 border-t-2 border-dashed border-ink/20">
           <div>
-            {implement.pricePerVigha ? (
-              <>
-                <span className="text-2xl font-bold text-ink">
-                  ₹{implement.pricePerVigha.toLocaleString('en-IN')}
-                </span>
-                <span className={`block text-xs font-mono text-ink-fade uppercase tracking-wide ${language === 'gu' ? 'font-gujarati' : ''}`}>
-                  {implement.priceUnit[language]}
-                </span>
-              </>
-            ) : (
-              <span className="text-sm font-mono text-ink-fade uppercase tracking-wide">
-                {language === 'gu' ? 'ટૂંક સમયમાં' : 'In dev'}
-              </span>
-            )}
+            <span className="text-2xl font-bold text-ink">
+              ₹{implement.price.toLocaleString('en-IN')}
+            </span>
+            <span className={`block text-xs font-mono text-ink-fade uppercase tracking-wide ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {priceUnitLabel[language]}
+            </span>
           </div>
           {implement.available ? (
             <Link
