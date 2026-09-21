@@ -12,7 +12,7 @@ const PopularImplements = () => {
         <div className="flex items-end justify-between gap-4 mb-8">
           <div>
             <p className="eyebrow-label text-ink-soft mb-2">
-              {language === 'gu' ? '◆ ત્રણ મશીન ◆' : '◆ Three machines ◆'}
+              {language === 'gu' ? '◆ ચાર મશીન ◆' : '◆ Four machines ◆'}
             </p>
             <h2
               className="text-ink"
@@ -24,7 +24,7 @@ const PopularImplements = () => {
                 letterSpacing: '-0.02em',
               }}
             >
-              {language === 'gu' ? 'ત્રણ મશીન, એક ટીમ' : 'Three machines, one team'}
+              {language === 'gu' ? 'ચાર મશીન, એક ટીમ' : 'Four machines, one team'}
             </h2>
           </div>
           <Link

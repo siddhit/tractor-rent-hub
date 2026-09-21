@@ -2,7 +2,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const stats = [
   { value: '20 km', gu: 'સર્વિસ રેન્જ', en: 'Service radius' },
-  { value: '3', gu: 'મશીન', en: 'Machines' },
+  { value: '4', gu: 'મશીન', en: 'Machines' },
   { value: '3', gu: 'પાક — ડુંગળી, કપાસ, મગફળી', en: 'Crops — onion, cotton, groundnut' },
   { value: '100%', gu: 'ઓપરેટર સાથે', en: 'Operator included' },
 ];
