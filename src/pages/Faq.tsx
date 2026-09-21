@@ -26,8 +26,8 @@ const faqs = [
     gu: 'ચૂકવણી ની શું શરત?',
     en: 'What are the payment terms?',
     a: {
-      gu: 'ગાસ્પર્ડો માટે 50% એડવાન્સ. કલાક ના ભાવ ના મશીન (બેડ-ફોર્મર, ડિગર) માટે બુક કરેલા દરેક દિવસ દીઠ ₹1,500 ફ્લેટ એડવાન્સ. એડવાન્સ ફક્ત UPI થી, બાકી કામ પૂરું થાય એટલે.',
-      en: '50% advance for the Gaspardo. For the hourly machines (Bed Former, Digger) a flat ₹1,500 advance per day booked. Advance is UPI only; balance once the work is done.',
+      gu: 'ગાસ્પર્ડો માટે 50% એડવાન્સ. કલાક ના ભાવ ના મશીન (બેડ-ફોર્મર, ડિગર) માટે બુક કરેલા દરેક દિવસ દીઠ ₹1,500 ફ્લેટ એડવાન્સ. આ સિઝન એડવાન્સ અને બાકી, બંને રોકડ થી — ઓપરેટર ને.',
+      en: '50% advance for the Gaspardo. For the hourly machines (Bed Former, Digger) a flat ₹1,500 advance per day booked. This season, both the advance and the balance are cash, paid to the operator.',
     },
   },
   {

@@ -5,7 +5,6 @@ import Footer from "@/components/Footer";
 import WhatsAppButton, { buildWaLink } from "@/components/WhatsAppButton";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { implements_data } from "@/data/implements";
-import { UPI_ID } from "@/config";
 import { trackEvent } from "@/lib/analytics";
 
 const CROPS = [
@@ -40,7 +39,6 @@ const Appointments = () => {
   const [vigha, setVigha] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
-  const [copied, setCopied] = useState(false);
 
   const machine = implements_data.find(i => i.id === machineId);
   const vighaNum = parseFloat(vigha);
@@ -108,16 +106,6 @@ const Appointments = () => {
     }
     trackEvent('whatsapp_click', { machine: machineId });
     trackEvent('booking_submit', { machine: machineId, crop, vigha: vighaNum });
-  };
-
-  const copyUpi = async () => {
-    try {
-      await navigator.clipboard.writeText(UPI_ID);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard API unavailable — nothing to fall back to on a placeholder VPA.
-    }
   };
 
   const headingStyle = (gu: boolean) => ({
@@ -315,51 +303,19 @@ const Appointments = () => {
               </span>
             </a>
 
-            {/* === Deposit / payment panel === */}
+            {/* === Payment note === */}
             <div className="mt-8 border-2 border-ink rounded-lg bg-monsoon text-cream shadow-chunky-sm p-5 md:p-6">
               <p className="eyebrow-label mb-2" style={{ color: 'var(--kesar-glow)' }}>
-                {language === 'gu' ? '◆ એડવાન્સ ભરો ◆' : '◆ Pay the deposit ◆'}
+                {language === 'gu' ? '◆ ચુકવણી ◆' : '◆ Payment ◆'}
               </p>
-              <h2 className={`text-xl font-bold text-cream mb-4 ${language === 'gu' ? 'font-gujarati' : ''}`}>
-                {language === 'gu' ? 'UPI થી ભરો' : 'Pay by UPI'}
+              <h2 className={`text-xl font-bold text-cream mb-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {language === 'gu' ? 'આ સિઝન — રોકડ થી' : 'This season — cash'}
               </h2>
-
-              <div className="flex flex-col sm:flex-row gap-4 items-start">
-                <div
-                  className="shrink-0 w-28 h-28 border-2 border-cream rounded flex items-center justify-center text-center px-2"
-                  style={{ background: 'repeating-linear-gradient(135deg, rgba(251,244,230,0.12) 0 8px, rgba(251,244,230,0.03) 8px 16px)' }}
-                >
-                  <span className="font-mono text-[10px] uppercase tracking-wide text-cream-sunk leading-snug">
-                    {/* TODO: real UPI QR once Makim's VPA is confirmed */}
-                    {language === 'gu' ? 'QR — UPI ID કન્ફર્મ થાય પછી' : 'QR — pending UPI ID'}
-                  </span>
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <p className="font-mono text-xs uppercase tracking-wider text-cream-sunk mb-1">
-                    {language === 'gu' ? 'UPI ID' : 'UPI ID'}
-                  </p>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <code className="bg-cream text-ink px-3 py-1.5 rounded border-2 border-ink font-mono text-sm">
-                      {UPI_ID}
-                    </code>
-                    <button
-                      type="button"
-                      onClick={copyUpi}
-                      className="border-2 border-cream text-cream font-bold text-sm px-3 py-1.5 rounded"
-                    >
-                      {copied
-                        ? (language === 'gu' ? 'કોપી થયું!' : 'Copied!')
-                        : (language === 'gu' ? 'કોપી કરો' : 'Copy')}
-                    </button>
-                  </div>
-                  <p className={`text-sm text-cream-sunk mt-3 ${language === 'gu' ? 'font-gujarati' : ''}`}>
-                    {language === 'gu'
-                      ? 'એડવાન્સ ભર્યા પછી, પેમેન્ટ નો સ્ક્રીનશોટ WhatsApp પર મોકલો.'
-                      : 'After paying the deposit, send the payment screenshot on WhatsApp.'}
-                  </p>
-                </div>
-              </div>
+              <p className={`text-sm text-cream-sunk ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                {language === 'gu'
+                  ? 'એડવાન્સ અને બાકી, બંને ઓપરેટર ને રોકડ થી આપો. ઓનલાઈન પેમેન્ટ ટૂંક સમયમાં ઉમેરીશું.'
+                  : "Both the advance and the balance are paid in cash to the operator. We'll add online payment later."}
+              </p>
             </div>
           </div>
         </section>
