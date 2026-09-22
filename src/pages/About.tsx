@@ -8,8 +8,8 @@ const About = () => {
   const { language, t } = useLanguage();
 
   const waMsg = language === 'gu'
-    ? 'નમસ્તે ખેત-સાથી — મારે સંપર્ક કરવો છે.'
-    : 'Hello Khet Saathi — I would like to get in touch.';
+    ? 'નમસ્તે Farmulya — મારે સંપર્ક કરવો છે.'
+    : 'Hello Farmulya — I would like to get in touch.';
 
   return (
     <div className="min-h-dvh bg-background">
@@ -23,13 +23,13 @@ const About = () => {
               className="w-16 h-16 bg-kesar border-2 border-kesar-glow flex items-center justify-center font-black text-3xl text-ink mx-auto mb-6 shadow-chunky-sm"
               style={{ transform: 'rotate(-3deg)', borderRadius: 8 }}
             >
-              ખ
+              F
             </div>
             <h1 className={`text-4xl md:text-5xl font-display font-black text-cream mb-3 ${language === 'gu' ? 'font-gujarati' : ''}`}>
               {t('about.title')}
             </h1>
-            <p className="font-mono text-xs uppercase tracking-widest text-kesar-glow">
-              {language === 'gu' ? 'KHET SAATHI · ખેત-સાથી' : 'ખેત-સાથી · KHET SAATHI'}
+            <p className={`font-mono text-xs uppercase tracking-widest text-kesar-glow ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {language === 'gu' ? 'Farmulya · ખેત મશીનરી' : 'FARMULYA · FARM MACHINERY'}
             </p>
           </div>
         </section>
@@ -77,12 +77,12 @@ const About = () => {
                   </div>
                 </a>
                 <a
-                  href="mailto:hello@khetsaathi.in"
+                  href="mailto:hello@farmulya.in"
                   className="flex items-center gap-3 p-4 border-2 border-ink rounded-lg bg-cream hover:bg-kesar/20 transition-colors shadow-chunky-sm"
                 >
                   <span className="text-2xl">✉️</span>
                   <div>
-                    <p className="font-bold text-ink">hello@khetsaathi.in</p>
+                    <p className="font-bold text-ink">hello@farmulya.in</p>
                     <p className="text-xs text-ink-soft">Email</p>
                   </div>
                 </a>

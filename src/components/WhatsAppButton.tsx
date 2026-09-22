@@ -15,8 +15,8 @@ const WhatsAppButton = () => {
   if (location.pathname === "/appointments") return null;
 
   const msg = language === 'gu'
-    ? 'નમસ્તે ખેત-સાથી — મારે મશીન વિશે પૂછવું છે.'
-    : 'Hello Khet Saathi — I would like to know more about your machines.';
+    ? 'નમસ્તે Farmulya — મારે મશીન વિશે પૂછવું છે.'
+    : 'Hello Farmulya — I would like to know more about your machines.';
 
   return (
     <a

@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "vite_react_shadcn_ts",
+      "name": "farmulya",
       "dependencies": {
         "@fontsource/dm-sans": "^5.2.8",
         "@fontsource/dm-serif-display": "^5.2.8",

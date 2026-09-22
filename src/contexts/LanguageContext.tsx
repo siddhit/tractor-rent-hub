@@ -7,8 +7,8 @@ interface Translations {
 }
 
 const translations: Translations = {
-  'brand.name':    { en: 'Khet Saathi', gu: 'ખેત-સાથી' },
-  'brand.tagline': { en: "The farm's companion", gu: 'ખેતી નો સાથી' },
+  'brand.name':    { en: 'Farmulya', gu: 'Farmulya' },
+  'brand.tagline': { en: "Real value for your farm", gu: 'તમારા ખેતરનું સાચું મૂલ્ય' },
 
   'nav.home':         { en: 'Home',     gu: 'ઘરે' },
   'nav.implements':   { en: 'Machines', gu: 'મશીન' },
@@ -49,7 +49,7 @@ const translations: Translations = {
   'wa.pill': { en: 'WhatsApp Us', gu: 'WhatsApp અમને' },
   'wa.sub':  { en: '24×7 · fast reply', gu: '24×7 · ઝડપી જવાબ' },
 
-  'about.title':       { en: 'About Khet Saathi', gu: 'ખેત-સાથી વિશે' },
+  'about.title':       { en: 'About Farmulya', gu: 'Farmulya વિશે' },
   'about.mission':     { en: 'Our Mission', gu: 'અમારું ધ્યેય' },
   'about.missionText': { en: 'We bring precision farm machinery — with a trained operator — to Saurashtra farmers. We own the machines, we train the operators, and we stand behind the work.', gu: 'સૌરાષ્ટ્ર ના ખેડૂત ભાઈઓ માટે ચોક્કસ ખેતી-મશીન — ઓપરેટર સહિત. અમારા મશીન, અમારા ઓપરેટર, અમારી જવાબદારી.' },
 

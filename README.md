@@ -1,4 +1,4 @@
-# Khet Saathi (ખેત-સાથી)
+# Farmulya
 
 Farmer-facing booking site for a farm machinery pilot (Gaspardo seeder, bed former, Protektor
 sprayer, groundnut digger) around Mota Asrana, Mahuva, Saurashtra. There is no backend: the
