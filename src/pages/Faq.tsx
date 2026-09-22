@@ -107,8 +107,8 @@ const Faq = () => {
   const { language } = useLanguage();
 
   const waMsg = language === 'gu'
-    ? 'નમસ્તે ખેત-સાથી — મારે પ્રશ્ન પૂછવો છે.'
-    : 'Hello Khet Saathi — I have a question.';
+    ? 'નમસ્તે Farmulya — મારે પ્રશ્ન પૂછવો છે.'
+    : 'Hello Farmulya — I have a question.';
 
   return (
     <div className="min-h-dvh bg-background">

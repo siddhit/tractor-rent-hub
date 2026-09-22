@@ -73,7 +73,7 @@ const Appointments = () => {
 
     if (language === 'gu') {
       return [
-        'ખેત-સાથી બુકિંગ',
+        'Farmulya બુકિંગ',
         `નામ: ${name}`,
         `ફોન: ${digitsOnly(phone)}`,
         `ગામ: ${village}`,
@@ -86,7 +86,7 @@ const Appointments = () => {
       ].join('\n');
     }
     return [
-      'Khet Saathi Booking',
+      'Farmulya Booking',
       `Name: ${name}`,
       `Phone: ${digitsOnly(phone)}`,
       `Village: ${village}`,

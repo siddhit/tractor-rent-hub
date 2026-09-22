@@ -1,14 +1,13 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { buildWaLink } from "@/components/WhatsAppButton";
-import onionHarvesterImg from "@/assets/implement-onion-harvester.jpg";
 
 const Hero = () => {
   const { language, t } = useLanguage();
 
   const waMsg = language === 'gu'
-    ? 'નમસ્તે ખેત-સાથી — મારે મશીન વિશે પૂછવું છે.'
-    : 'Hello Khet Saathi — I want to ask about machines.';
+    ? 'નમસ્તે Farmulya — મારે મશીન વિશે પૂછવું છે.'
+    : 'Hello Farmulya — I want to ask about machines.';
 
   return (
     <section className="relative overflow-hidden bg-cream pt-16">
@@ -25,12 +24,12 @@ const Hero = () => {
       />
 
       <div className="container relative z-10 py-12 md:py-16 lg:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="max-w-2xl">
 
-          {/* Left: tagline headline */}
+          {/* Tagline headline */}
           <div>
             <p className="eyebrow-label text-ink-soft mb-4">
-              {language === 'gu' ? 'ખેત-સાથી · મોટા અસરાણા' : 'Khet Saathi · Mota Asrana'}
+              {language === 'gu' ? 'Farmulya · મોટા અસરાણા' : 'Farmulya · Mota Asrana'}
             </p>
 
             <h1
@@ -100,48 +99,6 @@ const Hero = () => {
                   {language === 'gu' ? b.gu : b.en}
                 </span>
               ))}
-            </div>
-          </div>
-
-          {/* Right: stacked images */}
-          <div className="relative hidden lg:block" style={{ minHeight: 400 }}>
-            <div
-              className="absolute inset-0 z-10"
-              style={{ transform: 'rotate(2deg)', top: 0, bottom: 40, right: 0 }}
-            >
-              <img
-                src={onionHarvesterImg}
-                alt="Onion harvester in the field, Mota Asrana"
-                className="w-full h-full object-cover"
-                style={{ border: '3px solid var(--ink)', boxShadow: '8px 8px 0 var(--ink)', borderRadius: 8, aspectRatio: '1/1' }}
-              />
-            </div>
-            {/* Inset green placeholder bottom-left */}
-            <div
-              className="absolute bottom-0 left-0 w-2/5 z-20"
-              style={{ transform: 'rotate(-4deg)' }}
-            >
-              <div
-                style={{
-                  aspectRatio: '4/3',
-                  border: '3px solid var(--ink)',
-                  boxShadow: '6px 6px 0 var(--ink)',
-                  borderRadius: 6,
-                  background: 'repeating-linear-gradient(135deg, rgba(44,24,16,0.10) 0 10px, rgba(44,24,16,0.03) 10px 20px), var(--monsoon)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-              >
-                <span style={{
-                  position: 'absolute', left: 8, bottom: 8, right: 8,
-                  fontFamily: 'IBM Plex Mono, monospace', fontSize: 10,
-                  textTransform: 'uppercase', letterSpacing: '0.04em',
-                  color: 'var(--cream)', background: 'rgba(44,24,16,0.6)',
-                  padding: '3px 6px', borderRadius: 2,
-                }}>
-                  {language === 'gu' ? 'ઓપરેટર + બેડ-ફોર્મર' : 'Operator + bed-former'}
-                </span>
-              </div>
             </div>
           </div>
         </div>

@@ -22,19 +22,19 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-40 bg-cream border-b-2 border-ink">
       <div className="container flex items-center justify-between h-16">
         {/* Brand mark */}
-        <Link to="/" className="flex items-center gap-2.5 no-underline" aria-label="Khet Saathi home">
+        <Link to="/" className="flex items-center gap-2.5 no-underline" aria-label="Farmulya home">
           <div
             className="w-10 h-10 bg-kesar border-2 border-ink flex items-center justify-center font-black text-xl text-ink shadow-chunky-sm"
             style={{ transform: 'rotate(-3deg)', borderRadius: 6 }}
           >
-            ખ
+            F
           </div>
           <div className="leading-tight">
-            <div className="font-gujarati font-bold text-xl text-ink leading-none">
-              {language === 'gu' ? 'ખેત-સાથી' : 'Khet Saathi'}
+            <div className="font-display font-bold text-xl text-ink leading-none">
+              Farmulya
             </div>
-            <div className="font-mono text-[10px] text-ink-fade uppercase tracking-wider leading-none mt-0.5">
-              {language === 'gu' ? 'KHET SAATHI' : 'ખેત-સાથી'}
+            <div className={`font-mono text-[10px] text-ink-fade uppercase tracking-wider leading-none mt-0.5 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              {language === 'gu' ? 'ખેત મશીનરી' : 'FARM MACHINERY'}
             </div>
           </div>
         </Link>

@@ -6,8 +6,8 @@ const Footer = () => {
   const { language } = useLanguage();
 
   const waMsg = language === 'gu'
-    ? 'નમસ્તે ખેત-સાથી — મારે સંપર્ક કરવો છે.'
-    : 'Hello Khet Saathi — I would like to get in touch.';
+    ? 'નમસ્તે Farmulya — મારે સંપર્ક કરવો છે.'
+    : 'Hello Farmulya — I would like to get in touch.';
 
   const links = [
     { to: '/', gu: 'ઘરે', en: 'Home' },
@@ -34,21 +34,21 @@ const Footer = () => {
                 className="w-11 h-11 bg-kesar border-2 border-ink flex items-center justify-center font-black text-xl text-ink"
                 style={{ transform: 'rotate(-3deg)', borderRadius: 6, boxShadow: '2px 2px 0 var(--kesar-glow)' }}
               >
-                ખ
+                F
               </div>
               <div className="leading-tight">
-                <div className="font-gujarati font-bold text-xl text-cream">
-                  {language === 'gu' ? 'ખેત-સાથી' : 'Khet Saathi'}
+                <div className="font-display font-bold text-xl text-cream">
+                  Farmulya
                 </div>
-                <div className="font-mono text-[10px] text-cream/50 uppercase tracking-wider">
-                  {language === 'gu' ? 'KHET SAATHI' : 'ખેત-સાથી'}
+                <div className={`font-mono text-[10px] text-cream/50 uppercase tracking-wider ${language === 'gu' ? 'font-gujarati' : ''}`}>
+                  {language === 'gu' ? 'ખેત મશીનરી' : 'FARM MACHINERY'}
                 </div>
               </div>
             </div>
             <p className={`text-cream/60 text-sm leading-relaxed max-w-xs mb-4 ${language === 'gu' ? 'font-gujarati' : ''}`}>
               {language === 'gu'
-                ? 'ખેતી નો સાથી — મોટા અસરાણા, મહુવા, સૌરાષ્ટ્ર.'
-                : "The farm's companion — Mota Asrana, Mahuva, Saurashtra."}
+                ? 'ખેતરનું સાચું મૂલ્ય — મોટા અસરાણા, મહુવા, સૌરાષ્ટ્ર.'
+                : "Real value for your farm — Mota Asrana, Mahuva, Saurashtra."}
             </p>
             <a
               href={buildWaLink(waMsg)}
@@ -96,7 +96,7 @@ const Footer = () => {
 
         {/* Bottom bar */}
         <div className="border-t border-cream/10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-cream/40 font-mono">
-          <p>© {new Date().getFullYear()} Khet Saathi · {language === 'gu' ? 'સૌરાષ્ટ્ર થી' : 'From Saurashtra'}</p>
+          <p>© {new Date().getFullYear()} Farmulya · {language === 'gu' ? 'સૌરાષ્ટ્ર થી' : 'From Saurashtra'}</p>
           <p className={language === 'gu' ? 'font-gujarati' : ''}>
             {language === 'gu' ? 'અમે ઉપજ સુધારા ની ગેરંટી નથી આપતા.' : "We don't guarantee yield improvement."}
           </p>
