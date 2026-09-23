@@ -7,7 +7,7 @@ site's only output is a pre-filled WhatsApp link. Payment is cash-only this seas
 ## Stack
 
 React 18 + Vite + TypeScript + Tailwind + shadcn/ui, client-side routed with react-router-dom,
-deployed on Vercel.
+deployed on Vercel (auto-deploys from GitHub — see `vercel[bot]` on every PR).
 
 ## Getting started
 
@@ -28,4 +28,10 @@ Other scripts: `npm run build`, `npm run lint`, `npm run preview`.
 
 ## Deploying
 
-Push to the deployed branch; Vercel builds with `npm run build` and serves `dist/`.
+Vercel is connected directly to this GitHub repo: every push to `main` deploys to production,
+every PR gets its own preview URL. No `vercel.json` — Vercel's Vite framework preset builds with
+`npm run build` and serves `dist/`, including the SPA catch-all rewrite client-side routing needs.
+
+Custom domain (farmulya.in / farmulya.com, registered on GoDaddy): add it under the Vercel
+project's Settings → Domains, then add the DNS records Vercel gives you at GoDaddy's DNS
+management for that domain. No code change needed for this.
