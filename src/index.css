@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Hind+Vadodara:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,91 +6,61 @@
 
 @layer base {
   :root {
-    /* === Farmulya truck-art palette === */
-    /* Cream surfaces */
-    --background: 40 60% 95%;        /* #FBF4E6 cream */
-    --card: 39 53% 88%;              /* #F3E9CE cream-deep */
-    --popover: 40 60% 95%;
+    /* === Farmulya "Ledger" palette — white, black, green, orange only === */
+    --background: 0 0% 100%;
+    --card: 0 0% 100%;
+    --popover: 0 0% 100%;
 
-    /* Ink — black cotton soil */
-    --foreground: 15 47% 13%;        /* #2C1810 */
-    --card-foreground: 15 47% 13%;
-    --popover-foreground: 15 47% 13%;
+    --foreground: 0 0% 8%;           /* #141414 */
+    --card-foreground: 0 0% 8%;
+    --popover-foreground: 0 0% 8%;
 
-    /* Kesar — primary CTA */
-    --primary: 38 85% 52%;           /* #E8A020 */
-    --primary-foreground: 15 47% 13%;
+    --primary: 0 0% 8%;              /* black button fill */
+    --primary-foreground: 0 0% 100%;
 
-    /* Cream-deep as secondary */
-    --secondary: 39 53% 88%;
-    --secondary-foreground: 15 47% 13%;
+    --secondary: 60 8% 95%;          /* #F3F3F1 surface */
+    --secondary-foreground: 0 0% 8%;
 
-    /* Muted */
-    --muted: 38 30% 88%;
-    --muted-foreground: 15 25% 38%;  /* ink-soft */
+    --muted: 60 8% 95%;
+    --muted-foreground: 0 0% 42%;    /* #6B6B6B text-3 */
 
-    /* Monsoon green — trust/confirm */
-    --accent: 104 53% 23%;           /* #2D5A1B */
-    --accent-foreground: 40 60% 95%;
+    --accent: 103 54% 23%;           /* #2D5A1B green */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 16 74% 40%;
-    --destructive-foreground: 40 60% 95%;
+    --destructive: 18 75% 41%;       /* #B84A1A warn */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 15 47% 13%;            /* ink borders */
-    --input: 38 30% 85%;
-    --ring: 38 85% 52%;
+    --border: 60 6% 87%;             /* #E0E0DC line */
+    --input: 60 6% 79%;              /* #CCCCC6 line-input */
+    --ring: 38 81% 52%;              /* #E8A020 orange */
 
-    --radius: 0.5rem;
+    --radius: 14px;
 
-    /* Custom named tokens */
-    --kesar: #E8A020;
-    --kesar-deep: #C8851A;
-    --kesar-glow: #F6C055;
-    --terracotta: #C4834A;
-    --terracotta-deep: #A66832;
-    --monsoon: #2D5A1B;
-    --monsoon-deep: #1F3F12;
-    --mauve: #D4847A;
+    /* Named tokens */
+    --white: #FFFFFF;
+    --black: #141414;
+    --text-2: #444444;
+    --text-3: #6B6B6B;
+    --surface: #F3F3F1;
+    --line: #E0E0DC;
+    --line-soft: #EAEAE6;
+    --line-input: #CCCCC6;
+    --green: #2D5A1B;
+    --green-tint: #D5E4CB;
+    --orange: #E8A020;
+    --orange-deep: #C8851A;
+    --orange-glow: #F6C055;
+    --orange-tint: #FFF3D6;
     --warn: #B84A1A;
-    --ink: #2C1810;
-    --ink-soft: #5A3F30;
-    --ink-fade: #8A6F5E;
-    --cream: #FBF4E6;
-    --cream-deep: #F3E9CE;
-    --cream-sunk: #EBDEB8;
 
-    /* Chunky offset shadow */
-    --shadow-chunky: 6px 6px 0 0 #2C1810;
-    --shadow-chunky-sm: 3px 3px 0 0 #2C1810;
-
-    /* Legacy gradient vars kept for shadcn components */
-    --gradient-hero: linear-gradient(135deg, #E8A020 0%, #C8851A 100%);
-    --gradient-warm: linear-gradient(180deg, rgba(232,160,32,0.15) 0%, transparent 100%);
-    --gradient-card: linear-gradient(145deg, #FBF4E6 0%, #F3E9CE 100%);
-    --gradient-green: linear-gradient(135deg, #2D5A1B 0%, #1F3F12 100%);
-
-    --shadow-soft: 0 4px 20px -4px rgba(44,24,16,0.1);
-    --shadow-card: var(--shadow-chunky-sm);
-    --shadow-glow: 0 0 40px rgba(232,160,32,0.3);
-    --shadow-green: 0 4px 20px -4px rgba(45,90,27,0.3);
-
-    /* Crop badge colors */
-    --onion: 3 47% 65%;    /* mauve */
-    --cotton: 15 47% 13%;  /* ink */
-    --groundnut: 38 85% 52%; /* kesar */
-    --success: 104 53% 23%;
-    --warning: 38 85% 52%;
-    --earth: 27 50% 53%;
-
-    /* Sidebar */
-    --sidebar-background: 40 60% 95%;
-    --sidebar-foreground: 15 47% 13%;
-    --sidebar-primary: 38 85% 52%;
-    --sidebar-primary-foreground: 15 47% 13%;
-    --sidebar-accent: 104 53% 23%;
-    --sidebar-accent-foreground: 40 60% 95%;
-    --sidebar-border: 38 30% 85%;
-    --sidebar-ring: 38 85% 52%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 8%;
+    --sidebar-primary: 0 0% 8%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 103 54% 23%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 60 6% 87%;
+    --sidebar-ring: 38 81% 52%;
   }
 
   /* No dark mode — intentionally single-theme for farmer UX */
@@ -108,135 +78,69 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Manrope', system-ui, sans-serif;
+    font-family: 'Anek Gujarati', system-ui, sans-serif;
     font-size: 17px;
     line-height: 1.55;
-    /* Room for sticky WhatsApp pill, plus phones with a gesture bar */
-    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+    /* Room for the bottom dock, plus phones with a gesture bar */
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', 'Hind Vadodara', serif;
+    font-family: 'Anek Gujarati', system-ui, sans-serif;
     font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
     @apply text-foreground;
   }
 
-  /* Gujarati text class */
+  /* Gujarati text: same family, but needs looser leading and tighter tracking
+     so vowel marks don't collide. Kept as a class (not just :lang) since
+     components toggle it explicitly on the language switch. */
   .font-gujarati, :lang(gu), .gu {
-    font-family: 'Hind Vadodara', 'Noto Sans Gujarati', sans-serif;
-  }
-
-  h1.gu, h2.gu, .heading-gu {
-    font-family: 'Tiro Devanagari Hindi', 'Hind Vadodara', serif;
+    font-family: 'Anek Gujarati', system-ui, sans-serif;
     letter-spacing: -0.005em;
-    line-height: 1.25;
   }
 
-  .font-gujarati-display {
-    font-family: 'Tiro Devanagari Hindi', 'Hind Vadodara', serif;
+  h1.font-gujarati, h2.font-gujarati, h3.font-gujarati,
+  h1:lang(gu), h2:lang(gu), h3:lang(gu) {
+    line-height: 1.3;
   }
 }
 
-/* ======= TRUCK-ART UTILITIES ======= */
 @layer utilities {
-  /* Chunky signboard border with offset shadow */
-  .chunky {
-    border: 2.5px solid var(--ink);
-    box-shadow: var(--shadow-chunky);
-    background: var(--cream-deep);
-  }
-  .chunky-sm {
-    border: 2px solid var(--ink);
-    box-shadow: var(--shadow-chunky-sm);
+  /* Base card: white ground, hairline border, no shadow */
+  .card {
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
   }
 
-  /* Patola / rangoli strip divider (repeating zig-zag with dots) */
-  .patola-strip {
-    height: 28px;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 28'><g fill='none' stroke='%232C1810' stroke-width='1.5'><path d='M0 14 L20 0 L40 14 L60 0 L80 14'/><path d='M0 14 L20 28 L40 14 L60 28 L80 14'/><circle cx='20' cy='14' r='3' fill='%23E8A020' stroke='none'/><circle cx='60' cy='14' r='3' fill='%23C4834A' stroke='none'/></g></svg>");
-    background-repeat: repeat-x;
-    background-size: 80px 28px;
-  }
-
-  /* Eyebrow label — mono caps with leading line */
+  /* Eyebrow label — no uppercase, orange-deep, 700 weight (per Ledger spec) */
   .eyebrow-label {
-    font-family: 'IBM Plex Mono', ui-monospace, monospace;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--orange-deep);
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-  }
-  .eyebrow-label::before {
-    content: "";
-    width: 24px;
-    height: 2px;
-    background: currentColor;
-    display: inline-block;
   }
 
-  /* Stamp row divider */
-  .stamp-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  /* Button press feedback: a scale dip, never a shadow */
+  .press-98:active {
+    transform: scale(0.98);
   }
-  .stamp-row::before,
-  .stamp-row::after {
-    content: "";
-    flex: 1;
-    height: 2px;
-    background: var(--ink);
-  }
-
-  /* Rupee chip */
-  .rupee-chip {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 4px;
-    padding: 6px 12px;
-    background: var(--kesar);
-    border: 2px solid var(--ink);
-    border-radius: 6px;
-    font-weight: 800;
-    box-shadow: 2px 2px 0 var(--ink);
-  }
-
-  /* Mirror-work dot grid background */
-  .mirror-bg {
-    background-image: radial-gradient(circle, rgba(44,24,16,0.18) 1.5px, transparent 2px);
-    background-size: 18px 18px;
-  }
-
-  /* Bandhani dot pattern */
-  .bandhani-bg {
-    background-image: radial-gradient(circle, var(--kesar) 1.5px, transparent 2px);
-    background-size: 22px 22px;
-  }
-
-  /* Gradient utilities */
-  .gradient-hero { background: var(--gradient-hero); }
-  .gradient-warm { background: var(--gradient-warm); }
-  .gradient-card { background: var(--gradient-card); }
-  .gradient-green { background: var(--gradient-green); }
-
-  /* Shadow utilities */
-  .shadow-soft  { box-shadow: var(--shadow-soft); }
-  .shadow-card  { box-shadow: var(--shadow-card); }
-  .shadow-glow  { box-shadow: var(--shadow-glow); }
-  .shadow-green { box-shadow: var(--shadow-green); }
-  .shadow-chunky    { box-shadow: var(--shadow-chunky); }
-  .shadow-chunky-sm { box-shadow: var(--shadow-chunky-sm); }
 
   .text-balance { text-wrap: balance; }
 
-  /* Mono utility */
   .font-mono-display {
     font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  /* Focus ring per spec: orange, 3px, 30% opacity */
+  .focus-orange:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(232, 160, 32, 0.3);
+    border-color: var(--orange-deep);
   }
 }
 
@@ -251,28 +155,5 @@
   to   { opacity: 1; }
 }
 
-@keyframes scale-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes bounce-gentle {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-5px); }
-}
-
-@keyframes pulse-ring {
-  0%   { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.5); opacity: 0; }
-}
-
-.animate-fade-up     { animation: fade-up 0.6s ease-out forwards; }
-.animate-fade-in     { animation: fade-in 0.5s ease-out forwards; }
-.animate-scale-in    { animation: scale-in 0.4s ease-out forwards; }
-.animate-bounce-gentle { animation: bounce-gentle 2s ease-in-out infinite; }
-.animate-pulse-ring  { animation: pulse-ring 1.5s ease-out infinite; }
-
-.animation-delay-100 { animation-delay: 100ms; }
-.animation-delay-200 { animation-delay: 200ms; }
-.animation-delay-300 { animation-delay: 300ms; }
-.animation-delay-400 { animation-delay: 400ms; }
+.animate-fade-up { animation: fade-up 0.6s ease-out forwards; }
+.animate-fade-in { animation: fade-in 0.5s ease-out forwards; }

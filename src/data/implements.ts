@@ -24,7 +24,6 @@ export interface Implement {
   specs: ImplementSpec[];
   available: boolean;
   hero?: boolean;
-  tone: 'kesar' | 'terracotta' | 'monsoon' | 'mauve' | 'ink';
 }
 
 export const implements_data: Implement[] = [
@@ -48,7 +47,6 @@ export const implements_data: Implement[] = [
     ],
     available: true,
     hero: true,
-    tone: 'kesar',
   },
   {
     id: 'bed-former',
@@ -69,7 +67,6 @@ export const implements_data: Implement[] = [
     ],
     available: true,
     hero: true,
-    tone: 'terracotta',
   },
   {
     id: 'sprayer',
@@ -90,7 +87,6 @@ export const implements_data: Implement[] = [
     ],
     available: true,
     hero: true,
-    tone: 'monsoon',
   },
   {
     id: 'groundnut-digger',
@@ -111,7 +107,6 @@ export const implements_data: Implement[] = [
     ],
     available: true,
     hero: true,
-    tone: 'kesar',
   },
 ];
 

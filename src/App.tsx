@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { trackPageView } from "@/lib/analytics";
 import Index from "./pages/Index";
 import Implements from "./pages/Implements";
+import MachineDetail from "./pages/MachineDetail";
 import About from "./pages/About";
 import Appointments from "./pages/Appointments";
 import Faq from "./pages/Faq";
@@ -36,6 +37,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/implements" element={<Implements />} />
+            <Route path="/implements/:id" element={<MachineDetail />} />
             <Route path="/about" element={<About />} />
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/faq" element={<Faq />} />

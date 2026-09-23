@@ -1,13 +1,13 @@
 # Farmulya
 
 Farmer-facing booking site for a farm machinery pilot (Gaspardo seeder, bed former, Protektor
-sprayer, groundnut digger) around Mota Asrana, Mahuva, Saurashtra. There is no backend: the
+sprayer, groundnut digger) within 20 km of Mahuva, Saurashtra. There is no backend: the
 site's only output is a pre-filled WhatsApp link. Payment is cash-only this season.
 
 ## Stack
 
 React 18 + Vite + TypeScript + Tailwind + shadcn/ui, client-side routed with react-router-dom,
-deployed on Cloudflare Pages.
+deployed on Vercel.
 
 ## Getting started
 
@@ -28,4 +28,4 @@ Other scripts: `npm run build`, `npm run lint`, `npm run preview`.
 
 ## Deploying
 
-Push to the deployed branch; Cloudflare Pages builds with `npm run build` and serves `dist/`.
+Push to the deployed branch; Vercel builds with `npm run build` and serves `dist/`.
