@@ -3,7 +3,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 
 const questions = [
   { gu: 'કામ વચ્ચે મશીન બગડે તો?', en: 'What if the machine breaks mid-job?' },
-  { gu: 'ભાગીદાર ખેડૂત પણ બુક કરી શકે?', en: 'Can a bhagya farmer book?' },
+  { gu: 'ભાગીદાર ખેડૂત પણ બુક કરી શકે?', en: 'Can a partner (bhagiya) farmer book?' },
   { gu: 'વરસાદ પડે ને તારીખ બદલાય તો?', en: 'What if rain delays the date?' },
 ];
 
@@ -11,20 +11,15 @@ const FaqTeaser = () => {
   const { language } = useLanguage();
 
   return (
-    <section className="py-12 md:py-16 bg-cream-deep">
-      <div className="container max-w-2xl">
-        <div className="text-center mb-8">
-          <p className="eyebrow-label text-ink-soft mb-2 justify-center">
+    <section className="py-10">
+      <div className="container max-w-[600px]">
+        <div className="mb-6">
+          <p className={`eyebrow-label mb-2 ${language === 'gu' ? 'font-gujarati' : ''}`}>
             {language === 'gu' ? 'પહેલાં આ જ પૂછાય' : 'Usually the first questions'}
           </p>
           <h2
-            className="text-ink"
-            style={{
-              fontFamily: language === 'gu' ? "'Tiro Devanagari Hindi', 'Hind Vadodara', serif" : "'Playfair Display', serif",
-              fontSize: 'clamp(26px, 3.5vw, 36px)',
-              fontWeight: 800,
-              lineHeight: language === 'gu' ? 1.3 : 1.1,
-            }}
+            className={language === 'gu' ? 'font-gujarati' : ''}
+            style={{ fontSize: 'clamp(30px, 7vw, 48px)', lineHeight: language === 'gu' ? 1.3 : 1.2 }}
           >
             {language === 'gu' ? 'વારંવાર પૂછાતા પ્રશ્નો' : 'Common questions'}
           </h2>
@@ -32,32 +27,24 @@ const FaqTeaser = () => {
 
         <div className="flex flex-col gap-3 mb-6">
           {questions.map((q, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-4 p-4 bg-cream border-2 border-ink rounded-lg shadow-chunky-sm"
-            >
-              <span className="font-mono font-extrabold text-xl text-kesar-deep shrink-0">
+            <div key={i} className="card flex items-center gap-4 p-4">
+              <span className="font-mono font-bold text-lg text-orange-deep shrink-0">
                 0{i + 1}
               </span>
-              <span className={`font-semibold text-ink flex-1 ${language === 'gu' ? 'font-gujarati' : ''}`}>
+              <span className={`font-semibold text-black flex-1 ${language === 'gu' ? 'font-gujarati' : ''}`}>
                 {language === 'gu' ? q.gu : q.en}
               </span>
-              <span className="text-ink-fade text-lg shrink-0">→</span>
+              <span className="text-text-3 text-lg shrink-0">→</span>
             </div>
           ))}
         </div>
 
-        <div className="text-center">
-          <Link
-            to="/faq"
-            className="inline-flex items-center gap-2 border-2 border-ink text-ink font-bold px-5 py-3 rounded bg-cream shadow-chunky-sm hover:bg-kesar transition-colors"
-          >
-            <span className={language === 'gu' ? 'font-gujarati' : ''}>
-              {language === 'gu' ? 'બધા પ્રશ્નો જુઓ' : 'See all questions'}
-            </span>
-            <span>→</span>
-          </Link>
-        </div>
+        <Link
+          to="/faq"
+          className={`press-98 inline-flex items-center justify-center gap-2 h-[52px] px-6 rounded-lg bg-surface border-[1.5px] border-line text-black font-bold ${language === 'gu' ? 'font-gujarati' : ''}`}
+        >
+          {language === 'gu' ? 'બધા પ્રશ્નો જુઓ' : 'See all questions'} →
+        </Link>
       </div>
     </section>
   );

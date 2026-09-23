@@ -18,36 +18,29 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Manrope", "system-ui", "sans-serif"],
-        display: ["Playfair Display", "Hind Vadodara", "serif"],
-        gujarati: ["Hind Vadodara", "Noto Sans Gujarati", "sans-serif"],
-        "gujarati-display": ["Tiro Devanagari Hindi", "Hind Vadodara", "serif"],
+        sans: ["Anek Gujarati", "system-ui", "sans-serif"],
+        display: ["Anek Gujarati", "system-ui", "sans-serif"],
+        gujarati: ["Anek Gujarati", "system-ui", "sans-serif"],
         mono: ["IBM Plex Mono", "ui-monospace", "monospace"],
       },
       colors: {
-        /* Truck-art named palette */
-        kesar:      "#E8A020",
-        "kesar-deep":  "#C8851A",
-        "kesar-glow":  "#F6C055",
-        terracotta: "#C4834A",
-        "terracotta-deep": "#A66832",
-        monsoon:    "#2D5A1B",
-        "monsoon-deep":    "#1F3F12",
-        mauve:      "#D4847A",
-        warn:       "#B84A1A",
-        ink:        "#2C1810",
-        "ink-soft": "#5A3F30",
-        "ink-fade": "#8A6F5E",
-        cream:      "#FBF4E6",
-        "cream-deep":  "#F3E9CE",
-        "cream-sunk":  "#EBDEB8",
+        /* Ledger palette — white, black, green, orange only */
+        black: "#141414",
+        white: "#FFFFFF",
+        "text-2": "#444444",
+        "text-3": "#6B6B6B",
+        surface: "#F3F3F1",
+        line: "#E0E0DC",
+        "line-soft": "#EAEAE6",
+        "line-input": "#CCCCC6",
+        green: "#2D5A1B",
+        "green-tint": "#D5E4CB",
+        orange: "#E8A020",
+        "orange-deep": "#C8851A",
+        "orange-glow": "#F6C055",
+        "orange-tint": "#FFF3D6",
+        warn: "#B84A1A",
         /* Shadcn semantic */
-        success: "hsl(var(--success))",
-        warning: "hsl(var(--warning))",
-        earth: "hsl(var(--earth))",
-        cotton: "hsl(var(--cotton))",
-        onion: "hsl(var(--onion))",
-        groundnut: "hsl(var(--groundnut))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -92,17 +85,14 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
-      boxShadow: {
-        chunky: "6px 6px 0 0 #2C1810",
-        "chunky-sm": "3px 3px 0 0 #2C1810",
-      },
       minHeight: {
         dvh: "100dvh",
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        lg: "var(--radius)",     /* 14px — buttons, cards */
+        md: "10px",              /* inputs */
+        sm: "8px",
+        xl: "18px",              /* large cards: cash payment, hero photo */
       },
       keyframes: {
         "accordion-down": {

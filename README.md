@@ -1,7 +1,7 @@
 # Farmulya
 
 Farmer-facing booking site for a farm machinery pilot (Gaspardo seeder, bed former, Protektor
-sprayer, groundnut digger) around Mota Asrana, Mahuva, Saurashtra. There is no backend: the
+sprayer, groundnut digger) within 20 km of Mahuva, Saurashtra. There is no backend: the
 site's only output is a pre-filled WhatsApp link. Payment is cash-only this season.
 
 ## Stack

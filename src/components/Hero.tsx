@@ -1,110 +1,88 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { buildWaLink } from "@/components/WhatsAppButton";
+import gaspardoImg from "@/assets/machine-gaspardo-olimpia.jpg";
 
 const Hero = () => {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
+  const g = language === 'gu';
 
-  const waMsg = language === 'gu'
+  const waMsg = g
     ? 'નમસ્તે Farmulya — મારે મશીન વિશે પૂછવું છે.'
     : 'Hello Farmulya — I want to ask about machines.';
 
   return (
-    <section className="relative overflow-hidden bg-cream pt-16">
-      {/* Bandhani dot pattern top-right */}
-      <div
-        className="absolute right-0 top-0 w-1/2 h-2/3 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, var(--kesar) 1.5px, transparent 2px)',
-          backgroundSize: '22px 22px',
-          opacity: 0.32,
-          maskImage: 'radial-gradient(ellipse at top right, black 30%, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at top right, black 30%, transparent 75%)',
-        }}
-      />
-
-      <div className="container relative z-10 py-12 md:py-16 lg:py-20">
-        <div className="max-w-2xl">
-
-          {/* Tagline headline */}
+    <section className="bg-white" style={{ paddingTop: 32, paddingBottom: 36 }}>
+      <div className="container">
+        <div className="grid grid-cols-1 items-center gap-8 lg:[grid-template-columns:1.1fr_1fr] lg:gap-12" style={{ paddingTop: 0 }}>
           <div>
-            <p className="eyebrow-label text-ink-soft mb-4">
-              {language === 'gu' ? 'Farmulya · મોટા અસરાણા' : 'Farmulya · Mota Asrana'}
+            <p className="eyebrow-label mb-4">
+              {g ? 'Farmમૂલ્ય · મહુવા' : 'Farmulya · Mahuva'}
             </p>
 
             <h1
-              className="text-ink mb-5"
+              className={`text-black mb-4 ${g ? 'font-gujarati' : ''}`}
               style={{
-                fontFamily: language === 'gu' ? "'Tiro Devanagari Hindi', 'Hind Vadodara', serif" : "'Playfair Display', serif",
-                fontSize: 'clamp(48px, 8vw, 104px)',
-                lineHeight: 1.18,
-                letterSpacing: language === 'gu' ? '-0.01em' : '-0.025em',
-                fontWeight: 800,
+                fontSize: 'clamp(44px, 11vw, 84px)',
+                lineHeight: g ? 1.3 : 1.2,
+                letterSpacing: g ? '-0.005em' : '-0.015em',
               }}
             >
-              {language === 'gu' ? (
-                <>
-                  ખેતી ના
-                  <br />
-                  <span style={{ fontStyle: 'italic', color: 'var(--terracotta-deep)' }}>ભરોસાદાર</span>{' '}
-                  સાથી
-                </>
+              {g ? (
+                <>તમારા ખેતર નું <span style={{ color: 'var(--green)' }}>મૂલ્ય</span> વધારીએ</>
               ) : (
-                <>
-                  Farming's
-                  <br />
-                  <span style={{ fontStyle: 'italic', color: 'var(--terracotta-deep)' }}>trusted</span>{' '}
-                  companion
-                </>
+                <>Increasing the <span style={{ color: 'var(--green)' }}>value</span> of your farm</>
               )}
             </h1>
 
-            <p className={`text-xl text-ink-soft mb-8 max-w-md leading-relaxed ${language === 'gu' ? 'font-gujarati' : ''}`}>
-              {language === 'gu'
-                ? 'એક ભરોસાદાર ટીમ. ઓપરેટર સાથે. મોટા અસરાણા થી 20 કિ.મી. સુધી.'
-                : 'One reliable team. Operator included. 20 km from Mota Asrana.'}
+            <p className={`leading-relaxed mb-6 ${g ? 'font-gujarati' : ''}`} style={{ fontSize: 18, color: 'var(--text-2)' }}>
+              {g
+                ? 'એક ભરોસાદાર ટીમ. ઓપરેટર સાથે. મહુવા આસપાસ 20 કિ.મી. સુધી.'
+                : 'One reliable team. Operator included. Anywhere within 20 km of Mahuva.'}
             </p>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="flex flex-col sm:flex-row gap-3 mb-6">
+              <Link
+                to="/appointments"
+                className={`press-98 flex items-center justify-center h-[58px] px-6 rounded-lg bg-black text-white font-bold text-lg ${g ? 'font-gujarati' : ''}`}
+              >
+                {g ? 'મશીન બુક કરો' : 'Book a machine'} →
+              </Link>
               <a
                 href={buildWaLink(waMsg)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-monsoon text-cream border-2 border-ink font-bold text-lg py-4 px-6 rounded shadow-chunky-sm active:translate-x-1 active:translate-y-1 active:shadow-none transition-shadow"
+                className={`press-98 flex items-center justify-center h-[58px] px-6 rounded-lg bg-surface border-[1.5px] border-line text-black font-bold text-lg ${g ? 'font-gujarati' : ''}`}
               >
-                <span className="w-6 h-6 rounded-full bg-cream text-monsoon flex items-center justify-center text-xs font-black">✓</span>
-                <span className={language === 'gu' ? 'font-gujarati' : ''}>{t('hero.cta.whatsapp')}</span>
+                {g ? 'પહેલાં પૂછો' : 'Ask first'}
               </a>
-              <Link
-                to="/implements"
-                className="inline-flex items-center justify-center gap-2 bg-cream-deep border-2 border-ink text-ink font-bold text-lg py-4 px-6 rounded shadow-chunky-sm active:translate-x-1 active:translate-y-1 active:shadow-none transition-shadow"
-              >
-                <span className={language === 'gu' ? 'font-gujarati' : ''}>{t('hero.cta.machines')}</span>
-                <span>→</span>
-              </Link>
             </div>
 
-            {/* Trust badges */}
             <div className="flex flex-wrap gap-2">
               {[
                 { en: '20 km radius', gu: '20 કિ.મી. રેન્જ' },
                 { en: 'Operator included', gu: 'ઓપરેટર સાથે' },
-                { en: '3 crops', gu: '3 પાક' },
-              ].map((b) => (
+                { en: 'Pay in cash', gu: 'રોકડ ચુકવણી' },
+              ].map((c) => (
                 <span
-                  key={b.en}
-                  className="font-mono text-xs uppercase tracking-wider border border-ink/40 text-ink-soft px-3 py-1 rounded-full"
+                  key={c.en}
+                  className={`text-sm font-semibold border-[1.5px] border-line rounded-full px-3 py-1.5 ${g ? 'font-gujarati' : ''}`}
                 >
-                  {language === 'gu' ? b.gu : b.en}
+                  {g ? c.gu : c.en}
                 </span>
               ))}
             </div>
           </div>
+
+          <div className="hidden lg:block" style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', borderRadius: 18, border: '1.5px solid var(--line)' }}>
+            <img
+              src={gaspardoImg}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
         </div>
       </div>
-
-      <div className="patola-strip mt-2" />
     </section>
   );
 };

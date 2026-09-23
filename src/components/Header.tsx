@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import FarmulyaMark from "@/components/FarmulyaMark";
+import FarmulyaWordmark from "@/components/FarmulyaWordmark";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,67 +21,34 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-cream border-b-2 border-ink">
-      <div className="container flex items-center justify-between h-16">
-        {/* Brand mark */}
+    <header className="fixed top-0 left-0 right-0 z-40 bg-white border-b-[1.5px] border-line" style={{ height: 64 }}>
+      <div className="container flex items-center justify-between h-full">
         <Link to="/" className="flex items-center gap-2.5 no-underline" aria-label="Farmulya home">
-          <div
-            className="w-10 h-10 bg-kesar border-2 border-ink flex items-center justify-center font-black text-xl text-ink shadow-chunky-sm"
-            style={{ transform: 'rotate(-3deg)', borderRadius: 6 }}
-          >
-            F
-          </div>
-          <div className="leading-tight">
-            <div className="font-display font-bold text-xl text-ink leading-none">
-              Farmulya
-            </div>
-            <div className={`font-mono text-[10px] text-ink-fade uppercase tracking-wider leading-none mt-0.5 ${language === 'gu' ? 'font-gujarati' : ''}`}>
-              {language === 'gu' ? 'ખેત મશીનરી' : 'FARM MACHINERY'}
-            </div>
-          </div>
+          <FarmulyaMark size={40} />
+          <FarmulyaWordmark />
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className={`text-sm font-semibold transition-colors pb-0.5 border-b-2 ${
-                isActive(link.href)
-                  ? 'border-kesar text-ink'
-                  : 'border-transparent text-ink-soft hover:text-ink hover:border-ink'
-              } ${language === 'gu' ? 'font-gujarati' : ''}`}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right side */}
         <div className="flex items-center gap-2">
-          {/* Language toggle */}
-          <div className="flex border-2 border-ink rounded-full overflow-hidden text-sm font-bold">
+          <div className="flex bg-surface rounded-xl p-[3px]" role="group" aria-label="Language">
             <button
               onClick={() => setLanguage('gu')}
-              className={`px-3 py-1 transition-colors ${language === 'gu' ? 'bg-ink text-cream' : 'bg-transparent text-ink'}`}
-              aria-label="Switch to Gujarati"
+              aria-pressed={language === 'gu'}
+              className={`min-w-[44px] h-9 rounded-lg text-sm font-bold transition-colors ${language === 'gu' ? 'bg-black text-white' : 'bg-transparent text-black'}`}
             >
               ગુ
             </button>
             <button
               onClick={() => setLanguage('en')}
-              className={`px-3 py-1 transition-colors ${language === 'en' ? 'bg-ink text-cream' : 'bg-transparent text-ink'}`}
-              aria-label="Switch to English"
+              aria-pressed={language === 'en'}
+              className={`min-w-[44px] h-9 rounded-lg text-sm font-bold transition-colors ${language === 'en' ? 'bg-black text-white' : 'bg-transparent text-black'}`}
             >
               EN
             </button>
           </div>
 
-          {/* Mobile hamburger */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 text-ink"
+            className="p-2 text-black"
             aria-label="Toggle menu"
             aria-expanded={isMenuOpen}
           >
@@ -88,19 +57,16 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="lg:hidden bg-cream border-t-2 border-ink animate-fade-in">
-          <nav className="container py-4 flex flex-col gap-1">
+        <div className="bg-white border-t-[1.5px] border-line animate-fade-in">
+          <nav className="container py-2 flex flex-col">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 to={link.href}
                 onClick={() => setIsMenuOpen(false)}
-                className={`py-3 px-4 rounded font-semibold border-2 ${
-                  isActive(link.href)
-                    ? 'bg-kesar border-ink text-ink shadow-chunky-sm'
-                    : 'border-transparent text-ink hover:bg-cream-deep'
+                className={`flex items-center h-[52px] px-3 font-semibold rounded-md ${
+                  isActive(link.href) ? 'bg-orange-tint' : ''
                 } ${language === 'gu' ? 'font-gujarati' : ''}`}
               >
                 {link.label}
